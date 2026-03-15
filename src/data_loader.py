@@ -322,29 +322,34 @@ def get_dataloaders(
 
     sampler = build_weighted_sampler(train_df)
 
+    # pin_memory and persistent_workers are only effective with CUDA
+    import torch as _torch
+    _pin     = config.PIN_MEMORY and _torch.cuda.is_available()
+    _persist = config.NUM_WORKERS > 0
+
     train_loader = DataLoader(
         train_dataset,
         batch_size=config.BATCH_SIZE,
         sampler=sampler,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY,
-        persistent_workers=config.NUM_WORKERS > 0,
+        pin_memory=_pin,
+        persistent_workers=_persist,
     )
     val_loader = DataLoader(
         val_dataset,
         batch_size=config.BATCH_SIZE,
         shuffle=False,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY,
-        persistent_workers=config.NUM_WORKERS > 0,
+        pin_memory=_pin,
+        persistent_workers=_persist,
     )
     test_loader = DataLoader(
         test_dataset,
         batch_size=config.BATCH_SIZE,
         shuffle=False,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY,
-        persistent_workers=config.NUM_WORKERS > 0,
+        pin_memory=_pin,
+        persistent_workers=_persist,
     )
 
     return train_loader, val_loader, test_loader

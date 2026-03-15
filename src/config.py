@@ -29,11 +29,18 @@ DATA_DIR    = BASE_DIR / "datas"
 MODELS_DIR  = BASE_DIR / "models"
 RESULTS_DIR = BASE_DIR / "results"
 
+# HAM10000 directory structure:
+#   datas/HAM10000/
+#     HAM10000_images_part_1/   ← part 1 images
+#     HAM10000_images_part_2/   ← part 2 images
+#     HAM10000_metadata.csv
+#     segmentations/            ← ISIC 2018 Task 1 masks (optional)
+HAM10000_DIR = DATA_DIR / "HAM10000"
 IMAGE_DIRS = [
-    DATA_DIR / "HAM10000_images_part_1",
-    DATA_DIR / "HAM10000_images_part_2",
+    HAM10000_DIR / "HAM10000_images_part_1",
+    HAM10000_DIR / "HAM10000_images_part_2",
 ]
-METADATA_CSV = DATA_DIR / "HAM10000_metadata.csv"
+METADATA_CSV = HAM10000_DIR / "HAM10000_metadata.csv"
 
 # ─────────────────────────────────────────────
 # Dataset

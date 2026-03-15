@@ -1,111 +1,89 @@
-# ─────────────────────────────────────────────
-# Python
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────
+#  XaiSkinLesionResearch — .gitignore
+# ─────────────────────────────────────────────────────────────
+
+# ── Dataset & large data files ──────────────────────────────
+datas/
+*.csv
+!requirements*.txt
+
+# ── Model checkpoints (large .pth files) ─────────────────────
+models/
+results/*/training/best_model.pth
+results/*/abc_regressor/checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.pkl
+
+# ── Generated results (keep structure, ignore content) ───────
+results/*/training/training_log.csv
+results/*/evaluation/
+results/*/gradcam/
+results/*/lime/
+results/*/counterfactual/
+results/*/comparison/
+results/*/abc_regressor/plots/
+results/*/abc_regressor/training_log.csv
+results/*/abc_regressor/evaluation_metrics.csv
+results/*/ham10000_scores/
+results/*/dataset/*.h5
+results/*/dataset/*.csv
+results/*/abc_cf/per_class/
+results/*/abc_cf/ablation/
+results/*/abc_cf/metrics/
+
+# ── Python ───────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyo
-*.pyd
-.Python
+*.so
 *.egg
 *.egg-info/
 dist/
 build/
-eggs/
-parts/
-var/
-sdist/
-develop-eggs/
-.installed.cfg
-lib/
-lib64/
+.eggs/
 
-# ─────────────────────────────────────────────
-# Virtual environments
-# ─────────────────────────────────────────────
+# ── Virtual environments ─────────────────────────────────────
 .venv/
 venv/
 env/
 ENV/
-.env
+.virtualenvs/
 
-# ─────────────────────────────────────────────
-# PyCharm / JetBrains
-# ─────────────────────────────────────────────
+# ── IDEs ─────────────────────────────────────────────────────
 .idea/
+.vscode/
 *.iml
 *.iws
 *.ipr
-out/
+.DS_Store
+Thumbs.db
 
-# ─────────────────────────────────────────────
-# VS Code
-# ─────────────────────────────────────────────
-.vscode/
-*.code-workspace
-
-# ─────────────────────────────────────────────
-# Jupyter Notebooks
-# ─────────────────────────────────────────────
+# ── Jupyter ──────────────────────────────────────────────────
 .ipynb_checkpoints/
 *.ipynb
 
-# ─────────────────────────────────────────────
-# Dataset — HAM10000 (large binary files)
-# ─────────────────────────────────────────────
-datas/HAM10000_images_part_1/
-datas/HAM10000_images_part_2/
-datas/*.csv
-*.jpg
-*.jpeg
-*.png
-*.tif
-*.tiff
-
-# ─────────────────────────────────────────────
-# Model checkpoints & weights
-# ─────────────────────────────────────────────
-models/
-*.pth
-*.pt
-*.ckpt
-*.h5
-*.pb
-
-# ─────────────────────────────────────────────
-# Results & outputs (generated, not source)
-# ─────────────────────────────────────────────
-results/
-
-# ─────────────────────────────────────────────
-# PyTorch / CUDA cache
-# ─────────────────────────────────────────────
-*.npy
-*.npz
-torch_extensions/
-
-# ─────────────────────────────────────────────
-# Logs
-# ─────────────────────────────────────────────
+# ── Logs ─────────────────────────────────────────────────────
 *.log
-*.csv
-runs/
 logs/
-wandb/
-tensorboard/
 
-# ─────────────────────────────────────────────
-# OS
-# ─────────────────────────────────────────────
+# ── OS ───────────────────────────────────────────────────────
 .DS_Store
-Thumbs.db
 desktop.ini
 *~
 
-# ─────────────────────────────────────────────
-# Temp / misc
-# ─────────────────────────────────────────────
-*.tmp
-*.bak
-*.swp
-.cache/
+# ── Coverage / testing ───────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# ── What TO track (force-include) ────────────────────────────
+# Source code always tracked:
+!src/**/*.py
+!*.py
+# Keep result folder structure (empty dirs via .gitkeep)
+!results/.gitkeep
+!results/*/.gitkeep
+!results/*/*/.gitkeep
