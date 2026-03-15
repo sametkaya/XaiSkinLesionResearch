@@ -71,25 +71,56 @@ class Evaluator:
 
     # ── Inference ─────────────────────────────────────────────────────────
 
-    def _predict(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _predict(self, tta_n: int = 5) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
-        Run inference on the full test set.
+        Run inference on the full test set with Test-Time Augmentation.
+
+        TTA averages predictions over multiple augmented views for ~2-3%
+        free performance gain at inference.
+        Reference: Perez et al. (MICCAI Workshop 2018).
+
+        Parameters
+        ----------
+        tta_n : int
+            Number of augmented views (default: 5).
 
         Returns
         -------
         Tuple[np.ndarray, np.ndarray, np.ndarray]
             (true_labels, predicted_labels, class_probabilities)
         """
+        from torchvision import transforms as TF
+        tta_transform = TF.Compose([
+            TF.RandomHorizontalFlip(p=0.5),
+            TF.RandomVerticalFlip(p=0.5),
+            TF.RandomRotation(degrees=15),
+        ])
+
         self.model.eval()
         all_labels, all_preds, all_probs = [], [], []
 
         with torch.no_grad():
             for images, labels in self.test_loader:
                 images = images.to(self.device, non_blocking=True)
-                logits = self.model(images)
-                probs  = torch.softmax(logits, dim=1).cpu().numpy()
-                preds  = probs.argmax(axis=1)
 
+                if tta_n > 1:
+                    # Average softmax probabilities over TTA views
+                    tta_prob_list = []
+                    # Original view
+                    logits = self.model(images)
+                    tta_prob_list.append(torch.softmax(logits, dim=1))
+                    # Augmented views
+                    for _ in range(tta_n - 1):
+                        aug = torch.stack([tta_transform(img) for img in images])
+                        aug = aug.to(self.device)
+                        lgt = self.model(aug)
+                        tta_prob_list.append(torch.softmax(lgt, dim=1))
+                    probs = torch.stack(tta_prob_list).mean(0).cpu().numpy()
+                else:
+                    logits = self.model(images)
+                    probs  = torch.softmax(logits, dim=1).cpu().numpy()
+
+                preds = probs.argmax(axis=1)
                 all_labels.extend(labels.numpy().tolist())
                 all_preds.extend(preds.tolist())
                 all_probs.append(probs)

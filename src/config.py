@@ -67,62 +67,99 @@ TEST_RATIO  = 0.15
 # ─────────────────────────────────────────────
 # Image pre-processing
 # ─────────────────────────────────────────────
-IMAGE_SIZE    = 224          # pixels (height = width)
+IMAGE_SIZE    = 380          # EfficientNet-B4 optimal input size (Tan & Le, 2019)
 IMAGE_MEAN    = (0.7630392, 0.5456477, 0.5700950)   # HAM10000-specific
 IMAGE_STD     = (0.1409286, 0.1526128, 0.1694007)   # computed from training set
 
 # ─────────────────────────────────────────────
 # Training
 # ─────────────────────────────────────────────
-# RTX 3080 optimised (10 GB VRAM, AMP enabled)
-BATCH_SIZE         = 64    # FP16 AMP → fits 64 on RTX 3080
-NUM_EPOCHS         = 100
-LEARNING_RATE      = 1e-4
+# RTX 3080 optimised (16 GB VRAM, AMP enabled)
+# v2: reduced batch for better gradient estimates on minority classes
+BATCH_SIZE         = 16    # 380px B4 needs smaller batch (VRAM)
+NUM_EPOCHS         = 200   # B4 needs more epochs to converge
+LEARNING_RATE      = 3e-4  # higher initial LR with warm restarts (He et al. 2016)
 WEIGHT_DECAY       = 1e-4
 LR_SCHEDULER_STEP  = 10
 LR_SCHEDULER_GAMMA = 0.1
-EARLY_STOP_PATIENCE= 20
+EARLY_STOP_PATIENCE= 30    # B4 needs more patience
 NUM_WORKERS        = 2    # Windows: keep <=4; set 0 if DataLoader errors
 PIN_MEMORY         = True  # faster GPU data transfer
 USE_AMP            = True  # Automatic Mixed Precision (FP16)
+
+# Loss function
+# Focal Loss addresses HAM10000's severe class imbalance (nv: 67%, df: 1%)
+# Reference: Lin et al. (2017). Focal loss for dense object detection. ICCV.
+LOSS_TYPE          = "focal"   # "focal" | "label_smoothing" | "cross_entropy"
+FOCAL_GAMMA        = 2.0       # focusing parameter — higher = more focus on hard examples
+FOCAL_ALPHA        = None      # None = inverse class frequency weighting (auto-computed)
+LABEL_SMOOTHING    = 0.1       # used only when LOSS_TYPE = "label_smoothing"
+
+# LR schedule: Cosine Annealing with Warm Restarts (SGDR)
+# Reference: Loshchilov & Hutter (2017). SGDR: ICLR 2017.
+LR_T0              = 40    # B4: longer first cycle
+LR_T_MULT          = 2     # period doubles after each restart
+LR_ETA_MIN         = 1e-6  # minimum LR
+
+# Augmentation
+# Mixup: Zhang et al. (2018). mixup: Beyond empirical risk minimization. ICLR.
+USE_MIXUP          = True
+MIXUP_ALPHA        = 0.4   # Beta distribution parameter
+USE_CUTMIX         = True
+CUTMIX_ALPHA       = 1.0
+
+# Color constancy for domain robustness (Barata et al., 2014)
+USE_COLOR_CONSTANCY = True
 
 # ─────────────────────────────────────────────
 # Model
 # ─────────────────────────────────────────────
 # Supported: "resnet50" | "efficientnet_b0"
-MODEL_NAME       = "efficientnet_b0"
+MODEL_NAME       = "efficientnet_b4"   # Best EfficientNet on HAM10000 (Ali et al., 2023)
 PRETRAINED       = True
 FREEZE_BACKBONE  = False     # Fine-tune entire network
 
 # ─────────────────────────────────────────────
 # Grad-CAM
 # ─────────────────────────────────────────────
-GRADCAM_NUM_SAMPLES = 20     # images per class for visual analysis
+GRADCAM_NUM_SAMPLES = 30     # images per class for visual analysis
 
 # ─────────────────────────────────────────────
 # LIME
 # ─────────────────────────────────────────────
-LIME_NUM_SAMPLES     = 1000  # perturbation samples
-LIME_NUM_SUPERPIXELS = 10    # segments shown in explanation
-LIME_NUM_IMAGES      = 20    # images per class
+# 2000 samples: more stable, better superpixel attribution
+# Reference: Ribeiro et al. (2016) recommend 1k–5k for images
+LIME_NUM_SAMPLES     = 2000  # perturbation samples (2x for stability)
+LIME_NUM_SUPERPIXELS = 15    # segments shown (more granular)
+LIME_NUM_IMAGES      = 30    # images per class
+
+# ─────────────────────────────────────────────
+# SHAP (GradientSHAP / DeepSHAP)
+# ─────────────────────────────────────────────
+# Reference: Lundberg & Lee (2017). NeurIPS 2017.
+SHAP_NUM_BACKGROUND  = 100   # background images for baseline distribution
+SHAP_NUM_SAMPLES     = 50    # interpolation steps per explanation
+SHAP_NUM_IMAGES      = 30    # images per class
+SHAP_SUPERPIXEL_KS   = 4     # QuickSHIFT kernel_size
 
 # ─────────────────────────────────────────────
 # Counterfactual (gradient-based ACE-style)
 # ─────────────────────────────────────────────
 # Reference: Singla et al. (2023) – Explaining the black-box smoothly—
 # A counterfactual approach. Medical Image Analysis, 84, 102721.
-CF_MAX_ITER         = 500    # gradient steps
-CF_LEARNING_RATE    = 0.01
-CF_LAMBDA_L1        = 1.0    # sparsity weight
+# v2: higher confidence threshold for semantically meaningful CFs
+CF_MAX_ITER         = 2000   # more gradient steps → better optimisation
+CF_LEARNING_RATE    = 0.005  # smaller LR → more controlled perturbation
+CF_LAMBDA_L1        = 2.0    # stronger sparsity → fewer pixels changed
 CF_LAMBDA_L2        = 0.5    # proximity weight
-CF_CONFIDENCE_THRES = 0.6    # target class probability threshold
-CF_NUM_IMAGES       = 20     # images per class
-CF_PIXEL_THRESHOLD  = 0.05   # threshold for sparsity binary mask
+CF_CONFIDENCE_THRES = 0.85   # high threshold: real semantic class change
+CF_NUM_IMAGES       = 30     # images per class
+CF_PIXEL_THRESHOLD  = 0.01   # lower threshold: detect subtle changes
 
 # ─────────────────────────────────────────────
 # Evaluation / XAI Metrics
 # ─────────────────────────────────────────────
-FAITHFULNESS_STEPS = 10      # steps for deletion/insertion curves
+FAITHFULNESS_STEPS = 20      # more steps → smoother deletion/insertion curves
 FID_BATCH_SIZE     = 64
 
 # ─────────────────────────────────────────────
@@ -141,12 +178,14 @@ FID_BATCH_SIZE     = 64
 #       counterfactual/
 #       comparison/
 
-def _next_experiment_dir(base: Path) -> Path:
+def _next_run_dir(base: Path) -> Path:
     """
-    Return the next available experiment directory path.
+    Return the next available full-pipeline run directory.
 
-    Scans base for existing experiment_XX folders and returns
-    the next integer-incremented path (experiment_01, experiment_02 …).
+    Each complete run (all 4 stages) gets its own folder:
+      run_01_xai_dermoscopy/
+      run_02_xai_dermoscopy/
+      ...
 
     Parameters
     ----------
@@ -156,44 +195,57 @@ def _next_experiment_dir(base: Path) -> Path:
     Returns
     -------
     Path
-        New experiment directory (not yet created).
+        New run directory (not yet created).
     """
-    existing = sorted(base.glob("experiment_*"))
+    existing = sorted(base.glob("run_*_xai_dermoscopy"))
     if not existing:
-        return base / "experiment_01"
-    last = existing[-1].name          # e.g. "experiment_03"
-    num  = int(last.split("_")[-1])   # 3
-    return base / f"experiment_{num + 1:02d}"
+        return base / "run_01_xai_dermoscopy"
+    last = existing[-1].name           # e.g. "run_02_xai_dermoscopy"
+    num  = int(last.split("_")[1])     # 2
+    return base / f"run_{num + 1:02d}_xai_dermoscopy"
 
 
-# Resolved once per process — all stages share the same experiment folder
-EXPERIMENT_DIR = _next_experiment_dir(RESULTS_DIR)
+# Resolved once per process — all 4 scripts share the same run folder.
+# Sub-folders reflect the pipeline stage and content clearly.
+EXPERIMENT_DIR = _next_run_dir(RESULTS_DIR)
 
-RESULT_EDA            = EXPERIMENT_DIR / "eda"
-RESULT_TRAINING       = EXPERIMENT_DIR / "training"
-RESULT_EVALUATION     = EXPERIMENT_DIR / "evaluation"
-RESULT_GRADCAM        = EXPERIMENT_DIR / "gradcam"
-RESULT_LIME           = EXPERIMENT_DIR / "lime"
-RESULT_COUNTERFACTUAL = EXPERIMENT_DIR / "counterfactual"
-RESULT_COMPARISON     = EXPERIMENT_DIR / "comparison"
+# Stage 1+2: HAM10000 classifier training & evaluation
+RESULT_EDA            = EXPERIMENT_DIR / "01_eda"
+RESULT_TRAINING       = EXPERIMENT_DIR / "02_classifier_training"
+RESULT_EVALUATION     = EXPERIMENT_DIR / "03_classifier_evaluation"
+
+# Stage 3+4+5: XAI explanations
+RESULT_GRADCAM        = EXPERIMENT_DIR / "04_gradcam_explanations"
+RESULT_LIME           = EXPERIMENT_DIR / "05_lime_explanations"
+RESULT_SHAP           = EXPERIMENT_DIR / "06_shap_explanations"
+RESULT_COUNTERFACTUAL = EXPERIMENT_DIR / "07_counterfactual_explanations"
+
+# Stage 6: Quantitative comparison
+RESULT_COMPARISON     = EXPERIMENT_DIR / "08_xai_comparison"
+
+# Stage 7+8+9: ABC dermoscopy scoring pipeline
+RESULT_ABC_REGRESSION = EXPERIMENT_DIR / "09_abc_regressor"
+RESULT_ABC_SCORING    = EXPERIMENT_DIR / "10_ham10000_abc_scores"
+RESULT_ABC_CF         = EXPERIMENT_DIR / "11_abc_guided_counterfactuals"
 
 
 def create_result_dirs() -> Path:
     """
-    Create the experiment directory and all sub-folders.
+    Create the full-pipeline run directory and all sub-folders.
 
     Returns
     -------
     Path
-        The experiment root directory (e.g. results/experiment_03/).
+        The run root directory (e.g. results/run_01_xai_dermoscopy/).
     """
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     for d in [
         RESULT_EDA, RESULT_TRAINING, RESULT_EVALUATION,
-        RESULT_GRADCAM, RESULT_LIME, RESULT_COUNTERFACTUAL,
-        RESULT_COMPARISON,
+        RESULT_GRADCAM, RESULT_LIME, RESULT_SHAP,
+        RESULT_COUNTERFACTUAL, RESULT_COMPARISON,
+        RESULT_ABC_REGRESSION, RESULT_ABC_SCORING, RESULT_ABC_CF,
     ]:
         d.mkdir(parents=True, exist_ok=True)
 
-    print(f"[Config] Experiment folder: {EXPERIMENT_DIR}")
+    print(f"[Config] Run folder: {EXPERIMENT_DIR}")
     return EXPERIMENT_DIR

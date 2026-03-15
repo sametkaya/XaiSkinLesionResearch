@@ -93,11 +93,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--mask-dir", type=str,
         default=str(ham_cfg.BASE_DIR / "datas" / "HAM10000" / "segmentations"),
-        help="Directory containing ISIC 2018 Task 1 segmentations masks."
+        help="Directory containing ISIC 2018 Task 1 segmentation masks."
     )
     p.add_argument(
         "--unet-weights", type=str, default=None,
-        help="Path to trained U-Net weights for segmentations (optional)."
+        help="Path to trained U-Net weights for segmentation (optional)."
     )
     p.add_argument(
         "--no-hdf5", action="store_true",
@@ -300,7 +300,7 @@ def main() -> None:
 
     # ── Experiment directory (new run) ────────
     exp_dir    = make_abc_experiment_dir(RESULTS_DIR)
-    scores_dir = exp_dir / "ham10000_scores"
+    scores_dir = exp_dir / "10_ham10000_abc_scores"
     dataset_dir= exp_dir / "dataset"
 
     print("\n" + "=" * 60)

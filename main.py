@@ -44,6 +44,7 @@ from src.train import Trainer, load_best_model
 from src.evaluate import Evaluator
 from src.explainers.gradcam import GradCAMExperiment, GradCAM, GradCAMPlusPlus, denormalize
 from src.explainers.lime_explainer import LIMEExperiment
+from src.explainers.shap_explainer import SHAPExperiment
 from src.explainers.counterfactual import CounterfactualExperiment, CounterfactualExplainer
 from src.metrics.xai_metrics import (
     compute_faithfulness_metrics,
@@ -425,6 +426,7 @@ def parse_args():
     parser.add_argument("--skip-training",  action="store_true")
     parser.add_argument("--skip-gradcam",   action="store_true")
     parser.add_argument("--skip-lime",      action="store_true")
+    parser.add_argument("--skip-shap",      action="store_true")
     parser.add_argument("--skip-cf",        action="store_true")
     parser.add_argument("--skip-compare",   action="store_true")
     parser.add_argument(
@@ -492,6 +494,23 @@ def main():
         lime_stats = stage_lime(model, test_loader, device)
     else:
         print("[Main] Skipping LIME.")
+
+    # ── Stage 5.5: SHAP ───────────────────────────────────────────────────
+    print("\n" + "─" * 60)
+    print("  STAGE 5.5 — SHAP Explanations (GradientSHAP)")
+    print("─" * 60)
+    if not args.skip_shap:
+        shap_exp = SHAPExperiment(
+            model=model,
+            test_loader=test_loader,
+            val_loader=val_loader,
+            device=device,
+            result_dir=config.RESULT_SHAP,
+        )
+        shap_stats = shap_exp.run()
+    else:
+        print("[Main] Skipping SHAP.")
+        shap_stats = {}
         lime_stats = {}
 
     # ── Stage 6: Counterfactual ───────────────────────────────────────────

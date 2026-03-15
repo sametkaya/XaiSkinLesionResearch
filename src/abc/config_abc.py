@@ -53,7 +53,7 @@ RESULTS_DIR = BASE_DIR / "results"
 PH2_DIR          = DATA_DIR / "PH2"
 PH2_METADATA_TXT = PH2_DIR  / "PH2_dataset.txt"   # annotation file (see note below)
 PH2_IMAGES_DIR   = PH2_DIR  / "trainx"             # dermoscopic images
-PH2_MASKS_DIR    = PH2_DIR  / "trainy"             # binary segmentations masks
+PH2_MASKS_DIR    = PH2_DIR  / "trainy"             # binary segmentation masks
 # NOTE: PH2_dataset.txt contains ABC ground-truth annotations (asymmetry, colors, etc.)
 # If missing from your download, get it from: https://www.fc.up.pt/addi/ph2%20database.html
 # The Kaggle mirror (athina123/ph2dataset) may not include this file.
@@ -72,7 +72,7 @@ PH2_MASKS_DIR    = PH2_DIR  / "trainy"             # binary segmentations masks
 #     images/
 #       *.jpg  (dermoscopy images)
 #     masks/
-#       *.png  (segmentations masks, if available)
+#       *.png  (segmentation masks, if available)
 DERM7PT_DIR       = DATA_DIR  / "DERM7PT"
 DERM7PT_META_CSV  = DERM7PT_DIR / "meta" / "meta.csv"
 DERM7PT_TRAIN_CSV = DERM7PT_DIR / "meta" / "train_indexes.csv"
@@ -81,7 +81,7 @@ DERM7PT_TEST_CSV  = DERM7PT_DIR / "meta" / "test_indexes.csv"
 DERM7PT_IMG_DIR   = DERM7PT_DIR / "images"
 
 # ─────────────────────────────────────────────
-# HAM10000 segmentations masks (ISIC 2018 Task 1)
+# HAM10000 segmentation masks (ISIC 2018 Task 1)
 # ─────────────────────────────────────────────
 # Download from: https://challenge.isic-archive.com/data/#2018
 # Only HAM10000 subset (Task 1 ground truth masks)
@@ -155,7 +155,7 @@ ABC_TTA_N               = 1     # TTA disabled (set >1 only after verifying deno
 # Segmentation (U-Net inference for Derm7pt)
 # ─────────────────────────────────────────────
 # We use a lightweight U-Net trained on ISIC 2018 Task 1 data.
-# Pre-trained weights are loaded if available; otherwise segmentations
+# Pre-trained weights are loaded if available; otherwise segmentation
 # falls back to Otsu thresholding on the green channel.
 SEGMENTATION_THRESHOLD  = 0.5   # binary threshold on sigmoid output
 SEGMENTATION_MIN_AREA   = 500   # minimum lesion area in pixels (post-resize)
@@ -198,14 +198,14 @@ KAGGLE_CARD_NAME        = "dataset-metadata.json"
 # ABC-guided Counterfactual
 # ─────────────────────────────────────────────
 # Loss = λ_cls * L_cls + λ_A * |ΔA| + λ_B * |ΔB| + λ_C * |ΔC| + λ_l1 * ‖δ‖₁
-ABC_CF_MAX_ITER          = 600
-ABC_CF_LEARNING_RATE     = 5e-3
+ABC_CF_MAX_ITER          = 2000
+ABC_CF_LEARNING_RATE     = 0.005e-3
 ABC_CF_LAMBDA_CLS        = 1.0    # classification loss weight
 ABC_CF_LAMBDA_A          = 0.8    # asymmetry preservation weight
 ABC_CF_LAMBDA_B          = 0.6    # border preservation weight
 ABC_CF_LAMBDA_C          = 0.4    # color preservation weight
-ABC_CF_LAMBDA_L1         = 0.5    # pixel sparsity weight
-ABC_CF_CONFIDENCE_THRES  = 0.6    # target class probability threshold
+ABC_CF_LAMBDA_L1         = 2.0    # pixel sparsity weight
+ABC_CF_CONFIDENCE_THRES  = 0.85    # target class probability threshold
 ABC_CF_NUM_IMAGES        = 10     # images per class transition pair
 ABC_CF_PIXEL_THRESHOLD   = 0.05   # threshold for sparsity mask
 
@@ -253,17 +253,26 @@ def _next_experiment_dir(base: Path, prefix: str = "experiment") -> Path:
 
 def make_abc_experiment_dir(base: Path = RESULTS_DIR) -> Path:
     """
-    Create and return a new auto-incremented experiment directory
-    for the ABC pipeline with all required sub-directories.
+    Return the shared run directory for the ABC pipeline stages.
 
-    Sub-directories created:
-      abc_regressor/   — model training outputs
-      segmentations/    — example segmentations outputs
-      ham10000_scores/ — per-image ABC scores and histograms
-      dataset/         — HDF5, CSV, Kaggle card
-      abc_cf/          — ABC-guided counterfactual outputs
-        per_class/
-        ablation/
+    Instead of creating separate abc_experiment_XX folders, all ABC
+    pipeline outputs (stages 09-11) live inside the most recent
+    run_XX_xai_dermoscopy folder alongside the classifier stages (01-08).
+
+    Sub-directories created under run_XX_xai_dermoscopy/:
+      09_abc_regressor/          — model training outputs
+      09_abc_regressor/checkpoints/
+      09_abc_regressor/plots/
+      10_ham10000_abc_scores/    — per-image ABC scores
+      10_ham10000_abc_scores/histograms/
+      10_ham10000_abc_scores/scatter/
+      10_ham10000_abc_scores/dataset/
+      10_ham10000_abc_scores/segmentation/
+      10_ham10000_abc_scores/segmentation/examples/
+      11_abc_guided_counterfactuals/
+      11_abc_guided_counterfactuals/per_class/
+      11_abc_guided_counterfactuals/ablation/
+      11_abc_guided_counterfactuals/metrics/
 
     Parameters
     ----------
@@ -273,27 +282,32 @@ def make_abc_experiment_dir(base: Path = RESULTS_DIR) -> Path:
     Returns
     -------
     Path
-        The newly created experiment root directory.
+        The run root directory.
     """
-    exp_dir = _next_experiment_dir(base, prefix="abc_experiment")
+    # Re-use latest run folder (created by main.py) or create if needed
+    existing = sorted(base.glob("run_*_xai_dermoscopy"))
+    if existing:
+        exp_dir = existing[-1]
+    else:
+        exp_dir = base / "run_01_xai_dermoscopy"
 
     sub_dirs = [
-        exp_dir / "abc_regressor",
-        exp_dir / "abc_regressor" / "checkpoints",
-        exp_dir / "abc_regressor" / "plots",
-        exp_dir / "segmentations",
-        exp_dir / "segmentations" / "examples",
-        exp_dir / "ham10000_scores",
-        exp_dir / "ham10000_scores" / "histograms",
-        exp_dir / "ham10000_scores" / "scatter",
-        exp_dir / "dataset",
-        exp_dir / "abc_cf",
-        exp_dir / "abc_cf" / "per_class",
-        exp_dir / "abc_cf" / "ablation",
-        exp_dir / "abc_cf" / "metrics",
+        exp_dir / "09_abc_regressor",
+        exp_dir / "09_abc_regressor" / "checkpoints",
+        exp_dir / "09_abc_regressor" / "plots",
+        exp_dir / "10_ham10000_abc_scores",
+        exp_dir / "10_ham10000_abc_scores" / "histograms",
+        exp_dir / "10_ham10000_abc_scores" / "scatter",
+        exp_dir / "10_ham10000_abc_scores" / "dataset",
+        exp_dir / "10_ham10000_abc_scores" / "segmentation",
+        exp_dir / "10_ham10000_abc_scores" / "segmentation" / "examples",
+        exp_dir / "11_abc_guided_counterfactuals",
+        exp_dir / "11_abc_guided_counterfactuals" / "per_class",
+        exp_dir / "11_abc_guided_counterfactuals" / "ablation",
+        exp_dir / "11_abc_guided_counterfactuals" / "metrics",
     ]
     for d in sub_dirs:
         d.mkdir(parents=True, exist_ok=True)
 
-    print(f"[Config] ABC Experiment folder: {exp_dir}")
+    print(f"[Config] ABC pipeline folder: {exp_dir}")
     return exp_dir

@@ -82,14 +82,34 @@ class SkinLesionClassifier(nn.Module):
             base_model.classifier = nn.Identity()
             self.feature_extractor = base_model
             self.classifier = nn.Sequential(
+                nn.AdaptiveAvgPool2d(1) if False else nn.Identity(),  # already pooled
                 nn.Dropout(p=dropout_rate),
-                nn.Linear(in_features, num_classes),
+                nn.Linear(in_features, 512),
+                nn.GELU(),
+                nn.Dropout(p=dropout_rate * 0.5),
+                nn.Linear(512, num_classes),
+            )
+
+        elif backbone == "efficientnet_b4":
+            # EfficientNet-B4: best accuracy/efficiency tradeoff on HAM10000
+            # Top-1 accuracy 87.91%, F1 87% (Ali et al., ResearchGate 2023)
+            # Optimal input size: 380×380
+            base_model = models.efficientnet_b4(weights=weights_arg)
+            in_features = base_model.classifier[1].in_features  # 1792
+            base_model.classifier = nn.Identity()
+            self.feature_extractor = base_model
+            self.classifier = nn.Sequential(
+                nn.Dropout(p=dropout_rate),
+                nn.Linear(in_features, 512),
+                nn.GELU(),
+                nn.Dropout(p=dropout_rate * 0.5),
+                nn.Linear(512, num_classes),
             )
 
         else:
             raise ValueError(
                 f"Unsupported backbone '{backbone}'. "
-                "Choose from: 'resnet50', 'efficientnet_b0'."
+                "Choose from: 'resnet50', 'efficientnet_b0', 'efficientnet_b4'."
             )
 
         # Optionally freeze backbone parameters
@@ -126,7 +146,7 @@ class SkinLesionClassifier(nn.Module):
         """
         if self.backbone_name == "resnet50":
             return self.feature_extractor.layer4[-1]
-        elif self.backbone_name == "efficientnet_b0":
+        elif self.backbone_name in ("efficientnet_b0", "efficientnet_b4"):
             return self.feature_extractor.features[-1]
         else:
             raise ValueError(f"No target layer defined for '{self.backbone_name}'.")

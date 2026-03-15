@@ -33,6 +33,7 @@ from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 import torchvision.transforms as T
 
 from src import config
+from src.abc.color_constancy import ShadesOfGray, HairAugmentation
 
 
 # ─────────────────────────────────────────────
@@ -209,22 +210,58 @@ def get_transforms(split: str) -> T.Compose:
     normalize = T.Normalize(mean=config.IMAGE_MEAN, std=config.IMAGE_STD)
 
     if split == "train":
-        return T.Compose([
-            T.Resize((config.IMAGE_SIZE + 32, config.IMAGE_SIZE + 32)),
-            T.RandomResizedCrop(config.IMAGE_SIZE, scale=(0.7, 1.0)),
-            T.RandomHorizontalFlip(),
-            T.RandomVerticalFlip(),
-            T.RandomRotation(degrees=180),
-            T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+        tf_list = []
+
+        # 1. Color constancy: remove device-specific illuminant bias
+        # Critical for HAM10000 (multi-source: Vienna + Queensland dermoscopes)
+        # Reference: Barata et al. (2014). IEEE J-BHI.
+        if config.USE_COLOR_CONSTANCY:
+            tf_list.append(ShadesOfGray(p=6.0))
+
+        # 2. Synthetic hair artifacts (forces ABC-robust representations)
+        # Reference: Jütte et al. (2024). PubMed 39564076.
+        tf_list.append(HairAugmentation(p=0.4))
+
+        # 3. Geometric augmentations
+        tf_list += [
+            T.Resize((config.IMAGE_SIZE + 40, config.IMAGE_SIZE + 40)),
+            T.RandomResizedCrop(config.IMAGE_SIZE, scale=(0.65, 1.0)),
+            T.RandomHorizontalFlip(p=0.5),
+            T.RandomVerticalFlip(p=0.5),
+            T.RandomRotation(degrees=180),  # dermoscopy: rotation invariant
+            T.RandomAffine(degrees=0, translate=(0.05, 0.05), scale=(0.9, 1.1)),
+            T.RandomPerspective(distortion_scale=0.1, p=0.2),
+        ]
+
+        # 4. Colour augmentations (constrained to preserve diagnostic colours)
+        tf_list += [
+            T.ColorJitter(
+                brightness=0.3, contrast=0.3,
+                saturation=0.2, hue=0.04,   # small hue: preserve lesion colours
+            ),
+            T.RandomGrayscale(p=0.02),
+        ]
+
+        # 5. Tensor + normalise + RandomErasing (occlusion robustness)
+        tf_list += [
             T.ToTensor(),
             normalize,
-        ])
+            T.RandomErasing(p=0.1, scale=(0.02, 0.08), value=0),
+        ]
+
+        return T.Compose(tf_list)
+
     else:  # val / test
-        return T.Compose([
+        tf_list = []
+        # Color constancy also applied at inference for consistency
+        if config.USE_COLOR_CONSTANCY:
+            tf_list.append(ShadesOfGray(p=6.0))
+        tf_list += [
             T.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
             T.ToTensor(),
             normalize,
-        ])
+        ]
+        return T.Compose(tf_list)
 
 
 # ─────────────────────────────────────────────

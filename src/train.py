@@ -28,9 +28,10 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.amp import GradScaler, autocast  # torch >= 2.0 unified API
 from torch.optim import AdamW
-from torch.optim.lr_scheduler import CosineAnnealingLR
+from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 from torch.utils.data import DataLoader
 from sklearn.metrics import f1_score
 from tqdm import tqdm
@@ -77,6 +78,74 @@ def print_gpu_info(device: torch.device) -> None:
 # Loss
 # ─────────────────────────────────────────────
 
+class FocalLoss(nn.Module):
+    """
+    Focal Loss for multi-class classification.
+
+    Addresses HAM10000's severe class imbalance (nv=67%, df=1%)
+    by down-weighting well-classified examples and focusing training
+    on hard misclassified examples.
+
+    L = -α_t * (1 - p_t)^γ * log(p_t)
+
+    Parameters
+    ----------
+    gamma : float
+        Focusing parameter (γ=2 recommended, Lin et al. 2017).
+    alpha : torch.Tensor or None
+        Per-class weights. If None, inverse class frequency is used.
+    smoothing : float
+        Optional label smoothing applied before focal weighting.
+
+    References
+    ----------
+    Lin, T.-Y., Goyal, P., Girshick, R., He, K., & Dollár, P. (2017).
+    Focal loss for dense object detection. ICCV 2017.
+    """
+
+    def __init__(
+        self,
+        gamma: float = 2.0,
+        alpha = None,
+        smoothing: float = 0.0,
+        num_classes: int = 7,
+    ):
+        super().__init__()
+        self.gamma      = gamma
+        self.smoothing  = smoothing
+        self.num_classes= num_classes
+        if alpha is not None:
+            if isinstance(alpha, (list, np.ndarray)):
+                alpha = torch.tensor(alpha, dtype=torch.float32)
+            self.register_buffer("alpha", alpha)
+        else:
+            self.alpha = None
+
+    def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        # Label smoothing
+        if self.smoothing > 0:
+            with torch.no_grad():
+                smooth_targets = torch.full_like(
+                    logits, self.smoothing / (self.num_classes - 1)
+                )
+                smooth_targets.scatter_(1, targets.unsqueeze(1), 1.0 - self.smoothing)
+            log_probs = F.log_softmax(logits, dim=1)
+            ce_loss   = -(smooth_targets * log_probs).sum(dim=1)
+        else:
+            log_probs = F.log_softmax(logits, dim=1)
+            ce_loss   = F.nll_loss(log_probs, targets, reduction="none")
+
+        probs  = torch.exp(log_probs)
+        pt     = probs.gather(1, targets.unsqueeze(1)).squeeze(1)
+        focal  = (1 - pt) ** self.gamma * ce_loss
+
+        if self.alpha is not None:
+            at    = self.alpha.to(logits.device).gather(0, targets)
+            focal = at * focal
+
+        return focal.mean()
+
+
 class LabelSmoothingCrossEntropy(nn.Module):
     """
     Cross-entropy loss with label smoothing.
@@ -107,6 +176,55 @@ class LabelSmoothingCrossEntropy(nn.Module):
 # ─────────────────────────────────────────────
 # Trainer
 # ─────────────────────────────────────────────
+
+def mixup_data(
+    x: torch.Tensor,
+    y: torch.Tensor,
+    alpha: float = 0.4,
+    device: torch.device = None,
+) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, float]:
+    """
+    MixUp augmentation applied at batch level.
+
+    Creates convex combinations of pairs of training examples:
+        x_mix = λ·x_i + (1-λ)·x_j
+        y_mix is stored as (y_i, y_j, λ) for loss computation.
+
+    Reference:
+        Zhang, H., Cisse, M., Dauphin, Y. N., & Lopez-Paz, D. (2018).
+        mixup: Beyond empirical risk minimization. ICLR 2018.
+
+    Parameters
+    ----------
+    x : (B, C, H, W)
+    y : (B,)  class indices
+    alpha : float  Beta distribution parameter
+    device : torch.device
+
+    Returns
+    -------
+    x_mix, y_a, y_b, lam
+    """
+    if alpha <= 0:
+        return x, y, y, 1.0
+    lam = float(np.random.beta(alpha, alpha))
+    batch_size = x.size(0)
+    idx = torch.randperm(batch_size, device=device)
+    x_mix = lam * x + (1 - lam) * x[idx]
+    y_a, y_b = y, y[idx]
+    return x_mix, y_a, y_b, lam
+
+
+def mixup_criterion(
+    criterion,
+    logits: torch.Tensor,
+    y_a: torch.Tensor,
+    y_b: torch.Tensor,
+    lam: float,
+) -> torch.Tensor:
+    """Compute MixUp loss as convex combination of two cross-entropy values."""
+    return lam * criterion(logits, y_a) + (1 - lam) * criterion(logits, y_b)
+
 
 class Trainer:
     """
@@ -155,7 +273,26 @@ class Trainer:
         # GradScaler: no-op when use_amp=False
         self.scaler = GradScaler("cuda", enabled=self.use_amp)  # noqa
 
-        self.criterion = LabelSmoothingCrossEntropy(smoothing=0.1)
+        # Build class-frequency-weighted Focal Loss
+        # Inverse class frequency computed from train_loader labels
+        if config.LOSS_TYPE == "focal":
+            class_counts = torch.zeros(config.NUM_CLASSES)
+            for _, labels in train_loader:
+                for lbl in labels:
+                    class_counts[int(lbl)] += 1
+            # Inverse frequency weights — normalised so mean=1
+            alpha = (class_counts.sum() / (class_counts * config.NUM_CLASSES + 1e-8)).float()
+            alpha = alpha / alpha.mean()
+            self.criterion = FocalLoss(
+                gamma=config.FOCAL_GAMMA,
+                alpha=alpha,
+                smoothing=0.05,
+                num_classes=config.NUM_CLASSES,
+            )
+            print(f"[Trainer] Loss: FocalLoss (γ={config.FOCAL_GAMMA}, class-weighted α)")
+        else:
+            self.criterion = LabelSmoothingCrossEntropy(smoothing=config.LABEL_SMOOTHING)
+            print(f"[Trainer] Loss: LabelSmoothing (ε={config.LABEL_SMOOTHING})")
 
         self.optimizer = AdamW(
             filter(lambda p: p.requires_grad, model.parameters()),
@@ -163,10 +300,14 @@ class Trainer:
             weight_decay=config.WEIGHT_DECAY,
         )
 
-        self.scheduler = CosineAnnealingLR(
+        # Cosine Annealing with Warm Restarts (SGDR)
+        # First restart at T0 epochs, then doubles each cycle
+        # Reference: Loshchilov & Hutter (2017). ICLR.
+        self.scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
             self.optimizer,
-            T_max=config.NUM_EPOCHS,
-            eta_min=1e-6,
+            T_0=config.LR_T0,
+            T_mult=config.LR_T_MULT,
+            eta_min=config.LR_ETA_MIN,
         )
 
         self.history: List[Dict]    = []
@@ -214,8 +355,18 @@ class Trainer:
                 self.optimizer.zero_grad(set_to_none=True)
 
                 with autocast(device_type="cuda", enabled=self.use_amp):
-                    logits = self.model(images)
-                    loss   = self.criterion(logits, labels)
+                    # MixUp augmentation (training only)
+                    if config.USE_MIXUP and is_train:
+                        images, labels_a, labels_b, lam = mixup_data(
+                            images, labels, alpha=config.MIXUP_ALPHA, device=self.device
+                        )
+                        logits = self.model(images)
+                        loss   = mixup_criterion(self.criterion, logits, labels_a, labels_b, lam)
+                        # For F1 metric: use majority label
+                        labels = labels_a if lam >= 0.5 else labels_b
+                    else:
+                        logits = self.model(images)
+                        loss   = self.criterion(logits, labels)
 
                 self.scaler.scale(loss).backward()
                 self.scaler.unscale_(self.optimizer)

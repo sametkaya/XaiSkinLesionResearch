@@ -1,0 +1,52 @@
+======================================================================
+  EXPERIMENT : Counterfactual Experiment (ACE-style)
+  TIMESTAMP  : 2026-03-15 12:10:20
+======================================================================
+
+EXPERIMENT CONDITIONS
+----------------------------------------
+  method                        : Gradient-based ACE (Singla et al., 2023)
+  max_iter                      : 2000
+  learning_rate                 : 0.005
+  lambda_l1                     : 2.0
+  lambda_l2                     : 0.5
+  confidence_threshold          : 0.85
+  pixel_threshold               : 0.01
+  cf_pairs                      : ['nv→mel', 'mel→nv', 'bkl→mel', 'akiec→bcc']
+  samples_per_pair              : 3
+
+RESULTS / STATISTICS
+----------------------------------------
+  global_validity_rate          : 1.0
+  global_mean_proximity_l1      : 0.002016
+  global_mean_proximity_l2      : 1.4e-05
+  global_mean_sparsity          : 0.0263
+  global_mean_n_iter            : 173.1
+  total_elapsed_s               : 68.67
+  per_pair:
+      nv_to_mel:
+          validity_rate                 : 1.0
+          mean_proximity_l1             : 0.002469
+          mean_proximity_l2             : 1.9e-05
+          mean_sparsity                 : 0.0325
+          mean_n_iter                   : 180.3
+      mel_to_nv:
+          validity_rate                 : 1.0
+          mean_proximity_l1             : 0.002573
+          mean_proximity_l2             : 1.8e-05
+          mean_sparsity                 : 0.0366
+          mean_n_iter                   : 401.7
+      bkl_to_mel:
+          validity_rate                 : 1.0
+          mean_proximity_l1             : 0.002265
+          mean_proximity_l2             : 1.7e-05
+          mean_sparsity                 : 0.0332
+          mean_n_iter                   : 90.7
+      akiec_to_bcc:
+          validity_rate                 : 1.0
+          mean_proximity_l1             : 0.000757
+          mean_proximity_l2             : 2e-06
+          mean_sparsity                 : 0.0027
+          mean_n_iter                   : 19.7
+
+======================================================================
