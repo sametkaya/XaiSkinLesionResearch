@@ -285,8 +285,8 @@ class ABCCounterfactualExperiment:
 
         pairs_dir    = self.result_dir / "per_class"
         ablation_dir = self.result_dir / "ablation"
-        pairs_dir.mkdir(exist_ok=True)
-        ablation_dir.mkdir(exist_ok=True)
+        pairs_dir.mkdir(parents=True, exist_ok=True)
+        ablation_dir.mkdir(parents=True, exist_ok=True)
 
         for src_name, tgt_name in ABC_CF_PAIRS:
             src_idx = self.label2idx.get(src_name)

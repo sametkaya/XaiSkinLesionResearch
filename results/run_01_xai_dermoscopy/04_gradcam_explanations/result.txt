@@ -1,23 +1,23 @@
 ======================================================================
   EXPERIMENT : Grad-CAM Experiment
-  TIMESTAMP  : 2026-03-15 12:05:52
+  TIMESTAMP  : 2026-03-15 14:39:32
 ======================================================================
 
 EXPERIMENT CONDITIONS
 ----------------------------------------
-  model                         : efficientnet_b0
+  model                         : efficientnet_b4
   target_layer                  : Conv2dNormActivation
   samples_per_class             : 3
   num_classes                   : 7
-  image_size                    : 224
+  image_size                    : 380
 
 RESULTS / STATISTICS
 ----------------------------------------
   total_samples                 : 21
   samples_per_class             : 3
   cam_variants                  : ['GradCAM', 'GradCAM++']
-  mean_confidence_gradcam       : 0.9114
-  mean_confidence_gradcampp     : 0.9114
-  elapsed_seconds               : 22.24
+  mean_confidence_gradcam       : 0.6868
+  mean_confidence_gradcampp     : 0.6868
+  elapsed_seconds               : 26.44
 
 ======================================================================

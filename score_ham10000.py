@@ -301,7 +301,7 @@ def main() -> None:
     # ── Experiment directory (new run) ────────
     exp_dir    = make_abc_experiment_dir(RESULTS_DIR)
     scores_dir = exp_dir / "10_ham10000_abc_scores"
-    dataset_dir= exp_dir / "dataset"
+    dataset_dir= exp_dir / "10_ham10000_abc_scores" / "dataset"
 
     print("\n" + "=" * 60)
     print("  HAM10000 ABC Scoring Pipeline")

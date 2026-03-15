@@ -199,13 +199,13 @@ KAGGLE_CARD_NAME        = "dataset-metadata.json"
 # ─────────────────────────────────────────────
 # Loss = λ_cls * L_cls + λ_A * |ΔA| + λ_B * |ΔB| + λ_C * |ΔC| + λ_l1 * ‖δ‖₁
 ABC_CF_MAX_ITER          = 2000
-ABC_CF_LEARNING_RATE     = 0.005e-3
+ABC_CF_LEARNING_RATE     = 0.005
 ABC_CF_LAMBDA_CLS        = 1.0    # classification loss weight
 ABC_CF_LAMBDA_A          = 0.8    # asymmetry preservation weight
 ABC_CF_LAMBDA_B          = 0.6    # border preservation weight
 ABC_CF_LAMBDA_C          = 0.4    # color preservation weight
-ABC_CF_LAMBDA_L1         = 2.0    # pixel sparsity weight
-ABC_CF_CONFIDENCE_THRES  = 0.85    # target class probability threshold
+ABC_CF_LAMBDA_L1         = 1.0    # reduced: allow more perturbation    # pixel sparsity weight
+ABC_CF_CONFIDENCE_THRES  = 0.80    # target class probability threshold
 ABC_CF_NUM_IMAGES        = 10     # images per class transition pair
 ABC_CF_PIXEL_THRESHOLD   = 0.05   # threshold for sparsity mask
 

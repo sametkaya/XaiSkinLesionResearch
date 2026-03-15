@@ -1,11 +1,11 @@
 ======================================================================
   EXPERIMENT : LIME Experiment
-  TIMESTAMP  : 2026-03-15 12:08:29
+  TIMESTAMP  : 2026-03-15 14:48:13
 ======================================================================
 
 EXPERIMENT CONDITIONS
 ----------------------------------------
-  model                         : efficientnet_b0
+  model                         : efficientnet_b4
   segmentation_algo             : QuickSHIFT
   num_samples_lime              : 2000
   num_superpixels               : 15
@@ -16,7 +16,7 @@ RESULTS / STATISTICS
   total_samples                 : 21
   lime_num_samples              : 2000
   lime_num_superpixels          : 15
-  mean_explanation_time_s       : 6.528
-  total_elapsed_s               : 156.92
+  mean_explanation_time_s       : 23.827
+  total_elapsed_s               : 521.39
 
 ======================================================================

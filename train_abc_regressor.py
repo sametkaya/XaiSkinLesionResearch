@@ -146,7 +146,7 @@ def main() -> None:
 
     # ── Experiment directory ───────────────────
     exp_dir = make_abc_experiment_dir(RESULTS_DIR)
-    reg_dir = exp_dir / "abc_regressor"
+    reg_dir = exp_dir / "09_abc_regressor"
 
     # ── Print banner ──────────────────────────
     print("\n" + "=" * 60)
