@@ -1,7 +1,7 @@
 """
 train_abc_counterfactual.py
 ---------------------------
-Script 3 of 3 — ABC-Guided Counterfactual Explanations + Ablation Study (v3 — TV regularized)
+Script 3 of 3 — ABC-Guided Counterfactual Explanations + Ablation Study (v4 — segmentation-guided)
 
 Generates and evaluates counterfactual explanations for HAM10000 skin
 lesion classification using ABC (Asymmetry, Border, Color) preservation
@@ -14,7 +14,7 @@ The ABC-guided counterfactual loss:
     + λ_C   · |g(x+δ)_C − s_C|       ← color preservation
     + λ_l1  · ‖δ‖₁                    ← pixel sparsity
 
-v3 changes:
+v4 changes:
   - Adam optimizer (per Singla et al., 2023) replaces raw SGD
   - Fixed hyperparameters: lr, λ_l1, λ_cls (see config_abc.py)
   - Textual counterfactual explanations (EN + TR)
@@ -68,6 +68,7 @@ from src.abc.abc_model               import ABCRegressor
 from src.model                       import SkinLesionClassifier
 from src.data_loader                 import load_metadata, stratified_patient_split, get_dataloaders
 from src.explainers.abc_counterfactual import ABCCounterfactualExperiment
+from src.segmentation.segmenter      import LesionSegmenter
 from src import config as ham_cfg
 
 
@@ -155,7 +156,7 @@ def load_classifier_from_checkpoint(
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="ABC-Guided Counterfactual Explanations (v3 — TV regularized)",
+        description="ABC-Guided Counterfactual Explanations (v4 — segmentation-guided)",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
@@ -169,6 +170,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--n-images", type=int, default=ABC_CF_NUM_IMAGES,
         help="Number of images per class transition pair."
+    )
+    p.add_argument(
+        "--mask-dir", type=str, default=None,
+        help="Directory with ISIC 2018 Task 1 segmentation masks (optional)."
+    )
+    p.add_argument(
+        "--unet-weights", type=str, default=None,
+        help="Path to trained U-Net weights for segmentation (optional)."
     )
     p.add_argument(
         "--seed", type=int, default=RANDOM_SEED,
@@ -194,7 +203,7 @@ def main() -> None:
     cf_dir  = exp_dir / "11_abc_guided_counterfactuals"
 
     print("\n" + "=" * 60)
-    print("  ABC-Guided Counterfactual Explanations (v3 — TV regularized)")
+    print("  ABC-Guided Counterfactual Explanations (v4 — segmentation-guided)")
     print(f"  Experiment: {exp_dir.name}")
     print(f"  Output:     {cf_dir}")
     print("=" * 60 + "\n")
@@ -241,9 +250,20 @@ def main() -> None:
     train_df, val_df, test_df = stratified_patient_split(df)
     _, _, test_loader = get_dataloaders(train_df, val_df, test_df)
 
+    # ── Lesion Segmenter (for mask-guided CF) ──
+    print("─" * 60)
+    print("  Initializing lesion segmenter …")
+    print("─" * 60)
+    unet_path = Path(args.unet_weights) if args.unet_weights else None
+    segmenter = LesionSegmenter(
+        model_weights=unet_path,
+        device=device,
+        image_size=ham_cfg.IMAGE_SIZE,
+    )
+
     # ── Run ABC-CF experiment ──────────────────
     print("─" * 60)
-    print("  Running ABC-Guided Counterfactual Experiment (v3 — TV regularized) …")
+    print("  Running ABC-Guided Counterfactual Experiment (v4 — segmentation-guided) …")
     print("─" * 60)
 
     # Override n_images from args
@@ -257,27 +277,29 @@ def main() -> None:
         device        = device,
         result_dir    = cf_dir,
         class_labels  = ham_cfg.CLASS_LABELS,
+        segmenter     = segmenter,
     )
     stats = experiment.run()
 
     # ── Summary ───────────────────────────────
     print("\n" + "=" * 60)
-    print("  Counterfactual Experiment Complete (v3 — TV regularized)")
+    print("  Counterfactual Experiment Complete (v4 — segmentation-guided)")
     print(f"  Experiment: {exp_dir.name}")
     print(f"  Elapsed:    {stats.get('elapsed_seconds', 'N/A')}s")
     print(f"  Records:    {stats.get('total_records', 'N/A')}")
     print()
     print("  Ablation Summary:")
-    print(f"  {'Mode':<12} {'Validity':>9} {'Prox L1':>9} {'ΔA':>8} {'ΔB':>8} {'ΔC':>8}")
-    print("  " + "-" * 60)
+    print(f"  {'Mode':<12} {'Validity':>9} {'Prox L1':>9} {'SSIM':>7} {'ΔA':>8} {'ΔB':>8} {'ΔC':>8}")
+    print("  " + "-" * 65)
     for mode in ["baseline", "A_only", "AB", "ABC"]:
         v  = stats.get(f"{mode}_validity", float("nan"))
         l1 = stats.get(f"{mode}_prox_l1",  float("nan"))
+        ss = stats.get(f"{mode}_ssim",     float("nan"))
         dA = stats.get(f"{mode}_delta_A",   float("nan"))
         dB = stats.get(f"{mode}_delta_B",   float("nan"))
         dC = stats.get(f"{mode}_delta_C",   float("nan"))
         print(
-            f"  {mode:<12} {v:>9.4f} {l1:>9.5f} {dA:>8.4f} {dB:>8.4f} {dC:>8.4f}"
+            f"  {mode:<12} {v:>9.4f} {l1:>9.5f} {ss:>7.4f} {dA:>8.4f} {dB:>8.4f} {dC:>8.4f}"
         )
     print()
     print("  Outputs:")

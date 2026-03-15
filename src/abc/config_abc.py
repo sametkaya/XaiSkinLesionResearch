@@ -196,56 +196,72 @@ DATASET_CSV_NAME        = "ham10000_abc_scores.csv"
 KAGGLE_CARD_NAME        = "dataset-metadata.json"
 
 # ─────────────────────────────────────────────
-# ABC-guided Counterfactual  (v3 — TV regularized)
+# ABC-guided Counterfactual  (v4 — segmentation-guided)
 # ─────────────────────────────────────────────
 # Loss formulation:
-#   L = λ_cls · CE(f(x+δ), c_tgt)         ← class change
-#     + λ_A  · |g(x+δ)_A − s_A|           ← asymmetry preservation
-#     + λ_B  · |g(x+δ)_B − s_B|           ← border preservation
-#     + λ_C  · |g(x+δ)_C − s_C|           ← color preservation
-#     + λ_l1 · ‖δ‖₁                        ← sparsity
-#     + λ_TV · TV(δ)                        ← spatial smoothness (NEW in v3)
+#   L = λ_cls  · CE(f(x + M⊙δ), c_tgt)       ← class change
+#     + λ_A    · |g(x + M⊙δ)_A − s_A|         ← asymmetry preservation
+#     + λ_B    · |g(x + M⊙δ)_B − s_B|         ← border preservation
+#     + λ_C    · |g(x + M⊙δ)_C − s_C|         ← color preservation
+#     + λ_l1   · ‖M⊙δ‖₁                        ← sparsity
+#     + λ_TV   · TV(M⊙δ)                        ← spatial smoothness
+#     + λ_perc · Σ‖φ_j(x) − φ_j(x+M⊙δ)‖²      ← perceptual similarity
 #
-# v3 changes from v2:
+# where M is a soft lesion mask (dilated + Gaussian-blurred).
 #
-#   1. Added Total Variation (TV) regularization:  λ_TV = 1.0
-#      TV(δ) = Σ|δ_{i,j} − δ_{i+1,j}| + Σ|δ_{i,j} − δ_{i,j+1}|
-#      Rationale: Without TV, Adam produces uniform per-pixel noise that
-#      achieves class flip via imperceptible adversarial perturbation.
-#      TV forces spatially coherent changes → clinically interpretable.
-#      Reference: Rudin, Osher & Fatemi (1992). Physica D, 60(1-4), 259-268.
-#      Used in CF context: Goyal et al. (2019). CVPR, 2019.
+# v4 key changes from v3:
 #
-#   2. λ_cls: 10.0 → 3.0
-#      Rationale: v2's λ_cls=10 caused convergence in 2-4 iterations,
-#      giving ABC constraints no time to steer the perturbation.
-#      Lowering to 3.0 allows ~30-100 iterations for the ABC+TV terms
-#      to shape a structured, morphology-aware perturbation.
+#   1. Segmentation-guided perturbation (M⊙δ):
+#      δ_effective = soft_mask ⊙ δ_raw  at each optimization step.
+#      This is "hard masking" per RCSB (Sobieski et al., ICLR 2025):
+#      pixels outside the lesion mask remain EXACTLY unchanged.
+#      Clinical motivation: the counterfactual question is "what if the
+#      LESION looked different?", not "what if the skin looked different?"
 #
-#   3. lr: 0.01 → 0.003
-#      Rationale: Slower learning rate prevents overshooting and works
-#      synergistically with TV to produce smoother δ trajectories.
+#   2. Perceptual loss (VGG-16 feature matching):
+#      L_perc = Σ_j ‖φ_j(x) − φ_j(x_cf)‖² / (C_j·H_j·W_j)
+#      at layers relu2_2 and relu3_3 of VGG-16 (no batch norm).
+#      This prevents adversarial high-frequency perturbations and
+#      preserves semantic structure within the lesion.
+#      Reference: Johnson et al. (ECCV 2016); DiME uses λ_perc=30.
 #
-#   4. λ_l1: 0.01 → 0.05
-#      Rationale: Slightly stronger sparsity focuses changes on fewer
-#      regions rather than diffuse per-pixel noise.
+#   3. Gaussian blur on δ at each step:
+#      δ = GaussianBlur(δ, kernel=5, σ=1.0) after each gradient step.
+#      This acts as an implicit smoothness prior, preventing per-pixel
+#      noise even within the lesion mask.
+#      Reference: Mirror-CFE (2024) uses blur as validity test.
 #
-#   5. ABC lambdas increased: A=1.0, B=0.8, C=0.6
-#      Rationale: v2 showed minimal difference between ablation modes
-#      because the ABC terms were too weak relative to λ_cls.
-#      Increasing these creates a measurable preservation effect.
+#   4. Soft mask preprocessing:
+#      Binary mask → dilate 3px → Gaussian blur σ=5 → [0,1] float mask.
+#      Smooth edges prevent visible seams at the lesion boundary.
+#      Reference: SoftSeg (Medical Image Analysis, 2021).
 #
-ABC_CF_MAX_ITER          = 500
-ABC_CF_LEARNING_RATE     = 0.003
-ABC_CF_LAMBDA_CLS        = 3.0    # classification loss weight (v2: 10.0)
-ABC_CF_LAMBDA_A          = 1.0    # asymmetry preservation weight (v2: 0.5)
-ABC_CF_LAMBDA_B          = 0.8    # border preservation weight (v2: 0.3)
-ABC_CF_LAMBDA_C          = 0.6    # color preservation weight (v2: 0.3)
-ABC_CF_LAMBDA_L1         = 0.05   # pixel sparsity weight (v2: 0.01)
-ABC_CF_LAMBDA_TV         = 1.0    # total variation weight (NEW in v3)
+#   5. SSIM evaluation metric added for counterfactual quality.
+#
+# References:
+#   Sobieski et al. (2025). RCSB. ICLR 2025.
+#   Johnson et al. (2016). Perceptual Losses. ECCV 2016.
+#   Jeanneret et al. (2022). DiME. ACCV 2022.
+#   Rudin, Osher & Fatemi (1992). TV denoising. Physica D.
+#
+ABC_CF_MAX_ITER          = 300
+ABC_CF_LEARNING_RATE     = 0.005
+ABC_CF_LAMBDA_CLS        = 5.0    # classification loss weight
+ABC_CF_LAMBDA_A          = 1.0    # asymmetry preservation weight
+ABC_CF_LAMBDA_B          = 0.8    # border preservation weight
+ABC_CF_LAMBDA_C          = 0.6    # color preservation weight
+ABC_CF_LAMBDA_L1         = 0.05   # pixel sparsity weight
+ABC_CF_LAMBDA_TV         = 0.005  # total variation weight (lower with mask)
+ABC_CF_LAMBDA_PERC       = 0.1    # perceptual loss weight (VGG features)
 ABC_CF_CONFIDENCE_THRES  = 0.75   # target class probability threshold
 ABC_CF_NUM_IMAGES        = 10     # images per class transition pair
 ABC_CF_PIXEL_THRESHOLD   = 0.02   # threshold for sparsity mask
+
+# Segmentation-guided mask preprocessing
+ABC_CF_MASK_DILATE_PX    = 3      # dilate mask by N pixels (capture border)
+ABC_CF_MASK_BLUR_SIGMA   = 5.0    # Gaussian blur σ for soft mask edges
+ABC_CF_DELTA_BLUR_SIGMA  = 1.0    # Gaussian blur σ applied to δ per step
+ABC_CF_DELTA_BLUR_KERNEL = 5      # kernel size for δ blur
 
 # Transition pairs for ABC-guided CF evaluation
 # (source_class, target_class)

@@ -8,74 +8,74 @@
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %81):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0060, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0028, 5 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %78):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
-  • Sınır Düzensizliği: 0.10'den (düşük) → 0.12'ye (düşük) arttı  [+0.02]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0052, 2 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: 0.10'den (düşük) → 0.11'ye (düşük) arttı  [+0.02]
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.09)
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0025, 3 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0100, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %8.5'i değişti, ortalama L1=0.0090, 83 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.03)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0065, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0042, 20 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.02)
-Pertürbasyon: piksellerin %5.1'i değişti, ortalama L1=0.0109, 8 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %1.3'i değişti, ortalama L1=0.0055, 27 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.02)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %63):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %17.6'i değişti, ortalama L1=0.0134, 12 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %12.1'i değişti, ortalama L1=0.0067, 300 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %79):
-  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
-  • Sınır Düzensizliği: 0.04'den (düşük) → 0.05'ye (düşük) arttı  [+0.01]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0022, 4 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %87):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.03)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0088, 5 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %2.0'i değişti, ortalama L1=0.0065, 15 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %84):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.07 → 0.07)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0080, 5 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.12)
+Pertürbasyon: piksellerin %2.4'i değişti, ortalama L1=0.0058, 29 iterasyonda yakınsadı.
 
   Örnek 10:
   Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
-  • Asimetri: yaklaşık aynı kaldı (0.25 → 0.24)
-  • Sınır Düzensizliği: 0.53'den (orta) → 0.51'ye (orta) azaldı  [-0.01]
+  • Asimetri: yaklaşık aynı kaldı (0.25 → 0.25)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.53 → 0.52)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.19 → 0.18)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0028, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -83,74 +83,74 @@ Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %81):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0060, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0028, 5 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %78):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
-  • Sınır Düzensizliği: 0.10'den (düşük) → 0.12'ye (düşük) arttı  [+0.02]
+  • Sınır Düzensizliği: 0.10'den (düşük) → 0.11'ye (düşük) arttı  [+0.02]
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0052, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0025, 3 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0100, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %8.5'i değişti, ortalama L1=0.0090, 83 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0065, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0042, 20 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.02)
-Pertürbasyon: piksellerin %5.1'i değişti, ortalama L1=0.0109, 8 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %1.3'i değişti, ortalama L1=0.0055, 27 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %63):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %17.6'i değişti, ortalama L1=0.0134, 12 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %12.1'i değişti, ortalama L1=0.0067, 300 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %79):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0022, 4 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %87):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.03)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0088, 5 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %2.0'i değişti, ortalama L1=0.0065, 15 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %84):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.07 → 0.07)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0080, 5 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %2.4'i değişti, ortalama L1=0.0058, 29 iterasyonda yakınsadı.
 
   Örnek 10:
   Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
-  • Asimetri: 0.25'den (düşük) → 0.24'ye (düşük) azaldı  [-0.01]
-  • Sınır Düzensizliği: 0.53'den (orta) → 0.51'ye (orta) azaldı  [-0.02]
-  • Renk Çeşitliliği: 0.19'den (düşük) → 0.17'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda yakınsadı.
+  • Asimetri: yaklaşık aynı kaldı (0.25 → 0.25)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.53 → 0.52)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.19 → 0.19)
+Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0028, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -158,74 +158,74 @@ Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %81):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.03)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0060, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0028, 5 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %78):
   • Asimetri: 0.05'den (düşük) → 0.06'ye (düşük) arttı  [+0.01]
-  • Sınır Düzensizliği: 0.10'den (düşük) → 0.13'ye (düşük) arttı  [+0.03]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0052, 2 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: 0.10'den (düşük) → 0.12'ye (düşük) arttı  [+0.02]
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.09)
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0025, 3 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0100, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %8.5'i değişti, ortalama L1=0.0090, 83 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0065, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0042, 20 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.02)
-Pertürbasyon: piksellerin %5.1'i değişti, ortalama L1=0.0109, 8 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %1.2'i değişti, ortalama L1=0.0055, 27 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %63):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %17.7'i değişti, ortalama L1=0.0134, 12 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %12.0'i değişti, ortalama L1=0.0066, 300 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %79):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0022, 4 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %87):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.03)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0088, 5 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %2.0'i değişti, ortalama L1=0.0065, 15 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %84):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.07 → 0.07)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.05)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0080, 5 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.12)
+Pertürbasyon: piksellerin %2.4'i değişti, ortalama L1=0.0058, 29 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %83):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
   • Asimetri: yaklaşık aynı kaldı (0.25 → 0.25)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.53 → 0.53)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.53 → 0.52)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.19 → 0.18)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0028, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -233,74 +233,74 @@ Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %81):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.03)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0060, 3 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0028, 5 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: 0.05'den (düşük) → 0.07'ye (düşük) arttı  [+0.01]
-  • Sınır Düzensizliği: 0.10'den (düşük) → 0.13'ye (düşük) arttı  [+0.04]
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %78):
+  • Asimetri: 0.05'den (düşük) → 0.06'ye (düşük) arttı  [+0.01]
+  • Sınır Düzensizliği: 0.10'den (düşük) → 0.12'ye (düşük) arttı  [+0.03]
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0052, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0025, 3 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: 0.03'den (düşük) → 0.05'ye (düşük) arttı  [+0.01]
-  • Sınır Düzensizliği: 0.03'den (düşük) → 0.05'ye (düşük) arttı  [+0.02]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.05)
-Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0100, 7 iterasyonda yakınsadı.
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
+Pertürbasyon: piksellerin %8.5'i değişti, ortalama L1=0.0090, 83 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %80):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0065, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0042, 20 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %85):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Sınır Düzensizliği: 0.01'den (düşük) → 0.03'ye (düşük) arttı  [+0.01]
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.02)
-Pertürbasyon: piksellerin %5.1'i değişti, ortalama L1=0.0109, 8 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %1.2'i değişti, ortalama L1=0.0055, 27 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
-  • Sınır Düzensizliği: 0.03'den (düşük) → 0.01'ye (düşük) azaldı  [-0.01]
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %63):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %17.7'i değişti, ortalama L1=0.0134, 12 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %11.9'i değişti, ortalama L1=0.0066, 300 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %79):
-  • Asimetri: 0.05'den (düşük) → 0.04'ye (düşük) azaldı  [-0.01]
-  • Sınır Düzensizliği: 0.04'den (düşük) → 0.03'ye (düşük) azaldı  [-0.01]
-  • Renk Çeşitliliği: 0.05'den (düşük) → 0.04'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0022, 4 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %87):
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.02 → 0.03)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0088, 5 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %2.0'i değişti, ortalama L1=0.0065, 15 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %84):
-  • Asimetri: 0.07'den (düşük) → 0.08'ye (düşük) arttı  [+0.01]
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.07 → 0.08)
   • Sınır Düzensizliği: 0.06'den (düşük) → 0.07'ye (düşük) arttı  [+0.01]
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.12)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0080, 5 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %2.4'i değişti, ortalama L1=0.0058, 29 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: 0.25'den (düşük) → 0.26'ye (düşük) arttı  [+0.02]
-  • Sınır Düzensizliği: 0.53'den (orta) → 0.54'ye (orta) arttı  [+0.01]
+  Bu Aktinik Keratoz lezyonu aşağıdaki değişikliklerle Bazal Hücreli Karsinom olarak sınıflandırılırdı (güven: %82):
+  • Asimetri: yaklaşık aynı kaldı (0.25 → 0.25)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.53 → 0.53)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.19 → 0.19)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0028, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -308,74 +308,74 @@ Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0073, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %87):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %79):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0070, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 10 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.01 → 0.01)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0085, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0039, 6 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0067, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0039, 8 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.03)
-Pertürbasyon: piksellerin %0.9'i değişti, ortalama L1=0.0132, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
+Pertürbasyon: piksellerin %1.6'i değişti, ortalama L1=0.0070, 12 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: 0.05'den (düşük) → 0.04'ye (düşük) azaldı  [-0.01]
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.03)
-  • Renk Çeşitliliği: 0.10'den (düşük) → 0.07'ye (düşük) azaldı  [-0.04]
-Pertürbasyon: piksellerin %1.0'i değişti, ortalama L1=0.0149, 4 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0045, 17 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0094, 6 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %8.0'i değişti, ortalama L1=0.0088, 39 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
-  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0070, 3 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0027, 5 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.05)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0102, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.7'i değişti, ortalama L1=0.0103, 100 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %73):
   • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.03)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: 0.07'den (düşük) → 0.06'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %2.6'i değişti, ortalama L1=0.0302, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %22.2'i değişti, ortalama L1=0.0373, 300 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %1.5'i değişti, ortalama L1=0.0050, 26 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -383,74 +383,74 @@ Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %87):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %79):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0070, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 10 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.01 → 0.01)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0085, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0039, 6 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0067, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0039, 8 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.03)
-Pertürbasyon: piksellerin %0.9'i değişti, ortalama L1=0.0132, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
+Pertürbasyon: piksellerin %1.6'i değişti, ortalama L1=0.0070, 12 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: 0.05'den (düşük) → 0.04'ye (düşük) azaldı  [-0.01]
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.03)
-  • Renk Çeşitliliği: 0.10'den (düşük) → 0.07'ye (düşük) azaldı  [-0.03]
-Pertürbasyon: piksellerin %1.0'i değişti, ortalama L1=0.0149, 4 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0045, 17 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0094, 6 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %8.0'i değişti, ortalama L1=0.0088, 39 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0070, 3 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0027, 5 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
-  • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.06 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0102, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.6'i değişti, ortalama L1=0.0103, 100 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
-  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.05)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.03)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.06)
-Pertürbasyon: piksellerin %2.6'i değişti, ortalama L1=0.0302, 4 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %73):
+  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Renk Çeşitliliği: 0.07'den (düşük) → 0.06'ye (düşük) azaldı  [-0.01]
+Pertürbasyon: piksellerin %22.1'i değişti, ortalama L1=0.0373, 300 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %1.5'i değişti, ortalama L1=0.0050, 26 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -458,74 +458,74 @@ Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %87):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %79):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0070, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 10 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.01 → 0.01)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0085, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0039, 6 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0067, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0039, 8 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.03)
-Pertürbasyon: piksellerin %0.9'i değişti, ortalama L1=0.0132, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
+Pertürbasyon: piksellerin %1.7'i değişti, ortalama L1=0.0071, 13 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
-  • Sınır Düzensizliği: 0.02'den (düşük) → 0.04'ye (düşük) arttı  [+0.02]
-  • Renk Çeşitliliği: 0.10'den (düşük) → 0.07'ye (düşük) azaldı  [-0.03]
-Pertürbasyon: piksellerin %1.0'i değişti, ortalama L1=0.0150, 4 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0045, 17 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0094, 6 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %7.9'i değişti, ortalama L1=0.0088, 39 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Renk Çeşitliliği: 0.10'den (düşük) → 0.09'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0070, 3 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0027, 5 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0102, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.7'i değişti, ortalama L1=0.0103, 100 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
-  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %73):
+  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: 0.07'den (düşük) → 0.06'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %2.6'i değişti, ortalama L1=0.0302, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %22.2'i değişti, ortalama L1=0.0373, 300 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.04)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.06)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
+Pertürbasyon: piksellerin %1.5'i değişti, ortalama L1=0.0050, 26 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -533,74 +533,74 @@ Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %87):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %79):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0070, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 10 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: yaklaşık aynı kaldı (0.01 → 0.02)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.01 → 0.01)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0085, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0039, 6 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0067, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0039, 8 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.03)
-Pertürbasyon: piksellerin %0.9'i değişti, ortalama L1=0.0132, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
+Pertürbasyon: piksellerin %1.7'i değişti, ortalama L1=0.0071, 13 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: 0.05'den (düşük) → 0.07'ye (düşük) arttı  [+0.02]
-  • Sınır Düzensizliği: 0.02'den (düşük) → 0.07'ye (düşük) arttı  [+0.04]
-  • Renk Çeşitliliği: 0.10'den (düşük) → 0.08'ye (düşük) azaldı  [-0.02]
-Pertürbasyon: piksellerin %1.0'i değişti, ortalama L1=0.0150, 4 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0045, 17 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.01)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0094, 6 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %8.0'i değişti, ortalama L1=0.0088, 39 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %84):
-  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.04)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0070, 3 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %77):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0027, 5 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %86):
-  • Asimetri: yaklaşık aynı kaldı (0.06 → 0.06)
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.06 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.06 → 0.06)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0102, 7 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.6'i değişti, ortalama L1=0.0103, 100 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
-  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Renk Çeşitliliği: 0.07'den (düşük) → 0.06'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %2.6'i değişti, ortalama L1=0.0302, 4 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %73):
+  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.03)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.06)
+Pertürbasyon: piksellerin %22.2'i değişti, ortalama L1=0.0374, 300 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %82):
-  • Asimetri: 0.06'den (düşük) → 0.07'ye (düşük) arttı  [+0.01]
-  • Sınır Düzensizliği: 0.03'den (düşük) → 0.04'ye (düşük) arttı  [+0.01]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.06)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+  Bu Benign Keratoz lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.06 → 0.05)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.05 → 0.05)
+Pertürbasyon: piksellerin %1.5'i değişti, ortalama L1=0.0050, 26 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -608,74 +608,74 @@ Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0074, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %94):
-  • Asimetri: yaklaşık aynı kaldı (0.10 → 0.11)
-  • Sınır Düzensizliği: 0.10'den (düşük) → 0.11'ye (düşük) arttı  [+0.01]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.15)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.10 → 0.10)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.10 → 0.10)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.14)
+Pertürbasyon: piksellerin %17.6'i değişti, ortalama L1=0.0100, 143 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %91):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.08 → 0.08)
-  • Sınır Düzensizliği: 0.08'den (düşük) → 0.09'ye (düşük) arttı  [+0.01]
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.08 → 0.08)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.12 → 0.11)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0094, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %30.7'i değişti, ortalama L1=0.0160, 261 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.35'ye (orta) azaldı  [-0.02]
-  • Sınır Düzensizliği: 0.41'den (orta) → 0.42'ye (orta) arttı  [+0.01]
-  • Renk Çeşitliliği: 0.34'den (orta) → 0.27'ye (düşük) azaldı  [-0.06]
-Pertürbasyon: piksellerin %4.7'i değişti, ortalama L1=0.0366, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.37 → 0.36)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.41 → 0.41)
+  • Renk Çeşitliliği: 0.34'den (orta) → 0.32'ye (düşük) azaldı  [-0.01]
+Pertürbasyon: piksellerin %9.0'i değişti, ortalama L1=0.0163, 28 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
-  • Asimetri: 0.27'den (düşük) → 0.20'ye (düşük) azaldı  [-0.07]
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.25 → 0.25)
-  • Renk Çeşitliliği: 0.25'den (düşük) → 0.16'ye (düşük) azaldı  [-0.08]
-Pertürbasyon: piksellerin %3.3'i değişti, ortalama L1=0.0310, 3 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: 0.27'den (düşük) → 0.26'ye (düşük) azaldı  [-0.01]
+  • Sınır Düzensizliği: 0.25'den (düşük) → 0.26'ye (düşük) arttı  [+0.01]
+  • Renk Çeşitliliği: 0.25'den (düşük) → 0.23'ye (düşük) azaldı  [-0.02]
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0133, 34 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %93):
-  • Asimetri: 0.26'den (düşük) → 0.16'ye (düşük) azaldı  [-0.10]
-  • Sınır Düzensizliği: 0.42'den (orta) → 0.29'ye (düşük) azaldı  [-0.13]
-  • Renk Çeşitliliği: 0.23'den (düşük) → 0.16'ye (düşük) azaldı  [-0.07]
-Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0062, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %81):
+  • Asimetri: yaklaşık aynı kaldı (0.26 → 0.26)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.42 → 0.42)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.23 → 0.23)
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0023, 3 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
-  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
-  • Sınır Düzensizliği: 0.04'den (düşük) → 0.05'ye (düşük) arttı  [+0.01]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.12)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0049, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %80):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.04)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0024, 4 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: 0.57'den (orta) → 0.45'ye (orta) azaldı  [-0.12]
-  • Sınır Düzensizliği: 0.65'den (orta) → 0.58'ye (orta) azaldı  [-0.07]
-  • Renk Çeşitliliği: 0.50'den (orta) → 0.36'ye (orta) azaldı  [-0.14]
-Pertürbasyon: piksellerin %1.1'i değişti, ortalama L1=0.0103, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %78):
+  • Asimetri: yaklaşık aynı kaldı (0.57 → 0.56)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.65 → 0.65)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.50 → 0.50)
+Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0038, 6 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.35'ye (orta) azaldı  [-0.02]
-  • Sınır Düzensizliği: 0.55'den (orta) → 0.53'ye (orta) azaldı  [-0.02]
-  • Renk Çeşitliliği: 0.29'den (düşük) → 0.27'ye (düşük) azaldı  [-0.03]
-Pertürbasyon: piksellerin %3.8'i değişti, ortalama L1=0.0267, 3 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %72):
+  • Asimetri: yaklaşık aynı kaldı (0.37 → 0.37)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.55 → 0.55)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.29 → 0.29)
+Pertürbasyon: piksellerin %20.9'i değişti, ortalama L1=0.0113, 300 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %83):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0058, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0027, 3 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.03)
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %82):
+  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0026, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -683,74 +683,74 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %94):
-  • Asimetri: 0.10'den (düşük) → 0.11'ye (düşük) arttı  [+0.01]
-  • Sınır Düzensizliği: 0.10'den (düşük) → 0.12'ye (düşük) arttı  [+0.02]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.15)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.10 → 0.10)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.10 → 0.10)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.14)
+Pertürbasyon: piksellerin %17.6'i değişti, ortalama L1=0.0100, 142 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %91):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.08 → 0.08)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.08 → 0.07)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.08 → 0.08)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.12 → 0.12)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0094, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %30.6'i değişti, ortalama L1=0.0160, 262 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.36'ye (orta) azaldı  [-0.01]
-  • Sınır Düzensizliği: 0.41'den (orta) → 0.43'ye (orta) arttı  [+0.02]
-  • Renk Çeşitliliği: 0.34'den (orta) → 0.28'ye (düşük) azaldı  [-0.05]
-Pertürbasyon: piksellerin %4.7'i değişti, ortalama L1=0.0366, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.37 → 0.37)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.41 → 0.41)
+  • Renk Çeşitliliği: 0.34'den (orta) → 0.33'ye (düşük) azaldı  [-0.01]
+Pertürbasyon: piksellerin %9.0'i değişti, ortalama L1=0.0163, 28 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
-  • Asimetri: 0.27'den (düşük) → 0.21'ye (düşük) azaldı  [-0.06]
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.27 → 0.26)
   • Sınır Düzensizliği: 0.25'den (düşük) → 0.27'ye (düşük) arttı  [+0.02]
-  • Renk Çeşitliliği: 0.25'den (düşük) → 0.17'ye (düşük) azaldı  [-0.08]
-Pertürbasyon: piksellerin %3.3'i değişti, ortalama L1=0.0310, 3 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: 0.25'den (düşük) → 0.24'ye (düşük) azaldı  [-0.01]
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0133, 34 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %93):
-  • Asimetri: 0.26'den (düşük) → 0.15'ye (düşük) azaldı  [-0.11]
-  • Sınır Düzensizliği: 0.42'den (orta) → 0.27'ye (düşük) azaldı  [-0.15]
-  • Renk Çeşitliliği: 0.23'den (düşük) → 0.15'ye (düşük) azaldı  [-0.08]
-Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0062, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %84):
+  • Asimetri: yaklaşık aynı kaldı (0.26 → 0.27)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.42 → 0.43)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.23 → 0.24)
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0025, 4 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
-  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
-  • Sınır Düzensizliği: 0.04'den (düşük) → 0.05'ye (düşük) arttı  [+0.01]
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %80):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.04)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0049, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0024, 4 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: 0.57'den (orta) → 0.34'ye (orta) azaldı  [-0.22]
-  • Sınır Düzensizliği: 0.65'den (orta) → 0.52'ye (orta) azaldı  [-0.13]
-  • Renk Çeşitliliği: 0.50'den (orta) → 0.25'ye (düşük) azaldı  [-0.25]
-Pertürbasyon: piksellerin %1.1'i değişti, ortalama L1=0.0102, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %78):
+  • Asimetri: yaklaşık aynı kaldı (0.57 → 0.56)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.65 → 0.65)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.50 → 0.50)
+Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0037, 6 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.35'ye (orta) azaldı  [-0.02]
-  • Sınır Düzensizliği: 0.55'den (orta) → 0.52'ye (orta) azaldı  [-0.02]
-  • Renk Çeşitliliği: 0.29'den (düşük) → 0.27'ye (düşük) azaldı  [-0.03]
-Pertürbasyon: piksellerin %3.8'i değişti, ortalama L1=0.0267, 3 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %72):
+  • Asimetri: yaklaşık aynı kaldı (0.37 → 0.37)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.55 → 0.55)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.29 → 0.29)
+Pertürbasyon: piksellerin %20.9'i değişti, ortalama L1=0.0113, 300 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.04)
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %83):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0058, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0027, 3 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.03)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.03)
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %82):
+  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0026, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -758,74 +758,74 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %94):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.10 → 0.10)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.10 → 0.10)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.15)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.10 → 0.11)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.14)
+Pertürbasyon: piksellerin %17.6'i değişti, ortalama L1=0.0100, 143 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %91):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.08 → 0.08)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.08 → 0.08)
+  • Sınır Düzensizliği: 0.08'den (düşük) → 0.09'ye (düşük) arttı  [+0.01]
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.12 → 0.11)
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0094, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %30.9'i değişti, ortalama L1=0.0160, 259 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.35'ye (orta) azaldı  [-0.02]
-  • Sınır Düzensizliği: 0.41'den (orta) → 0.43'ye (orta) arttı  [+0.02]
-  • Renk Çeşitliliği: 0.34'den (orta) → 0.28'ye (düşük) azaldı  [-0.06]
-Pertürbasyon: piksellerin %4.7'i değişti, ortalama L1=0.0366, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.37 → 0.36)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.41 → 0.40)
+  • Renk Çeşitliliği: 0.34'den (orta) → 0.32'ye (düşük) azaldı  [-0.02]
+Pertürbasyon: piksellerin %9.0'i değişti, ortalama L1=0.0163, 28 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
-  • Asimetri: 0.27'den (düşük) → 0.23'ye (düşük) azaldı  [-0.04]
-  • Sınır Düzensizliği: 0.25'den (düşük) → 0.31'ye (düşük) arttı  [+0.06]
-  • Renk Çeşitliliği: 0.25'den (düşük) → 0.18'ye (düşük) azaldı  [-0.07]
-Pertürbasyon: piksellerin %3.3'i değişti, ortalama L1=0.0310, 3 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.27 → 0.27)
+  • Sınır Düzensizliği: 0.25'den (düşük) → 0.29'ye (düşük) arttı  [+0.04]
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.25 → 0.24)
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0133, 34 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %93):
-  • Asimetri: 0.26'den (düşük) → 0.19'ye (düşük) azaldı  [-0.07]
-  • Sınır Düzensizliği: 0.42'den (orta) → 0.35'ye (orta) azaldı  [-0.08]
-  • Renk Çeşitliliği: 0.23'den (düşük) → 0.18'ye (düşük) azaldı  [-0.05]
-Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0062, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %81):
+  • Asimetri: yaklaşık aynı kaldı (0.26 → 0.25)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.42 → 0.41)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.23 → 0.23)
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0023, 3 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %80):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.12)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0049, 2 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0024, 4 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: 0.57'den (orta) → 0.42'ye (orta) azaldı  [-0.14]
-  • Sınır Düzensizliği: 0.65'den (orta) → 0.57'ye (orta) azaldı  [-0.08]
-  • Renk Çeşitliliği: 0.50'den (orta) → 0.33'ye (orta) azaldı  [-0.17]
-Pertürbasyon: piksellerin %1.1'i değişti, ortalama L1=0.0103, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %78):
+  • Asimetri: yaklaşık aynı kaldı (0.57 → 0.56)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.65 → 0.65)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.50 → 0.50)
+Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0038, 6 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %72):
   • Asimetri: yaklaşık aynı kaldı (0.37 → 0.37)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.55 → 0.55)
-  • Renk Çeşitliliği: 0.29'den (düşük) → 0.28'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %3.8'i değişti, ortalama L1=0.0267, 3 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.29 → 0.29)
+Pertürbasyon: piksellerin %21.0'i değişti, ortalama L1=0.0114, 300 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.04)
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %83):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0058, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0027, 3 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %82):
   • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0026, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -833,74 +833,74 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %94):
-  • Asimetri: yaklaşık aynı kaldı (0.10 → 0.09)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.10 → 0.09)
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.10 → 0.10)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.10 → 0.10)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.14 → 0.14)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %17.4'i değişti, ortalama L1=0.0100, 140 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %91):
-  • Asimetri: 0.08'den (düşük) → 0.06'ye (düşük) azaldı  [-0.02]
-  • Sınır Düzensizliği: 0.08'den (düşük) → 0.06'ye (düşük) azaldı  [-0.02]
-  • Renk Çeşitliliği: 0.12'den (düşük) → 0.10'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.4'i değişti, ortalama L1=0.0094, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.08 → 0.08)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.08 → 0.08)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.12 → 0.11)
+Pertürbasyon: piksellerin %31.1'i değişti, ortalama L1=0.0161, 262 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.33'ye (düşük) azaldı  [-0.04]
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.41 → 0.40)
-  • Renk Çeşitliliği: 0.34'den (orta) → 0.26'ye (düşük) azaldı  [-0.08]
-Pertürbasyon: piksellerin %4.7'i değişti, ortalama L1=0.0366, 4 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: 0.37'den (orta) → 0.35'ye (orta) azaldı  [-0.02]
+  • Sınır Düzensizliği: 0.41'den (orta) → 0.39'ye (orta) azaldı  [-0.02]
+  • Renk Çeşitliliği: 0.34'den (orta) → 0.32'ye (düşük) azaldı  [-0.02]
+Pertürbasyon: piksellerin %9.0'i değişti, ortalama L1=0.0163, 28 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
-  • Asimetri: 0.27'den (düşük) → 0.21'ye (düşük) azaldı  [-0.06]
-  • Sınır Düzensizliği: 0.25'den (düşük) → 0.27'ye (düşük) arttı  [+0.03]
-  • Renk Çeşitliliği: 0.25'den (düşük) → 0.17'ye (düşük) azaldı  [-0.08]
-Pertürbasyon: piksellerin %3.3'i değişti, ortalama L1=0.0310, 3 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: 0.27'den (düşük) → 0.26'ye (düşük) azaldı  [-0.01]
+  • Sınır Düzensizliği: 0.25'den (düşük) → 0.27'ye (düşük) arttı  [+0.02]
+  • Renk Çeşitliliği: 0.25'den (düşük) → 0.23'ye (düşük) azaldı  [-0.02]
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0133, 34 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %93):
-  • Asimetri: yaklaşık aynı kaldı (0.26 → 0.26)
-  • Sınır Düzensizliği: 0.42'den (orta) → 0.44'ye (orta) arttı  [+0.02]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.23 → 0.23)
-Pertürbasyon: piksellerin %0.3'i değişti, ortalama L1=0.0063, 2 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %81):
+  • Asimetri: 0.26'den (düşük) → 0.25'ye (düşük) azaldı  [-0.01]
+  • Sınır Düzensizliği: 0.42'den (orta) → 0.41'ye (orta) azaldı  [-0.01]
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.23 → 0.22)
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0023, 3 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %90):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %80):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.04)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.11 → 0.11)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0049, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0024, 4 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %79):
   • Asimetri: yaklaşık aynı kaldı (0.57 → 0.57)
-  • Sınır Düzensizliği: 0.65'den (orta) → 0.62'ye (orta) azaldı  [-0.03]
-  • Renk Çeşitliliği: 0.50'den (orta) → 0.52'ye (orta) arttı  [+0.03]
-Pertürbasyon: piksellerin %1.1'i değişti, ortalama L1=0.0103, 2 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.65 → 0.65)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.50 → 0.51)
+Pertürbasyon: piksellerin %0.6'i değişti, ortalama L1=0.0038, 6 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %88):
-  • Asimetri: 0.37'den (orta) → 0.39'ye (orta) arttı  [+0.03]
-  • Sınır Düzensizliği: 0.55'den (orta) → 0.57'ye (orta) arttı  [+0.03]
-  • Renk Çeşitliliği: 0.29'den (düşük) → 0.30'ye (düşük) arttı  [+0.01]
-Pertürbasyon: piksellerin %3.8'i değişti, ortalama L1=0.0267, 3 iterasyonda yakınsadı.
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %71):
+  • Asimetri: yaklaşık aynı kaldı (0.37 → 0.37)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.55 → 0.55)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.29 → 0.29)
+Pertürbasyon: piksellerin %21.0'i değişti, ortalama L1=0.0114, 300 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.04)
-  • Sınır Düzensizliği: 0.01'den (düşük) → 0.03'ye (düşük) arttı  [+0.01]
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %83):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.09)
-Pertürbasyon: piksellerin %0.2'i değişti, ortalama L1=0.0058, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0027, 3 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %89):
+  Bu Melanom lezyonu aşağıdaki değişikliklerle Melanositik Nevüs olarak sınıflandırılırdı (güven: %82):
   • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.04 → 0.05)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0026, 4 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -908,74 +908,74 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0050, 2 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %4.0'i değişti, ortalama L1=0.0065, 37 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0082, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %4.8'i değişti, ortalama L1=0.0068, 46 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: 0.16'den (düşük) → 0.15'ye (düşük) azaldı  [-0.01]
-  • Sınır Düzensizliği: 0.17'den (düşük) → 0.16'ye (düşük) azaldı  [-0.02]
-  • Renk Çeşitliliği: 0.16'den (düşük) → 0.15'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.16 → 0.16)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.17 → 0.17)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.16 → 0.16)
+Pertürbasyon: piksellerin %10.7'i değişti, ortalama L1=0.0094, 54 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.11 → 0.11)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.14 → 0.14)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0067, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %6.4'i değişti, ortalama L1=0.0081, 38 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0066, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0042, 12 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %13.0'i değişti, ortalama L1=0.0090, 82 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.17 → 0.18)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.9'i değişti, ortalama L1=0.0088, 55 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
   • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0062, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 7 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0075, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %5.4'i değişti, ortalama L1=0.0079, 42 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0079, 48 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -983,74 +983,74 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %3.9'i değişti, ortalama L1=0.0065, 37 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0082, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %5.0'i değişti, ortalama L1=0.0068, 47 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: 0.16'den (düşük) → 0.14'ye (düşük) azaldı  [-0.03]
-  • Sınır Düzensizliği: 0.17'den (düşük) → 0.14'ye (düşük) azaldı  [-0.04]
-  • Renk Çeşitliliği: 0.16'den (düşük) → 0.14'ye (düşük) azaldı  [-0.02]
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.16 → 0.17)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.17 → 0.17)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.16 → 0.16)
+Pertürbasyon: piksellerin %10.7'i değişti, ortalama L1=0.0094, 54 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.11 → 0.11)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.14 → 0.13)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0067, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %6.3'i değişti, ortalama L1=0.0081, 38 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.08)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0066, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0042, 12 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %13.0'i değişti, ortalama L1=0.0090, 82 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
-  • Renk Çeşitliliği: 0.17'den (düşük) → 0.16'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.17 → 0.17)
+Pertürbasyon: piksellerin %10.9'i değişti, ortalama L1=0.0088, 55 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
   • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0062, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 7 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0075, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %5.4'i değişti, ortalama L1=0.0079, 42 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0079, 48 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -1058,74 +1058,74 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.07)
+Pertürbasyon: piksellerin %4.0'i değişti, ortalama L1=0.0065, 37 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0082, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %5.0'i değişti, ortalama L1=0.0068, 47 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.16 → 0.16)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.17 → 0.17)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.17 → 0.18)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.16 → 0.16)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0075, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.6'i değişti, ortalama L1=0.0094, 53 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.11 → 0.11)
-  • Sınır Düzensizliği: 0.14'den (düşük) → 0.13'ye (düşük) azaldı  [-0.01]
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.08)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0068, 3 iterasyonda yakınsadı.
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.14 → 0.14)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
+Pertürbasyon: piksellerin %6.3'i değişti, ortalama L1=0.0081, 37 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0066, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0042, 12 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %13.0'i değişti, ortalama L1=0.0090, 82 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.17 → 0.18)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %10.9'i değişti, ortalama L1=0.0088, 55 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
   • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0062, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 7 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0075, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %5.4'i değişti, ortalama L1=0.0079, 42 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0079, 48 iterasyonda yakınsadı.
 
 
 ────────────────────────────────────────────────────────────
@@ -1133,71 +1133,71 @@ Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda y
 ────────────────────────────────────────────────────────────
 
   Örnek 1:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
-  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.01)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.00)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.00 → 0.01)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.06 → 0.07)
+Pertürbasyon: piksellerin %4.0'i değişti, ortalama L1=0.0065, 37 iterasyonda yakınsadı.
 
   Örnek 2:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: 0.03'den (düşük) → 0.04'ye (düşük) arttı  [+0.01]
-  • Sınır Düzensizliği: 0.02'den (düşük) → 0.03'ye (düşük) arttı  [+0.01]
-  • Renk Çeşitliliği: 0.10'den (düşük) → 0.11'ye (düşük) arttı  [+0.01]
-Pertürbasyon: piksellerin %0.5'i değişti, ortalama L1=0.0082, 4 iterasyonda yakınsadı.
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: yaklaşık aynı kaldı (0.03 → 0.02)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.01)
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.10 → 0.10)
+Pertürbasyon: piksellerin %5.0'i değişti, ortalama L1=0.0068, 47 iterasyonda yakınsadı.
 
   Örnek 3:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
-  • Asimetri: 0.16'den (düşük) → 0.15'ye (düşük) azaldı  [-0.01]
-  • Sınır Düzensizliği: 0.17'den (düşük) → 0.16'ye (düşük) azaldı  [-0.02]
-  • Renk Çeşitliliği: 0.16'den (düşük) → 0.15'ye (düşük) azaldı  [-0.01]
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0075, 4 iterasyonda yakınsadı.
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
+  • Asimetri: 0.16'den (düşük) → 0.18'ye (düşük) arttı  [+0.02]
+  • Sınır Düzensizliği: 0.17'den (düşük) → 0.20'ye (düşük) arttı  [+0.02]
+  • Renk Çeşitliliği: 0.16'den (düşük) → 0.17'ye (düşük) arttı  [+0.01]
+Pertürbasyon: piksellerin %10.7'i değişti, ortalama L1=0.0094, 53 iterasyonda yakınsadı.
 
   Örnek 4:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %85):
-  • Asimetri: 0.11'den (düşük) → 0.13'ye (düşük) arttı  [+0.02]
-  • Sınır Düzensizliği: 0.14'den (düşük) → 0.16'ye (düşük) arttı  [+0.03]
-  • Renk Çeşitliliği: 0.09'den (düşük) → 0.10'ye (düşük) arttı  [+0.01]
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0068, 3 iterasyonda yakınsadı.
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.11 → 0.12)
+  • Sınır Düzensizliği: 0.14'den (düşük) → 0.15'ye (düşük) arttı  [+0.01]
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
+Pertürbasyon: piksellerin %6.3'i değişti, ortalama L1=0.0081, 37 iterasyonda yakınsadı.
 
   Örnek 5:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.08 → 0.07)
-Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0066, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.1'i değişti, ortalama L1=0.0042, 12 iterasyonda yakınsadı.
 
   Örnek 6:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
   • Asimetri: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
+  • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.00)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0074, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %13.0'i değişti, ortalama L1=0.0090, 82 iterasyonda yakınsadı.
 
   Örnek 7:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
-  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.05)
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %75):
+  • Asimetri: yaklaşık aynı kaldı (0.05 → 0.06)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.17 → 0.17)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0076, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: 0.17'den (düşük) → 0.18'ye (düşük) arttı  [+0.01]
+Pertürbasyon: piksellerin %10.9'i değişti, ortalama L1=0.0088, 55 iterasyonda yakınsadı.
 
   Örnek 8:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %81):
-  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.04)
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %78):
+  • Asimetri: yaklaşık aynı kaldı (0.04 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.09 → 0.09)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0062, 3 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0037, 7 iterasyonda yakınsadı.
 
   Örnek 9:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %80):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.02 → 0.02)
-  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.06)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0075, 4 iterasyonda yakınsadı.
+  • Renk Çeşitliliği: yaklaşık aynı kaldı (0.07 → 0.07)
+Pertürbasyon: piksellerin %5.2'i değişti, ortalama L1=0.0078, 41 iterasyonda yakınsadı.
 
   Örnek 10:
-  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %83):
+  Bu Melanositik Nevüs lezyonu aşağıdaki değişikliklerle Melanom olarak sınıflandırılırdı (güven: %76):
   • Asimetri: yaklaşık aynı kaldı (0.03 → 0.03)
   • Sınır Düzensizliği: yaklaşık aynı kaldı (0.01 → 0.01)
   • Renk Çeşitliliği: yaklaşık aynı kaldı (0.04 → 0.04)
-Pertürbasyon: piksellerin %0.0'i değişti, ortalama L1=0.0077, 4 iterasyonda yakınsadı.
+Pertürbasyon: piksellerin %7.7'i değişti, ortalama L1=0.0079, 48 iterasyonda yakınsadı.

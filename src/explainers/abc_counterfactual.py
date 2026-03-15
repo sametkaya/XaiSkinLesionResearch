@@ -1,60 +1,38 @@
 """
 src/explainers/abc_counterfactual.py
 -------------------------------------
-ABC-Guided Counterfactual Explainer  (v3 — TV regularized)
+ABC-Guided Counterfactual Explainer  (v4 — segmentation-guided)
 
-Extends the standard gradient-based counterfactual approach with
-ABC (Asymmetry, Border, Color) preservation constraints and Total
-Variation (TV) regularization for spatially coherent perturbations.
+Extends the ACE counterfactual framework with:
+  1. Segmentation-guided perturbation: δ_eff = soft_mask ⊙ δ_raw
+     Only lesion pixels are modified; background stays exactly unchanged.
+  2. VGG perceptual loss: preserves semantic structure within the lesion.
+  3. Gaussian blur on δ per step: prevents high-frequency noise.
+  4. ABC morphology preservation via learned regressor constraints.
 
-Objective
----------
-Find δ minimising:
-
-  L = λ_cls · CE(f(x+δ), c_tgt)           ← class change
-    + λ_A   · |g(x+δ)_A − s_A|            ← asymmetry preservation
-    + λ_B   · |g(x+δ)_B − s_B|            ← border preservation
-    + λ_C   · |g(x+δ)_C − s_C|            ← color preservation
-    + λ_l1  · ‖δ‖₁                         ← sparsity
-    + λ_TV  · TV(δ)                         ← spatial smoothness
-
-v3 Changes (from v2)
---------------------
-  - Added Total Variation (TV) regularization:
-    TV(δ) = Σ|δ_{i,j} − δ_{i+1,j}| + Σ|δ_{i,j} − δ_{i,j+1}|
-    Forces spatially coherent changes instead of per-pixel noise.
-    Reference: Rudin, Osher & Fatemi (1992). Physica D.
-  - Rebalanced hyperparameters: λ_cls 10→3, lr 0.01→0.003
-    → slower convergence, more time for ABC+TV to shape δ
-  - Stronger ABC lambdas (A=1.0, B=0.8, C=0.6)
-    → more visible ablation differences between modes
-
-Ablation variants
------------------
-  mode='baseline'   — no ABC constraints (λ_A=λ_B=λ_C=0)
-  mode='A_only'     — asymmetry constraint only
-  mode='AB'         — asymmetry + border constraints
-  mode='ABC'        — full ABC constraints (default)
+Loss:
+  L = λ_cls  · CE(f(x+M⊙δ), c_tgt)
+    + λ_A    · |g(x+M⊙δ)_A − s_A|
+    + λ_B    · |g(x+M⊙δ)_B − s_B|
+    + λ_C    · |g(x+M⊙δ)_C − s_C|
+    + λ_l1   · ‖M⊙δ‖₁
+    + λ_TV   · TV(M⊙δ)
+    + λ_perc · Σ‖φ_j(x) − φ_j(x+M⊙δ)‖²
 
 References
 ----------
-Singla, S., Pollack, B., Chen, J., & Batmanghelich, K. (2023).
-    Explaining the black-box smoothly—A counterfactual approach.
-    Medical Image Analysis, 84, 102721.
-
-Wachter, S., Mittelstadt, B., & Russell, C. (2017).
-    Counterfactual explanations without opening the black box.
-    Harvard Journal of Law & Technology, 31(2), 841–887.
-
-Rudin, L. I., Osher, S., & Fatemi, E. (1992).
-    Nonlinear total variation based noise removal algorithms.
-    Physica D, 60(1-4), 259–268.
+Singla, S. et al. (2023). Medical Image Analysis, 84, 102721.
+Wachter, S. et al. (2017). Harvard J. Law & Tech., 31(2).
+Rudin, L. et al. (1992). Physica D, 60(1-4), 259–268.
+Johnson, J. et al. (2016). Perceptual Losses. ECCV 2016.
+Sobieski, A. et al. (2025). RCSB. ICLR 2025.
 """
 
 import time
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+import cv2
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -64,15 +42,20 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
+from torchvision import models as tv_models
 from tqdm import tqdm
 
 from src.abc.config_abc import (
     ABC_CF_MAX_ITER, ABC_CF_LEARNING_RATE,
     ABC_CF_LAMBDA_CLS, ABC_CF_LAMBDA_A, ABC_CF_LAMBDA_B, ABC_CF_LAMBDA_C,
-    ABC_CF_LAMBDA_L1, ABC_CF_LAMBDA_TV, ABC_CF_CONFIDENCE_THRES,
+    ABC_CF_LAMBDA_L1, ABC_CF_LAMBDA_TV, ABC_CF_LAMBDA_PERC,
+    ABC_CF_CONFIDENCE_THRES,
     ABC_CF_NUM_IMAGES, ABC_CF_PIXEL_THRESHOLD, ABC_CF_PAIRS,
+    ABC_CF_MASK_DILATE_PX, ABC_CF_MASK_BLUR_SIGMA,
+    ABC_CF_DELTA_BLUR_SIGMA, ABC_CF_DELTA_BLUR_KERNEL,
     IMAGE_MEAN, IMAGE_STD, IMAGE_SIZE, ABC_NAMES,
 )
+from src.segmentation.segmenter import LesionSegmenter
 from src.utils.result_manager import ResultManager
 
 
@@ -270,6 +253,156 @@ def generate_textual_explanation_tr(result: Dict, src_name: str, tgt_name: str) 
 
 
 # ─────────────────────────────────────────────
+# VGG Perceptual Loss (Johnson et al., ECCV 2016)
+# ─────────────────────────────────────────────
+
+class VGGPerceptualLoss(nn.Module):
+    """
+    Perceptual loss using VGG-16 feature matching.
+
+    Computes MSE between intermediate feature maps of original and
+    counterfactual images.  This prevents adversarial high-frequency
+    perturbations while preserving semantic structure.
+
+    Uses VGG-16 WITHOUT batch normalization (better perceptual features).
+
+    References
+    ----------
+    Johnson, J., Alahi, A., & Fei-Fei, L. (2016).
+        Perceptual Losses for Real-Time Style Transfer and Super-Resolution.
+        ECCV 2016.
+    """
+
+    def __init__(self, device: torch.device):
+        super().__init__()
+        vgg = tv_models.vgg16(weights="IMAGENET1K_V1").features
+        # Extract features at relu2_2 (layer 8) and relu3_3 (layer 15)
+        self.slice1 = nn.Sequential(*list(vgg[:9])).to(device).eval()
+        self.slice2 = nn.Sequential(*list(vgg[9:16])).to(device).eval()
+        for p in self.parameters():
+            p.requires_grad = False
+        # VGG expects ImageNet normalization
+        self.register_buffer(
+            "vgg_mean", torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1).to(device)
+        )
+        self.register_buffer(
+            "vgg_std", torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1).to(device)
+        )
+
+    def _denorm_to_vgg(self, x: torch.Tensor) -> torch.Tensor:
+        """Convert from HAM10000 normalization to VGG ImageNet normalization."""
+        ham_mean = torch.tensor(IMAGE_MEAN, device=x.device).view(1, 3, 1, 1)
+        ham_std  = torch.tensor(IMAGE_STD,  device=x.device).view(1, 3, 1, 1)
+        # HAM → [0,1] → VGG normalized
+        x_01 = x * ham_std + ham_mean
+        x_01 = torch.clamp(x_01, 0, 1)
+        return (x_01 - self.vgg_mean) / self.vgg_std
+
+    def forward(self, x: torch.Tensor, x_cf: torch.Tensor) -> torch.Tensor:
+        x_vgg  = self._denorm_to_vgg(x)
+        cf_vgg = self._denorm_to_vgg(x_cf)
+        f1_x, f1_cf = self.slice1(x_vgg), self.slice1(cf_vgg)
+        f2_x, f2_cf = self.slice2(f1_x),  self.slice2(f1_cf)
+        loss = F.mse_loss(f1_cf, f1_x) + F.mse_loss(f2_cf, f2_x)
+        return loss
+
+
+# ─────────────────────────────────────────────
+# Soft mask preparation (SoftSeg-inspired)
+# ─────────────────────────────────────────────
+
+def prepare_soft_mask(
+    binary_mask: np.ndarray,
+    dilate_px: int = ABC_CF_MASK_DILATE_PX,
+    blur_sigma: float = ABC_CF_MASK_BLUR_SIGMA,
+) -> np.ndarray:
+    """
+    Convert binary lesion mask to soft float mask with smooth edges.
+
+    Steps:
+      1. Dilate by dilate_px to capture border transition zone
+      2. Gaussian blur for smooth edges (prevents visible seams)
+      3. Normalize to [0, 1]
+
+    Reference: SoftSeg (Medical Image Analysis, 2021)
+    """
+    mask = binary_mask.astype(np.uint8) * 255
+    if dilate_px > 0:
+        kernel = cv2.getStructuringElement(
+            cv2.MORPH_ELLIPSE, (2 * dilate_px + 1, 2 * dilate_px + 1)
+        )
+        mask = cv2.dilate(mask, kernel, iterations=1)
+    if blur_sigma > 0:
+        ksize = int(6 * blur_sigma) | 1  # ensure odd
+        mask = cv2.GaussianBlur(mask.astype(np.float32), (ksize, ksize), blur_sigma)
+    mask = mask.astype(np.float32) / max(mask.max(), 1e-8)
+    return mask
+
+
+def mask_to_tensor(soft_mask: np.ndarray, device: torch.device) -> torch.Tensor:
+    """Convert (H,W) soft mask to (1,1,H,W) tensor for broadcasting with δ."""
+    return torch.from_numpy(soft_mask).float().unsqueeze(0).unsqueeze(0).to(device)
+
+
+# ─────────────────────────────────────────────
+# Gaussian blur on perturbation (per-step)
+# ─────────────────────────────────────────────
+
+def gaussian_blur_delta(
+    delta: torch.Tensor,
+    kernel_size: int = ABC_CF_DELTA_BLUR_KERNEL,
+    sigma: float = ABC_CF_DELTA_BLUR_SIGMA,
+) -> torch.Tensor:
+    """
+    Apply Gaussian blur to perturbation tensor in-place.
+
+    This acts as an implicit smoothness prior at each optimization step,
+    preventing high-frequency noise within the lesion mask.
+
+    Reference: Mirror-CFE (2024) uses Gaussian blur as validity test.
+    """
+    if sigma <= 0:
+        return delta
+    # Create 1D Gaussian kernel
+    x = torch.arange(kernel_size, device=delta.device).float() - kernel_size // 2
+    gauss = torch.exp(-0.5 * (x / sigma) ** 2)
+    gauss = gauss / gauss.sum()
+    # Separable 2D convolution
+    kernel_h = gauss.view(1, 1, -1, 1).expand(3, 1, -1, 1)
+    kernel_w = gauss.view(1, 1, 1, -1).expand(3, 1, 1, -1)
+    pad = kernel_size // 2
+    blurred = F.conv2d(delta, kernel_h, padding=(pad, 0), groups=3)
+    blurred = F.conv2d(blurred, kernel_w, padding=(0, pad), groups=3)
+    return blurred
+
+
+# ─────────────────────────────────────────────
+# SSIM metric
+# ─────────────────────────────────────────────
+
+def compute_ssim(img1: np.ndarray, img2: np.ndarray) -> float:
+    """
+    Compute Structural Similarity Index between two images.
+
+    Parameters: img1, img2: (H,W,3) uint8 numpy arrays.
+    Returns: float in [-1, 1], higher = more similar.
+    """
+    C1 = (0.01 * 255) ** 2
+    C2 = (0.03 * 255) ** 2
+    img1 = img1.astype(np.float64)
+    img2 = img2.astype(np.float64)
+    mu1 = cv2.GaussianBlur(img1, (11, 11), 1.5)
+    mu2 = cv2.GaussianBlur(img2, (11, 11), 1.5)
+    mu1_sq, mu2_sq, mu1_mu2 = mu1 ** 2, mu2 ** 2, mu1 * mu2
+    sigma1_sq = cv2.GaussianBlur(img1 ** 2, (11, 11), 1.5) - mu1_sq
+    sigma2_sq = cv2.GaussianBlur(img2 ** 2, (11, 11), 1.5) - mu2_sq
+    sigma12   = cv2.GaussianBlur(img1 * img2, (11, 11), 1.5) - mu1_mu2
+    ssim_map = ((2 * mu1_mu2 + C1) * (2 * sigma12 + C2)) / \
+               ((mu1_sq + mu2_sq + C1) * (sigma1_sq + sigma2_sq + C2))
+    return float(ssim_map.mean())
+
+
+# ─────────────────────────────────────────────
 # Total Variation loss
 # ─────────────────────────────────────────────
 
@@ -322,21 +455,16 @@ ABLATION_MODES = {
 
 class ABCCounterfactualExplainer:
     """
-    Generate ABC-constrained counterfactual explanations (v3 — TV regularized).
+    Generate segmentation-guided ABC-constrained counterfactual explanations.
 
-    Uses Adam optimizer with Total Variation regularization for spatially
-    coherent perturbations. ABC preservation constraints (via learned
-    regressor) enforce morphological fidelity during class transitions.
+    v4: Perturbations are masked to the lesion region via δ_eff = M ⊙ δ_raw.
+    VGG perceptual loss prevents adversarial noise. Gaussian blur smooths δ.
 
     Parameters
     ----------
-    classifier : nn.Module
-        Trained HAM10000 skin lesion classifier.
-    abc_regressor : nn.Module
-        Trained ABC regressor.
-    device : torch.device
-    class_labels : list of str
-        Ordered list of class names (must match classifier output).
+    classifier, abc_regressor, device, class_labels
+    segmenter : LesionSegmenter or None
+        If provided, generates masks for images without pre-computed masks.
     """
 
     def __init__(
@@ -345,11 +473,14 @@ class ABCCounterfactualExplainer:
         abc_regressor: nn.Module,
         device: torch.device,
         class_labels: List[str],
+        segmenter: Optional[LesionSegmenter] = None,
     ):
-        self.clf      = classifier
-        self.abc_reg  = abc_regressor
-        self.device   = device
-        self.labels   = class_labels
+        self.clf       = classifier
+        self.abc_reg   = abc_regressor
+        self.device    = device
+        self.labels    = class_labels
+        self.segmenter = segmenter
+        self.perc_loss = VGGPerceptualLoss(device)
 
         self.clf.eval()
         self.abc_reg.eval()
@@ -360,28 +491,21 @@ class ABCCounterfactualExplainer:
         source_class: int,
         target_class: int,
         mode: str = "ABC",
+        mask: Optional[np.ndarray] = None,
         max_iter: int = ABC_CF_MAX_ITER,
         lr: float = ABC_CF_LEARNING_RATE,
         confidence_threshold: float = ABC_CF_CONFIDENCE_THRES,
     ) -> Dict:
         """
-        Generate a single ABC-guided counterfactual.
+        Generate a segmentation-guided ABC counterfactual.
 
         Parameters
         ----------
         image_tensor : torch.Tensor (3, H, W) — normalised
-        source_class : int
-        target_class : int
-        mode : str
-            Ablation mode: 'baseline' | 'A_only' | 'AB' | 'ABC'
-        max_iter, lr, confidence_threshold
-
-        Returns
-        -------
-        dict with keys:
-            cf_tensor, delta, validity, final_prob, proximity_l1,
-            sparsity, n_iter, abc_src, abc_cf, delta_A, delta_B,
-            delta_C, mode, src_prob
+        source_class, target_class : int
+        mode : str — 'baseline' | 'A_only' | 'AB' | 'ABC'
+        mask : np.ndarray (H, W) bool or None
+            Binary lesion mask.  If None, segmenter is used as fallback.
         """
         lambdas  = ABLATION_MODES[mode]
         orig     = image_tensor.unsqueeze(0).to(self.device)
@@ -389,96 +513,125 @@ class ABCCounterfactualExplainer:
         delta    = torch.zeros_like(orig, requires_grad=True, device=self.device)
         target_t = torch.tensor([target_class], dtype=torch.long, device=self.device)
 
+        # ── Prepare soft mask ──────────────────
+        if mask is None and self.segmenter is not None:
+            mask = self.segmenter.segment(image_tensor)
+        if mask is not None:
+            soft_mask = prepare_soft_mask(mask)
+            mask_t    = mask_to_tensor(soft_mask, self.device)  # (1,1,H,W)
+        else:
+            mask_t    = torch.ones(1, 1, image_tensor.shape[1],
+                                   image_tensor.shape[2], device=self.device)
+            soft_mask = np.ones((image_tensor.shape[1], image_tensor.shape[2]))
+
         # Pre-compute source ABC scores and source probability
         with torch.no_grad():
-            src_abc  = self.abc_reg(orig).squeeze(0)   # (3,)
+            src_abc    = self.abc_reg(orig).squeeze(0)
             src_logits = self.clf(orig)
             src_probs  = torch.softmax(src_logits, dim=1)
             src_prob   = float(src_probs[0, source_class].item())
 
-        # ── Adam optimizer for δ (Singla et al., 2023) ──
+        # ── Adam optimizer for δ ───────────────
         optimizer = torch.optim.Adam([delta], lr=lr)
 
-        n_iter = 0
-        best_prob   = 0.0
-        best_delta  = None
+        n_iter     = 0
+        best_prob  = 0.0
+        best_delta = None
 
         with torch.enable_grad():
             for step in range(max_iter):
                 optimizer.zero_grad()
-                x_cf = cf + delta
 
-                # Classification loss (push toward target class)
+                # Apply mask: only lesion pixels are perturbed
+                delta_masked = mask_t * delta
+                x_cf = cf + delta_masked
+
+                # Classification loss
                 logits   = self.clf(x_cf)
                 probs    = torch.softmax(logits, dim=1)
                 loss_cls = F.cross_entropy(logits, target_t) * ABC_CF_LAMBDA_CLS
 
                 # ABC preservation losses
-                cf_abc = self.abc_reg(x_cf).squeeze(0)   # (3,)
+                cf_abc = self.abc_reg(x_cf).squeeze(0)
                 loss_A = lambdas["A"] * torch.abs(cf_abc[0] - src_abc[0])
                 loss_B = lambdas["B"] * torch.abs(cf_abc[1] - src_abc[1])
                 loss_C = lambdas["C"] * torch.abs(cf_abc[2] - src_abc[2])
 
-                # Sparsity (L1 on perturbation)
-                loss_l1 = ABC_CF_LAMBDA_L1 * delta.abs().mean()
+                # Sparsity (L1 on masked perturbation)
+                loss_l1 = ABC_CF_LAMBDA_L1 * delta_masked.abs().mean()
 
-                # Total Variation — spatial smoothness (v3)
-                # Forces perturbation to be locally coherent rather than
-                # per-pixel noise.  Essential for clinical interpretability.
-                loss_tv = ABC_CF_LAMBDA_TV * total_variation_loss(delta)
+                # Total Variation on masked perturbation
+                loss_tv = ABC_CF_LAMBDA_TV * total_variation_loss(delta_masked)
 
-                loss = loss_cls + loss_A + loss_B + loss_C + loss_l1 + loss_tv
+                # VGG Perceptual loss — prevents adversarial noise
+                loss_perc = ABC_CF_LAMBDA_PERC * self.perc_loss(orig, x_cf)
+
+                loss = loss_cls + loss_A + loss_B + loss_C + loss_l1 + loss_tv + loss_perc
                 loss.backward()
                 optimizer.step()
 
-                # Clip to valid normalised pixel range
+                # Post-step processing
                 with torch.no_grad():
-                    x_clamped = torch.clamp(cf + delta, -3.0, 3.0)
-                    delta.data.copy_(x_clamped - cf)
+                    # Gaussian blur on δ for smoothness
+                    delta.data.copy_(gaussian_blur_delta(delta.data))
+                    # Re-apply mask (ensure no leakage after blur)
+                    delta.data.mul_(mask_t)
+                    # Clip to valid range
+                    x_clamped = torch.clamp(cf + mask_t * delta, -3.0, 3.0)
+                    delta.data.copy_((x_clamped - cf) / (mask_t + 1e-8))
+                    delta.data.mul_(mask_t)
 
-                n_iter = step + 1
+                n_iter   = step + 1
                 cur_prob = float(probs[0, target_class].item())
 
-                # Track best
                 if cur_prob > best_prob:
                     best_prob  = cur_prob
-                    best_delta = delta.detach().clone()
+                    best_delta = (mask_t * delta).detach().clone()
 
                 if cur_prob >= confidence_threshold:
                     break
 
         # Use best delta if final didn't reach threshold
-        if best_prob > float(probs[0, target_class].item()):
-            delta_use = best_delta
-        else:
-            delta_use = delta.detach()
-
-        # Final counterfactual evaluation
         with torch.no_grad():
-            x_cf_final  = (cf + delta_use).squeeze(0).cpu()
-            delta_final  = delta_use.squeeze(0).cpu()
+            if best_delta is None:
+                delta_final_gpu = mask_t * delta
+            elif best_prob > float(probs[0, target_class].item()):
+                delta_final_gpu = best_delta
+            else:
+                delta_final_gpu = mask_t * delta
 
-            final_logits = self.clf((cf + delta_use))
+            x_cf_final   = (cf + delta_final_gpu).squeeze(0).cpu()
+            delta_final   = delta_final_gpu.squeeze(0).cpu()
+
+            final_logits = self.clf(cf + delta_final_gpu)
             final_probs  = torch.softmax(final_logits, dim=1)
             final_pred   = int(final_probs.argmax(dim=1).item())
             final_prob   = float(final_probs[0, target_class].item())
 
-            cf_abc_final = self.abc_reg((cf + delta_use)).squeeze(0).cpu()
+            cf_abc_final = self.abc_reg(cf + delta_final_gpu).squeeze(0).cpu()
 
+        # Compute metrics
         validity = 1 if final_pred == target_class else 0
         prox_l1  = float(delta_final.abs().mean().item())
         sparsity = float(
             (delta_final.abs() > ABC_CF_PIXEL_THRESHOLD).float().mean().item()
         )
 
+        # SSIM between original and counterfactual
+        orig_np = self._denorm_static(image_tensor)
+        cf_np   = self._denorm_static(x_cf_final)
+        ssim_val = compute_ssim(orig_np, cf_np)
+
         return {
             "cf_tensor"   : x_cf_final,
             "delta"       : delta_final,
+            "mask"        : soft_mask,
             "validity"    : validity,
             "final_prob"  : round(final_prob, 4),
             "src_prob"    : round(src_prob, 4),
             "proximity_l1": round(prox_l1, 5),
             "sparsity"    : round(sparsity, 5),
+            "ssim"        : round(ssim_val, 4),
             "n_iter"      : n_iter,
             "abc_src"     : {
                 "A": round(float(src_abc[0]), 4),
@@ -495,6 +648,13 @@ class ABCCounterfactualExplainer:
             "delta_C"     : round(abs(float(cf_abc_final[2]) - float(src_abc[2])), 4),
             "mode"        : mode,
         }
+
+    @staticmethod
+    def _denorm_static(t: torch.Tensor) -> np.ndarray:
+        mean = np.array(IMAGE_MEAN)
+        std  = np.array(IMAGE_STD)
+        img  = t.permute(1, 2, 0).numpy()
+        return np.clip((img * std + mean) * 255, 0, 255).astype(np.uint8)
 
 
 # ─────────────────────────────────────────────
@@ -527,15 +687,18 @@ class ABCCounterfactualExperiment:
         device: torch.device,
         result_dir: Path,
         class_labels: List[str],
+        segmenter: Optional[LesionSegmenter] = None,
     ):
         self.explainer  = ABCCounterfactualExplainer(
-            classifier, abc_regressor, device, class_labels
+            classifier, abc_regressor, device, class_labels,
+            segmenter=segmenter,
         )
         self.loader     = test_loader
         self.device     = device
         self.result_dir = result_dir
         self.labels     = class_labels
         self.label2idx  = {lbl: i for i, lbl in enumerate(class_labels)}
+        self.segmenter  = segmenter
 
     def run(self) -> Dict:
         """Execute full experiment and return aggregate statistics."""
@@ -563,9 +726,9 @@ class ABCCounterfactualExperiment:
 
             for mode in ABLATION_MODES:
                 mode_records = []
-                for img_t, true_lbl in pair_samples:
+                for img_t, true_lbl, mask in pair_samples:
                     result = self.explainer.generate(
-                        img_t, src_idx, tgt_idx, mode=mode
+                        img_t, src_idx, tgt_idx, mode=mode, mask=mask
                     )
                     result.update({
                         "src_class": src_name,
@@ -627,7 +790,7 @@ class ABCCounterfactualExperiment:
         # ── result.txt ─────────────────────────
         rm = ResultManager(self.result_dir)
         rm.write_result(
-            experiment_name="ABC-Guided Counterfactual Explanations (v3 — TV regularized)",
+            experiment_name="ABC-Guided Counterfactual Explanations (v4 — segmentation-guided)",
             conditions={
                 "classifier"        : "EfficientNet-B4 (HAM10000)",
                 "abc_regressor"     : "ABCRegressor (PH2+Derm7pt)",
@@ -637,7 +800,13 @@ class ABCCounterfactualExperiment:
                 "confidence_thres"  : ABC_CF_CONFIDENCE_THRES,
                 "loss_weights"      : f"λ_cls={ABC_CF_LAMBDA_CLS}, λ_A={ABC_CF_LAMBDA_A}, "
                                       f"λ_B={ABC_CF_LAMBDA_B}, λ_C={ABC_CF_LAMBDA_C}, "
-                                      f"λ_l1={ABC_CF_LAMBDA_L1}, λ_TV={ABC_CF_LAMBDA_TV}",
+                                      f"λ_l1={ABC_CF_LAMBDA_L1}, λ_TV={ABC_CF_LAMBDA_TV}, "
+                                      f"λ_perc={ABC_CF_LAMBDA_PERC}",
+                "mask_guidance"     : f"soft mask (dilate={ABC_CF_MASK_DILATE_PX}px, "
+                                      f"blur σ={ABC_CF_MASK_BLUR_SIGMA})",
+                "delta_blur"        : f"Gaussian σ={ABC_CF_DELTA_BLUR_SIGMA}, "
+                                      f"kernel={ABC_CF_DELTA_BLUR_KERNEL}",
+                "perceptual_loss"   : "VGG-16 relu2_2+relu3_3 (Johnson et al., 2016)",
                 "ablation_modes"    : list(ABLATION_MODES.keys()),
                 "class_pairs"       : [f"{s}→{t}" for s, t in ABC_CF_PAIRS],
                 "n_images_per_pair" : ABC_CF_NUM_IMAGES,
@@ -658,8 +827,8 @@ class ABCCounterfactualExperiment:
 
     def _collect_samples(
         self, src_class: int, n: int
-    ) -> List[Tuple[torch.Tensor, int]]:
-        """Collect n correctly classified images of src_class."""
+    ) -> List[Tuple[torch.Tensor, int, Optional[np.ndarray]]]:
+        """Collect n correctly classified images of src_class with masks."""
         samples = []
         self.explainer.clf.eval()
         with torch.no_grad():
@@ -670,7 +839,11 @@ class ABCCounterfactualExperiment:
                     zip(images, labels, preds)
                 ):
                     if int(lbl) == src_class and int(prd) == src_class:
-                        samples.append((img, int(lbl)))
+                        # Generate mask using segmenter
+                        mask = None
+                        if self.segmenter is not None:
+                            mask = self.segmenter.segment(img)
+                        samples.append((img, int(lbl), mask))
                     if len(samples) >= n:
                         break
                 if len(samples) >= n:
@@ -907,6 +1080,7 @@ class ABCCounterfactualExperiment:
                 "src_prob"    : r.get("src_prob", None),
                 "proximity_l1": r["proximity_l1"],
                 "sparsity"    : r["sparsity"],
+                "ssim"        : r.get("ssim", None),
                 "n_iter"      : r["n_iter"],
                 "A_src"       : r["abc_src"]["A"],
                 "B_src"       : r["abc_src"]["B"],
@@ -942,6 +1116,7 @@ class ABCCounterfactualExperiment:
             stats[f"{mode}_delta_B"]   = round(np.mean([r["delta_B"]      for r in sub]), 4)
             stats[f"{mode}_delta_C"]   = round(np.mean([r["delta_C"]      for r in sub]), 4)
             stats[f"{mode}_n_iter"]    = round(np.mean([r["n_iter"]       for r in sub]), 1)
+            stats[f"{mode}_ssim"]      = round(np.mean([r.get("ssim", 0)  for r in sub]), 4)
 
         # Per-pair stats
         for src, tgt in ABC_CF_PAIRS:
