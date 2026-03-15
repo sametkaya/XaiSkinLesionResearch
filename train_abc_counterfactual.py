@@ -1,7 +1,7 @@
 """
 train_abc_counterfactual.py
 ---------------------------
-Script 3 of 3 — ABC-Guided Counterfactual Explanations + Ablation Study
+Script 3 of 3 — ABC-Guided Counterfactual Explanations + Ablation Study (v3 — TV regularized)
 
 Generates and evaluates counterfactual explanations for HAM10000 skin
 lesion classification using ABC (Asymmetry, Border, Color) preservation
@@ -14,6 +14,12 @@ The ABC-guided counterfactual loss:
     + λ_C   · |g(x+δ)_C − s_C|       ← color preservation
     + λ_l1  · ‖δ‖₁                    ← pixel sparsity
 
+v3 changes:
+  - Adam optimizer (per Singla et al., 2023) replaces raw SGD
+  - Fixed hyperparameters: lr, λ_l1, λ_cls (see config_abc.py)
+  - Textual counterfactual explanations (EN + TR)
+  - Auto-detect backbone architecture from checkpoint
+
 Ablation study: four modes compared
   baseline — no ABC constraints
   A_only   — asymmetry preservation only
@@ -23,28 +29,22 @@ Ablation study: four modes compared
 Class-pair transitions evaluated:
   nv → mel,  mel → nv,  bkl → mel,  akiec → bcc
 
-Outputs (auto-incremented experiment directory):
-  results/abc_experiment_XX/
-    abc_cf/
-      per_class/
-        nv_to_mel_baseline.png
-        nv_to_mel_A_only.png
-        nv_to_mel_AB.png
-        nv_to_mel_ABC.png
-        …
-      ablation/
-        ablation_table.csv
-        ablation_comparison.png
-      metrics/
-        all_records.csv
-      result.txt
-
 Usage
 -----
   python train_abc_counterfactual.py \\
-      --ham-checkpoint results/experiment_01/training/best_model.pth \\
-      --abc-checkpoint results/abc_experiment_01/abc_regressor/checkpoints/best_abc_model.pth \\
+      --ham-checkpoint results/run_01_xai_dermoscopy/02_classifier_training/best_model.pth \\
+      --abc-checkpoint results/run_01_xai_dermoscopy/09_abc_regressor/checkpoints/best_abc_model.pth \\
       [--n-images 10]
+
+References
+----------
+Singla, S., Pollack, B., Chen, J., & Batmanghelich, K. (2023).
+    Explaining the black-box smoothly—A counterfactual approach.
+    Medical Image Analysis, 84, 102721.
+
+Wachter, S., Mittelstadt, B., & Russell, C. (2017).
+    Counterfactual explanations without opening the black box.
+    Harvard Journal of Law & Technology, 31(2), 841–887.
 """
 
 import argparse
@@ -52,6 +52,7 @@ import sys
 from pathlib import Path
 
 import torch
+import torch.nn as nn
 import numpy as np
 import pandas as pd
 import random
@@ -64,8 +65,7 @@ from src.abc.config_abc import (
     ABC_CF_NUM_IMAGES, RANDOM_SEED,
 )
 from src.abc.abc_model               import ABCRegressor
-from src.model                       import SkinLesionClassifier, build_model
-from src.train                       import load_best_model
+from src.model                       import SkinLesionClassifier
 from src.data_loader                 import load_metadata, stratified_patient_split, get_dataloaders
 from src.explainers.abc_counterfactual import ABCCounterfactualExperiment
 from src import config as ham_cfg
@@ -84,12 +84,78 @@ def set_seed(seed: int) -> None:
 
 
 # ─────────────────────────────────────────────
+# Checkpoint-aware model loading
+# ─────────────────────────────────────────────
+
+def _detect_backbone_from_checkpoint(state_dict: dict) -> str:
+    """
+    Auto-detect which EfficientNet backbone was used from checkpoint keys.
+
+    EfficientNet-B0 final conv BN weight shape: [1280]
+    EfficientNet-B4 final conv BN weight shape: [1792]
+
+    We inspect feature_extractor.features.8.1.weight to determine the
+    backbone variant.
+    """
+    key_8_1 = "feature_extractor.features.8.1.weight"
+    if key_8_1 in state_dict:
+        n_features = state_dict[key_8_1].shape[0]
+        if n_features == 1792:
+            return "efficientnet_b4"
+        elif n_features == 1280:
+            return "efficientnet_b0"
+
+    # Fallback: count total parameters to distinguish
+    total_params = sum(v.numel() for v in state_dict.values())
+    if total_params > 15_000_000:
+        return "efficientnet_b4"
+    else:
+        return "efficientnet_b0"
+
+
+def load_classifier_from_checkpoint(
+    checkpoint_path: Path,
+    device: torch.device,
+) -> nn.Module:
+    """
+    Load HAM10000 classifier with architecture auto-detected from checkpoint.
+
+    This avoids the EfficientNet-B0/B4 mismatch error that occurs when
+    config.MODEL_NAME does not match the checkpoint architecture.
+    """
+    checkpoint = torch.load(checkpoint_path, map_location=device)
+    state_dict = checkpoint["model_state_dict"]
+
+    # Detect backbone from saved weights
+    backbone = _detect_backbone_from_checkpoint(state_dict)
+    print(f"[Classifier] Auto-detected backbone: {backbone}")
+
+    # Build model with the CORRECT backbone (not from config)
+    model = SkinLesionClassifier(
+        backbone=backbone,
+        num_classes=ham_cfg.NUM_CLASSES,
+        pretrained=False,          # loading from checkpoint, not ImageNet
+        freeze_backbone=False,
+    )
+    model.load_state_dict(state_dict)
+    model = model.to(device)
+    model.eval()
+
+    total = model.get_num_total_params()
+    print(
+        f"[Classifier] {backbone.upper()} loaded — "
+        f"Total params: {total:,} | Device: {device}"
+    )
+    return model
+
+
+# ─────────────────────────────────────────────
 # Argument parser
 # ─────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="ABC-Guided Counterfactual Explanations",
+        description="ABC-Guided Counterfactual Explanations (v3 — TV regularized)",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
@@ -125,11 +191,12 @@ def main() -> None:
 
     # ── Experiment directory ───────────────────
     exp_dir = make_abc_experiment_dir(RESULTS_DIR)
-    cf_dir  = exp_dir / "abc_cf"
+    cf_dir  = exp_dir / "11_abc_guided_counterfactuals"
 
     print("\n" + "=" * 60)
-    print("  ABC-Guided Counterfactual Explanations")
+    print("  ABC-Guided Counterfactual Explanations (v3 — TV regularized)")
     print(f"  Experiment: {exp_dir.name}")
+    print(f"  Output:     {cf_dir}")
     print("=" * 60 + "\n")
 
     # ── Load HAM10000 classifier ───────────────
@@ -141,9 +208,7 @@ def main() -> None:
         print(f"[ERROR] Classifier checkpoint not found: {clf_ckpt}")
         sys.exit(1)
 
-    classifier = build_model(device)
-    classifier = load_best_model(classifier, clf_ckpt, device)
-    classifier.eval()
+    classifier = load_classifier_from_checkpoint(clf_ckpt, device)
 
     # ── Load ABC regressor ─────────────────────
     print("─" * 60)
@@ -178,7 +243,7 @@ def main() -> None:
 
     # ── Run ABC-CF experiment ──────────────────
     print("─" * 60)
-    print("  Running ABC-Guided Counterfactual Experiment …")
+    print("  Running ABC-Guided Counterfactual Experiment (v3 — TV regularized) …")
     print("─" * 60)
 
     # Override n_images from args
@@ -197,8 +262,10 @@ def main() -> None:
 
     # ── Summary ───────────────────────────────
     print("\n" + "=" * 60)
-    print("  Counterfactual Experiment Complete")
+    print("  Counterfactual Experiment Complete (v3 — TV regularized)")
     print(f"  Experiment: {exp_dir.name}")
+    print(f"  Elapsed:    {stats.get('elapsed_seconds', 'N/A')}s")
+    print(f"  Records:    {stats.get('total_records', 'N/A')}")
     print()
     print("  Ablation Summary:")
     print(f"  {'Mode':<12} {'Validity':>9} {'Prox L1':>9} {'ΔA':>8} {'ΔB':>8} {'ΔC':>8}")
@@ -212,6 +279,13 @@ def main() -> None:
         print(
             f"  {mode:<12} {v:>9.4f} {l1:>9.5f} {dA:>8.4f} {dB:>8.4f} {dC:>8.4f}"
         )
+    print()
+    print("  Outputs:")
+    print(f"    Panels:     {cf_dir / 'per_class'}")
+    print(f"    Narratives: {cf_dir / 'narratives'}")
+    print(f"    Ablation:   {cf_dir / 'ablation'}")
+    print(f"    Metrics:    {cf_dir / 'metrics'}")
+    print(f"    Report:     {cf_dir / 'result.txt'}")
     print("=" * 60 + "\n")
 
 

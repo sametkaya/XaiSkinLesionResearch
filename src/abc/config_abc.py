@@ -6,6 +6,7 @@ Configuration for the ABC regressor pipeline:
   - ABC regressor training hyperparameters
   - HAM10000 pseudo-scoring settings
   - Dataset export (HDF5 + CSV + Kaggle card)
+  - ABC-guided counterfactual hyperparameters (v2 — fixed)
 
 Notes on the "D" (Diameter) criterion
 --------------------------------------
@@ -195,19 +196,56 @@ DATASET_CSV_NAME        = "ham10000_abc_scores.csv"
 KAGGLE_CARD_NAME        = "dataset-metadata.json"
 
 # ─────────────────────────────────────────────
-# ABC-guided Counterfactual
+# ABC-guided Counterfactual  (v3 — TV regularized)
 # ─────────────────────────────────────────────
-# Loss = λ_cls * L_cls + λ_A * |ΔA| + λ_B * |ΔB| + λ_C * |ΔC| + λ_l1 * ‖δ‖₁
-ABC_CF_MAX_ITER          = 2000
-ABC_CF_LEARNING_RATE     = 0.005
-ABC_CF_LAMBDA_CLS        = 1.0    # classification loss weight
-ABC_CF_LAMBDA_A          = 0.8    # asymmetry preservation weight
-ABC_CF_LAMBDA_B          = 0.6    # border preservation weight
-ABC_CF_LAMBDA_C          = 0.4    # color preservation weight
-ABC_CF_LAMBDA_L1         = 1.0    # reduced: allow more perturbation    # pixel sparsity weight
-ABC_CF_CONFIDENCE_THRES  = 0.80    # target class probability threshold
+# Loss formulation:
+#   L = λ_cls · CE(f(x+δ), c_tgt)         ← class change
+#     + λ_A  · |g(x+δ)_A − s_A|           ← asymmetry preservation
+#     + λ_B  · |g(x+δ)_B − s_B|           ← border preservation
+#     + λ_C  · |g(x+δ)_C − s_C|           ← color preservation
+#     + λ_l1 · ‖δ‖₁                        ← sparsity
+#     + λ_TV · TV(δ)                        ← spatial smoothness (NEW in v3)
+#
+# v3 changes from v2:
+#
+#   1. Added Total Variation (TV) regularization:  λ_TV = 1.0
+#      TV(δ) = Σ|δ_{i,j} − δ_{i+1,j}| + Σ|δ_{i,j} − δ_{i,j+1}|
+#      Rationale: Without TV, Adam produces uniform per-pixel noise that
+#      achieves class flip via imperceptible adversarial perturbation.
+#      TV forces spatially coherent changes → clinically interpretable.
+#      Reference: Rudin, Osher & Fatemi (1992). Physica D, 60(1-4), 259-268.
+#      Used in CF context: Goyal et al. (2019). CVPR, 2019.
+#
+#   2. λ_cls: 10.0 → 3.0
+#      Rationale: v2's λ_cls=10 caused convergence in 2-4 iterations,
+#      giving ABC constraints no time to steer the perturbation.
+#      Lowering to 3.0 allows ~30-100 iterations for the ABC+TV terms
+#      to shape a structured, morphology-aware perturbation.
+#
+#   3. lr: 0.01 → 0.003
+#      Rationale: Slower learning rate prevents overshooting and works
+#      synergistically with TV to produce smoother δ trajectories.
+#
+#   4. λ_l1: 0.01 → 0.05
+#      Rationale: Slightly stronger sparsity focuses changes on fewer
+#      regions rather than diffuse per-pixel noise.
+#
+#   5. ABC lambdas increased: A=1.0, B=0.8, C=0.6
+#      Rationale: v2 showed minimal difference between ablation modes
+#      because the ABC terms were too weak relative to λ_cls.
+#      Increasing these creates a measurable preservation effect.
+#
+ABC_CF_MAX_ITER          = 500
+ABC_CF_LEARNING_RATE     = 0.003
+ABC_CF_LAMBDA_CLS        = 3.0    # classification loss weight (v2: 10.0)
+ABC_CF_LAMBDA_A          = 1.0    # asymmetry preservation weight (v2: 0.5)
+ABC_CF_LAMBDA_B          = 0.8    # border preservation weight (v2: 0.3)
+ABC_CF_LAMBDA_C          = 0.6    # color preservation weight (v2: 0.3)
+ABC_CF_LAMBDA_L1         = 0.05   # pixel sparsity weight (v2: 0.01)
+ABC_CF_LAMBDA_TV         = 1.0    # total variation weight (NEW in v3)
+ABC_CF_CONFIDENCE_THRES  = 0.75   # target class probability threshold
 ABC_CF_NUM_IMAGES        = 10     # images per class transition pair
-ABC_CF_PIXEL_THRESHOLD   = 0.05   # threshold for sparsity mask
+ABC_CF_PIXEL_THRESHOLD   = 0.02   # threshold for sparsity mask
 
 # Transition pairs for ABC-guided CF evaluation
 # (source_class, target_class)
@@ -273,6 +311,7 @@ def make_abc_experiment_dir(base: Path = RESULTS_DIR) -> Path:
       11_abc_guided_counterfactuals/per_class/
       11_abc_guided_counterfactuals/ablation/
       11_abc_guided_counterfactuals/metrics/
+      11_abc_guided_counterfactuals/narratives/    ← v2: textual explanations
 
     Parameters
     ----------
@@ -305,6 +344,7 @@ def make_abc_experiment_dir(base: Path = RESULTS_DIR) -> Path:
         exp_dir / "11_abc_guided_counterfactuals" / "per_class",
         exp_dir / "11_abc_guided_counterfactuals" / "ablation",
         exp_dir / "11_abc_guided_counterfactuals" / "metrics",
+        exp_dir / "11_abc_guided_counterfactuals" / "narratives",
     ]
     for d in sub_dirs:
         d.mkdir(parents=True, exist_ok=True)

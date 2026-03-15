@@ -1,0 +1,1203 @@
+======================================================================
+  TEXTUAL COUNTERFACTUAL EXPLANATIONS (English)
+======================================================================
+
+
+────────────────────────────────────────────────────────────
+  Pair: akiec → bcc  |  Mode: AB
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.08 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0060, converged in 3 iterations.
+
+  Sample 2:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.06)
+  • Border Irregularity increased from 0.10 (low) to 0.12 (low)  [+0.02]
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0052, converged in 2 iterations.
+
+  Sample 3:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.6% of pixels changed, L1 magnitude=0.0100, converged in 7 iterations.
+
+  Sample 4:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.03)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0065, converged in 3 iterations.
+
+  Sample 5:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.02 → 0.02)
+Perturbation: sparsity=5.1% of pixels changed, L1 magnitude=0.0109, converged in 8 iterations.
+
+  Sample 6:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.02)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=17.6% of pixels changed, L1 magnitude=0.0134, converged in 12 iterations.
+
+  Sample 7:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 79%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.06)
+  • Border Irregularity increased from 0.04 (low) to 0.05 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.05 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 8:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.02 → 0.03)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0088, converged in 5 iterations.
+
+  Sample 9:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.07 → 0.07)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.06)
+  • Color Variegation remained approximately unchanged (0.11 → 0.11)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0080, converged in 5 iterations.
+
+  Sample 10:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.25 → 0.24)
+  • Border Irregularity decreased from 0.53 (moderate) to 0.51 (moderate)  [-0.01]
+  • Color Variegation remained approximately unchanged (0.19 → 0.18)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0073, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: akiec → bcc  |  Mode: ABC
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.08 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0060, converged in 3 iterations.
+
+  Sample 2:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.06)
+  • Border Irregularity increased from 0.10 (low) to 0.12 (low)  [+0.02]
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0052, converged in 2 iterations.
+
+  Sample 3:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.6% of pixels changed, L1 magnitude=0.0100, converged in 7 iterations.
+
+  Sample 4:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0065, converged in 3 iterations.
+
+  Sample 5:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.02 → 0.02)
+Perturbation: sparsity=5.1% of pixels changed, L1 magnitude=0.0109, converged in 8 iterations.
+
+  Sample 6:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.02)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=17.6% of pixels changed, L1 magnitude=0.0134, converged in 12 iterations.
+
+  Sample 7:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 79%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 8:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.02 → 0.03)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0088, converged in 5 iterations.
+
+  Sample 9:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.07 → 0.07)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.05)
+  • Color Variegation remained approximately unchanged (0.11 → 0.11)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0080, converged in 5 iterations.
+
+  Sample 10:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 82%) if:
+  • Asymmetry decreased from 0.25 (low) to 0.24 (low)  [-0.01]
+  • Border Irregularity decreased from 0.53 (moderate) to 0.51 (moderate)  [-0.02]
+  • Color Variegation decreased from 0.19 (low) to 0.17 (low)  [-0.01]
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0073, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: akiec → bcc  |  Mode: A_only
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.08 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0060, converged in 3 iterations.
+
+  Sample 2:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry increased from 0.05 (low) to 0.06 (low)  [+0.01]
+  • Border Irregularity increased from 0.10 (low) to 0.13 (low)  [+0.03]
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0052, converged in 2 iterations.
+
+  Sample 3:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.6% of pixels changed, L1 magnitude=0.0100, converged in 7 iterations.
+
+  Sample 4:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0065, converged in 3 iterations.
+
+  Sample 5:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.02)
+  • Color Variegation remained approximately unchanged (0.02 → 0.02)
+Perturbation: sparsity=5.1% of pixels changed, L1 magnitude=0.0109, converged in 8 iterations.
+
+  Sample 6:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.02)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=17.7% of pixels changed, L1 magnitude=0.0134, converged in 12 iterations.
+
+  Sample 7:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 79%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.05)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 8:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.02 → 0.03)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0088, converged in 5 iterations.
+
+  Sample 9:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.07 → 0.07)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.05)
+  • Color Variegation remained approximately unchanged (0.11 → 0.11)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0080, converged in 5 iterations.
+
+  Sample 10:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.25 → 0.25)
+  • Border Irregularity remained approximately unchanged (0.53 → 0.53)
+  • Color Variegation remained approximately unchanged (0.19 → 0.18)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0073, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: akiec → bcc  |  Mode: baseline
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0060, converged in 3 iterations.
+
+  Sample 2:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry increased from 0.05 (low) to 0.07 (low)  [+0.01]
+  • Border Irregularity increased from 0.10 (low) to 0.13 (low)  [+0.04]
+  • Color Variegation remained approximately unchanged (0.08 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0052, converged in 2 iterations.
+
+  Sample 3:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry increased from 0.03 (low) to 0.05 (low)  [+0.01]
+  • Border Irregularity increased from 0.03 (low) to 0.05 (low)  [+0.02]
+  • Color Variegation remained approximately unchanged (0.04 → 0.05)
+Perturbation: sparsity=0.6% of pixels changed, L1 magnitude=0.0100, converged in 7 iterations.
+
+  Sample 4:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0065, converged in 3 iterations.
+
+  Sample 5:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity increased from 0.01 (low) to 0.03 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.02 → 0.02)
+Perturbation: sparsity=5.1% of pixels changed, L1 magnitude=0.0109, converged in 8 iterations.
+
+  Sample 6:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity decreased from 0.03 (low) to 0.01 (low)  [-0.01]
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=17.7% of pixels changed, L1 magnitude=0.0134, converged in 12 iterations.
+
+  Sample 7:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 79%) if:
+  • Asymmetry decreased from 0.05 (low) to 0.04 (low)  [-0.01]
+  • Border Irregularity decreased from 0.04 (low) to 0.03 (low)  [-0.01]
+  • Color Variegation decreased from 0.05 (low) to 0.04 (low)  [-0.01]
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 8:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.02 → 0.03)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0088, converged in 5 iterations.
+
+  Sample 9:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 84%) if:
+  • Asymmetry increased from 0.07 (low) to 0.08 (low)  [+0.01]
+  • Border Irregularity increased from 0.06 (low) to 0.07 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.11 → 0.12)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0080, converged in 5 iterations.
+
+  Sample 10:
+  This Actinic Keratoses (akiec) lesion would be reclassified as Basal Cell Carcinoma (bcc) (confidence: 83%) if:
+  • Asymmetry increased from 0.25 (low) to 0.26 (low)  [+0.02]
+  • Border Irregularity increased from 0.53 (moderate) to 0.54 (moderate)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.19 → 0.19)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0073, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: bkl → mel  |  Mode: AB
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0070, converged in 4 iterations.
+
+  Sample 2:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0085, converged in 2 iterations.
+
+  Sample 3:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.05)
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0067, converged in 4 iterations.
+
+  Sample 4:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.03)
+Perturbation: sparsity=0.9% of pixels changed, L1 magnitude=0.0132, converged in 4 iterations.
+
+  Sample 5:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry decreased from 0.05 (low) to 0.04 (low)  [-0.01]
+  • Border Irregularity remained approximately unchanged (0.02 → 0.03)
+  • Color Variegation decreased from 0.10 (low) to 0.07 (low)  [-0.04]
+Perturbation: sparsity=1.0% of pixels changed, L1 magnitude=0.0149, converged in 4 iterations.
+
+  Sample 6:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0094, converged in 6 iterations.
+
+  Sample 7:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0070, converged in 3 iterations.
+
+  Sample 8:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.05)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0102, converged in 7 iterations.
+
+  Sample 9:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.03)
+  • Color Variegation decreased from 0.07 (low) to 0.06 (low)  [-0.01]
+Perturbation: sparsity=2.6% of pixels changed, L1 magnitude=0.0302, converged in 4 iterations.
+
+  Sample 10:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: bkl → mel  |  Mode: ABC
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0070, converged in 4 iterations.
+
+  Sample 2:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0085, converged in 2 iterations.
+
+  Sample 3:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0067, converged in 4 iterations.
+
+  Sample 4:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.03)
+Perturbation: sparsity=0.9% of pixels changed, L1 magnitude=0.0132, converged in 4 iterations.
+
+  Sample 5:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry decreased from 0.05 (low) to 0.04 (low)  [-0.01]
+  • Border Irregularity remained approximately unchanged (0.02 → 0.03)
+  • Color Variegation decreased from 0.10 (low) to 0.07 (low)  [-0.03]
+Perturbation: sparsity=1.0% of pixels changed, L1 magnitude=0.0149, converged in 4 iterations.
+
+  Sample 6:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0094, converged in 6 iterations.
+
+  Sample 7:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0070, converged in 3 iterations.
+
+  Sample 8:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.06)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0102, converged in 7 iterations.
+
+  Sample 9:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.03)
+  • Color Variegation remained approximately unchanged (0.07 → 0.06)
+Perturbation: sparsity=2.6% of pixels changed, L1 magnitude=0.0302, converged in 4 iterations.
+
+  Sample 10:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: bkl → mel  |  Mode: A_only
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0070, converged in 4 iterations.
+
+  Sample 2:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0085, converged in 2 iterations.
+
+  Sample 3:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0067, converged in 4 iterations.
+
+  Sample 4:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.03)
+Perturbation: sparsity=0.9% of pixels changed, L1 magnitude=0.0132, converged in 4 iterations.
+
+  Sample 5:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity increased from 0.02 (low) to 0.04 (low)  [+0.02]
+  • Color Variegation decreased from 0.10 (low) to 0.07 (low)  [-0.03]
+Perturbation: sparsity=1.0% of pixels changed, L1 magnitude=0.0150, converged in 4 iterations.
+
+  Sample 6:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0094, converged in 6 iterations.
+
+  Sample 7:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.03)
+  • Color Variegation decreased from 0.10 (low) to 0.09 (low)  [-0.01]
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0070, converged in 3 iterations.
+
+  Sample 8:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.06)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0102, converged in 7 iterations.
+
+  Sample 9:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation decreased from 0.07 (low) to 0.06 (low)  [-0.01]
+Perturbation: sparsity=2.6% of pixels changed, L1 magnitude=0.0302, converged in 4 iterations.
+
+  Sample 10:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.04)
+  • Color Variegation remained approximately unchanged (0.05 → 0.06)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: bkl → mel  |  Mode: baseline
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 87%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0070, converged in 4 iterations.
+
+  Sample 2:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.01 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.05 → 0.05)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0085, converged in 2 iterations.
+
+  Sample 3:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0067, converged in 4 iterations.
+
+  Sample 4:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.03)
+Perturbation: sparsity=0.9% of pixels changed, L1 magnitude=0.0132, converged in 4 iterations.
+
+  Sample 5:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry increased from 0.05 (low) to 0.07 (low)  [+0.02]
+  • Border Irregularity increased from 0.02 (low) to 0.07 (low)  [+0.04]
+  • Color Variegation decreased from 0.10 (low) to 0.08 (low)  [-0.02]
+Perturbation: sparsity=1.0% of pixels changed, L1 magnitude=0.0150, converged in 4 iterations.
+
+  Sample 6:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0094, converged in 6 iterations.
+
+  Sample 7:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 84%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.03 → 0.04)
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0070, converged in 3 iterations.
+
+  Sample 8:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 86%) if:
+  • Asymmetry remained approximately unchanged (0.06 → 0.06)
+  • Border Irregularity remained approximately unchanged (0.06 → 0.06)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0102, converged in 7 iterations.
+
+  Sample 9:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation decreased from 0.07 (low) to 0.06 (low)  [-0.01]
+Perturbation: sparsity=2.6% of pixels changed, L1 magnitude=0.0302, converged in 4 iterations.
+
+  Sample 10:
+  This Benign Keratosis (bkl) lesion would be reclassified as Melanoma (mel) (confidence: 82%) if:
+  • Asymmetry increased from 0.06 (low) to 0.07 (low)  [+0.01]
+  • Border Irregularity increased from 0.03 (low) to 0.04 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.05 → 0.06)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: mel → nv  |  Mode: AB
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 94%) if:
+  • Asymmetry remained approximately unchanged (0.10 → 0.11)
+  • Border Irregularity increased from 0.10 (low) to 0.11 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.14 → 0.15)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 2:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 91%) if:
+  • Asymmetry remained approximately unchanged (0.08 → 0.08)
+  • Border Irregularity increased from 0.08 (low) to 0.09 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.12 → 0.11)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0094, converged in 4 iterations.
+
+  Sample 3:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry decreased from 0.37 (moderate) to 0.35 (moderate)  [-0.02]
+  • Border Irregularity increased from 0.41 (moderate) to 0.42 (moderate)  [+0.01]
+  • Color Variegation decreased from 0.34 (moderate) to 0.27 (low)  [-0.06]
+Perturbation: sparsity=4.7% of pixels changed, L1 magnitude=0.0366, converged in 4 iterations.
+
+  Sample 4:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry decreased from 0.27 (low) to 0.20 (low)  [-0.07]
+  • Border Irregularity remained approximately unchanged (0.25 → 0.25)
+  • Color Variegation decreased from 0.25 (low) to 0.16 (low)  [-0.08]
+Perturbation: sparsity=3.3% of pixels changed, L1 magnitude=0.0310, converged in 3 iterations.
+
+  Sample 5:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 93%) if:
+  • Asymmetry decreased from 0.26 (low) to 0.16 (low)  [-0.10]
+  • Border Irregularity decreased from 0.42 (moderate) to 0.29 (low)  [-0.13]
+  • Color Variegation decreased from 0.23 (low) to 0.16 (low)  [-0.07]
+Perturbation: sparsity=0.3% of pixels changed, L1 magnitude=0.0062, converged in 2 iterations.
+
+  Sample 6:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity increased from 0.04 (low) to 0.05 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.11 → 0.12)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0049, converged in 2 iterations.
+
+  Sample 7:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry decreased from 0.57 (moderate) to 0.45 (moderate)  [-0.12]
+  • Border Irregularity decreased from 0.65 (moderate) to 0.58 (moderate)  [-0.07]
+  • Color Variegation decreased from 0.50 (moderate) to 0.36 (moderate)  [-0.14]
+Perturbation: sparsity=1.1% of pixels changed, L1 magnitude=0.0103, converged in 2 iterations.
+
+  Sample 8:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry decreased from 0.37 (moderate) to 0.35 (moderate)  [-0.02]
+  • Border Irregularity decreased from 0.55 (moderate) to 0.53 (moderate)  [-0.02]
+  • Color Variegation decreased from 0.29 (low) to 0.27 (low)  [-0.03]
+Perturbation: sparsity=3.8% of pixels changed, L1 magnitude=0.0267, converged in 3 iterations.
+
+  Sample 9:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.02)
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0058, converged in 2 iterations.
+
+  Sample 10:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0050, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: mel → nv  |  Mode: ABC
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 94%) if:
+  • Asymmetry increased from 0.10 (low) to 0.11 (low)  [+0.01]
+  • Border Irregularity increased from 0.10 (low) to 0.12 (low)  [+0.02]
+  • Color Variegation remained approximately unchanged (0.14 → 0.15)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 2:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 91%) if:
+  • Asymmetry remained approximately unchanged (0.08 → 0.08)
+  • Border Irregularity remained approximately unchanged (0.08 → 0.07)
+  • Color Variegation remained approximately unchanged (0.12 → 0.12)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0094, converged in 4 iterations.
+
+  Sample 3:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry decreased from 0.37 (moderate) to 0.36 (moderate)  [-0.01]
+  • Border Irregularity increased from 0.41 (moderate) to 0.43 (moderate)  [+0.02]
+  • Color Variegation decreased from 0.34 (moderate) to 0.28 (low)  [-0.05]
+Perturbation: sparsity=4.7% of pixels changed, L1 magnitude=0.0366, converged in 4 iterations.
+
+  Sample 4:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry decreased from 0.27 (low) to 0.21 (low)  [-0.06]
+  • Border Irregularity increased from 0.25 (low) to 0.27 (low)  [+0.02]
+  • Color Variegation decreased from 0.25 (low) to 0.17 (low)  [-0.08]
+Perturbation: sparsity=3.3% of pixels changed, L1 magnitude=0.0310, converged in 3 iterations.
+
+  Sample 5:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 93%) if:
+  • Asymmetry decreased from 0.26 (low) to 0.15 (low)  [-0.11]
+  • Border Irregularity decreased from 0.42 (moderate) to 0.27 (low)  [-0.15]
+  • Color Variegation decreased from 0.23 (low) to 0.15 (low)  [-0.08]
+Perturbation: sparsity=0.3% of pixels changed, L1 magnitude=0.0062, converged in 2 iterations.
+
+  Sample 6:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity increased from 0.04 (low) to 0.05 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.11 → 0.11)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0049, converged in 2 iterations.
+
+  Sample 7:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry decreased from 0.57 (moderate) to 0.34 (moderate)  [-0.22]
+  • Border Irregularity decreased from 0.65 (moderate) to 0.52 (moderate)  [-0.13]
+  • Color Variegation decreased from 0.50 (moderate) to 0.25 (low)  [-0.25]
+Perturbation: sparsity=1.1% of pixels changed, L1 magnitude=0.0102, converged in 2 iterations.
+
+  Sample 8:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry decreased from 0.37 (moderate) to 0.35 (moderate)  [-0.02]
+  • Border Irregularity decreased from 0.55 (moderate) to 0.52 (moderate)  [-0.02]
+  • Color Variegation decreased from 0.29 (low) to 0.27 (low)  [-0.03]
+Perturbation: sparsity=3.8% of pixels changed, L1 magnitude=0.0267, converged in 3 iterations.
+
+  Sample 9:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.02)
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0058, converged in 2 iterations.
+
+  Sample 10:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.03)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0050, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: mel → nv  |  Mode: A_only
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 94%) if:
+  • Asymmetry remained approximately unchanged (0.10 → 0.10)
+  • Border Irregularity remained approximately unchanged (0.10 → 0.10)
+  • Color Variegation remained approximately unchanged (0.14 → 0.15)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 2:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 91%) if:
+  • Asymmetry remained approximately unchanged (0.08 → 0.08)
+  • Border Irregularity remained approximately unchanged (0.08 → 0.08)
+  • Color Variegation remained approximately unchanged (0.12 → 0.11)
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0094, converged in 4 iterations.
+
+  Sample 3:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry decreased from 0.37 (moderate) to 0.35 (moderate)  [-0.02]
+  • Border Irregularity increased from 0.41 (moderate) to 0.43 (moderate)  [+0.02]
+  • Color Variegation decreased from 0.34 (moderate) to 0.28 (low)  [-0.06]
+Perturbation: sparsity=4.7% of pixels changed, L1 magnitude=0.0366, converged in 4 iterations.
+
+  Sample 4:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry decreased from 0.27 (low) to 0.23 (low)  [-0.04]
+  • Border Irregularity increased from 0.25 (low) to 0.31 (low)  [+0.06]
+  • Color Variegation decreased from 0.25 (low) to 0.18 (low)  [-0.07]
+Perturbation: sparsity=3.3% of pixels changed, L1 magnitude=0.0310, converged in 3 iterations.
+
+  Sample 5:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 93%) if:
+  • Asymmetry decreased from 0.26 (low) to 0.19 (low)  [-0.07]
+  • Border Irregularity decreased from 0.42 (moderate) to 0.35 (moderate)  [-0.08]
+  • Color Variegation decreased from 0.23 (low) to 0.18 (low)  [-0.05]
+Perturbation: sparsity=0.3% of pixels changed, L1 magnitude=0.0062, converged in 2 iterations.
+
+  Sample 6:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.11 → 0.12)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0049, converged in 2 iterations.
+
+  Sample 7:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry decreased from 0.57 (moderate) to 0.42 (moderate)  [-0.14]
+  • Border Irregularity decreased from 0.65 (moderate) to 0.57 (moderate)  [-0.08]
+  • Color Variegation decreased from 0.50 (moderate) to 0.33 (moderate)  [-0.17]
+Perturbation: sparsity=1.1% of pixels changed, L1 magnitude=0.0103, converged in 2 iterations.
+
+  Sample 8:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry remained approximately unchanged (0.37 → 0.37)
+  • Border Irregularity remained approximately unchanged (0.55 → 0.55)
+  • Color Variegation decreased from 0.29 (low) to 0.28 (low)  [-0.01]
+Perturbation: sparsity=3.8% of pixels changed, L1 magnitude=0.0267, converged in 3 iterations.
+
+  Sample 9:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.02)
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0058, converged in 2 iterations.
+
+  Sample 10:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0050, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: mel → nv  |  Mode: baseline
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 94%) if:
+  • Asymmetry remained approximately unchanged (0.10 → 0.09)
+  • Border Irregularity remained approximately unchanged (0.10 → 0.09)
+  • Color Variegation remained approximately unchanged (0.14 → 0.14)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+  Sample 2:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 91%) if:
+  • Asymmetry decreased from 0.08 (low) to 0.06 (low)  [-0.02]
+  • Border Irregularity decreased from 0.08 (low) to 0.06 (low)  [-0.02]
+  • Color Variegation decreased from 0.12 (low) to 0.10 (low)  [-0.01]
+Perturbation: sparsity=0.4% of pixels changed, L1 magnitude=0.0094, converged in 4 iterations.
+
+  Sample 3:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry decreased from 0.37 (moderate) to 0.33 (low)  [-0.04]
+  • Border Irregularity remained approximately unchanged (0.41 → 0.40)
+  • Color Variegation decreased from 0.34 (moderate) to 0.26 (low)  [-0.08]
+Perturbation: sparsity=4.7% of pixels changed, L1 magnitude=0.0366, converged in 4 iterations.
+
+  Sample 4:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry decreased from 0.27 (low) to 0.21 (low)  [-0.06]
+  • Border Irregularity increased from 0.25 (low) to 0.27 (low)  [+0.03]
+  • Color Variegation decreased from 0.25 (low) to 0.17 (low)  [-0.08]
+Perturbation: sparsity=3.3% of pixels changed, L1 magnitude=0.0310, converged in 3 iterations.
+
+  Sample 5:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 93%) if:
+  • Asymmetry remained approximately unchanged (0.26 → 0.26)
+  • Border Irregularity increased from 0.42 (moderate) to 0.44 (moderate)  [+0.02]
+  • Color Variegation remained approximately unchanged (0.23 → 0.23)
+Perturbation: sparsity=0.3% of pixels changed, L1 magnitude=0.0063, converged in 2 iterations.
+
+  Sample 6:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 90%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.04)
+  • Color Variegation remained approximately unchanged (0.11 → 0.11)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0049, converged in 2 iterations.
+
+  Sample 7:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry remained approximately unchanged (0.57 → 0.57)
+  • Border Irregularity decreased from 0.65 (moderate) to 0.62 (moderate)  [-0.03]
+  • Color Variegation increased from 0.50 (moderate) to 0.52 (moderate)  [+0.03]
+Perturbation: sparsity=1.1% of pixels changed, L1 magnitude=0.0103, converged in 2 iterations.
+
+  Sample 8:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 88%) if:
+  • Asymmetry increased from 0.37 (moderate) to 0.39 (moderate)  [+0.03]
+  • Border Irregularity increased from 0.55 (moderate) to 0.57 (moderate)  [+0.03]
+  • Color Variegation increased from 0.29 (low) to 0.30 (low)  [+0.01]
+Perturbation: sparsity=3.8% of pixels changed, L1 magnitude=0.0267, converged in 3 iterations.
+
+  Sample 9:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.04)
+  • Border Irregularity increased from 0.01 (low) to 0.03 (low)  [+0.01]
+  • Color Variegation remained approximately unchanged (0.10 → 0.09)
+Perturbation: sparsity=0.2% of pixels changed, L1 magnitude=0.0058, converged in 2 iterations.
+
+  Sample 10:
+  This Melanoma (mel) lesion would be reclassified as Melanocytic Nevi (nv) (confidence: 89%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.04 → 0.05)
+  • Color Variegation remained approximately unchanged (0.06 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0050, converged in 2 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: nv → mel  |  Mode: AB
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 2:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.10 → 0.10)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0082, converged in 4 iterations.
+
+  Sample 3:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry decreased from 0.16 (low) to 0.15 (low)  [-0.01]
+  • Border Irregularity decreased from 0.17 (low) to 0.16 (low)  [-0.02]
+  • Color Variegation decreased from 0.16 (low) to 0.15 (low)  [-0.01]
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+  Sample 4:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.11 → 0.11)
+  • Border Irregularity remained approximately unchanged (0.14 → 0.14)
+  • Color Variegation remained approximately unchanged (0.09 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0067, converged in 3 iterations.
+
+  Sample 5:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.08 → 0.07)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0066, converged in 3 iterations.
+
+  Sample 6:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 78%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+  Sample 7:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.17 → 0.18)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 8:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.09 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0062, converged in 3 iterations.
+
+  Sample 9:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0075, converged in 4 iterations.
+
+  Sample 10:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: nv → mel  |  Mode: ABC
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 2:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.10 → 0.10)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0082, converged in 4 iterations.
+
+  Sample 3:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry decreased from 0.16 (low) to 0.14 (low)  [-0.03]
+  • Border Irregularity decreased from 0.17 (low) to 0.14 (low)  [-0.04]
+  • Color Variegation decreased from 0.16 (low) to 0.14 (low)  [-0.02]
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+  Sample 4:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.11 → 0.11)
+  • Border Irregularity remained approximately unchanged (0.14 → 0.13)
+  • Color Variegation remained approximately unchanged (0.09 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0067, converged in 3 iterations.
+
+  Sample 5:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.08 → 0.08)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0066, converged in 3 iterations.
+
+  Sample 6:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 78%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.00)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+  Sample 7:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation decreased from 0.17 (low) to 0.16 (low)  [-0.01]
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 8:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.09 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0062, converged in 3 iterations.
+
+  Sample 9:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0075, converged in 4 iterations.
+
+  Sample 10:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: nv → mel  |  Mode: A_only
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 2:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.10 → 0.10)
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0082, converged in 4 iterations.
+
+  Sample 3:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.16 → 0.16)
+  • Border Irregularity remained approximately unchanged (0.17 → 0.17)
+  • Color Variegation remained approximately unchanged (0.16 → 0.16)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0075, converged in 4 iterations.
+
+  Sample 4:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry remained approximately unchanged (0.11 → 0.11)
+  • Border Irregularity decreased from 0.14 (low) to 0.13 (low)  [-0.01]
+  • Color Variegation remained approximately unchanged (0.09 → 0.08)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0068, converged in 3 iterations.
+
+  Sample 5:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.08 → 0.07)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0066, converged in 3 iterations.
+
+  Sample 6:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 78%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+  Sample 7:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.17 → 0.18)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 8:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.09 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0062, converged in 3 iterations.
+
+  Sample 9:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0075, converged in 4 iterations.
+
+  Sample 10:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
+
+
+────────────────────────────────────────────────────────────
+  Pair: nv → mel  |  Mode: baseline
+────────────────────────────────────────────────────────────
+
+  Sample 1:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.01)
+  • Border Irregularity remained approximately unchanged (0.00 → 0.00)
+  • Color Variegation remained approximately unchanged (0.06 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 2:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry increased from 0.03 (low) to 0.04 (low)  [+0.01]
+  • Border Irregularity increased from 0.02 (low) to 0.03 (low)  [+0.01]
+  • Color Variegation increased from 0.10 (low) to 0.11 (low)  [+0.01]
+Perturbation: sparsity=0.5% of pixels changed, L1 magnitude=0.0082, converged in 4 iterations.
+
+  Sample 3:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry decreased from 0.16 (low) to 0.15 (low)  [-0.01]
+  • Border Irregularity decreased from 0.17 (low) to 0.16 (low)  [-0.02]
+  • Color Variegation decreased from 0.16 (low) to 0.15 (low)  [-0.01]
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0075, converged in 4 iterations.
+
+  Sample 4:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 85%) if:
+  • Asymmetry increased from 0.11 (low) to 0.13 (low)  [+0.02]
+  • Border Irregularity increased from 0.14 (low) to 0.16 (low)  [+0.03]
+  • Color Variegation increased from 0.09 (low) to 0.10 (low)  [+0.01]
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0068, converged in 3 iterations.
+
+  Sample 5:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.08 → 0.07)
+Perturbation: sparsity=0.1% of pixels changed, L1 magnitude=0.0066, converged in 3 iterations.
+
+  Sample 6:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 78%) if:
+  • Asymmetry remained approximately unchanged (0.02 → 0.02)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.07 → 0.07)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0074, converged in 4 iterations.
+
+  Sample 7:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.05 → 0.05)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.17 → 0.17)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0076, converged in 4 iterations.
+
+  Sample 8:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 81%) if:
+  • Asymmetry remained approximately unchanged (0.04 → 0.04)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.09 → 0.09)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0062, converged in 3 iterations.
+
+  Sample 9:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 80%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.02 → 0.02)
+  • Color Variegation remained approximately unchanged (0.07 → 0.06)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0075, converged in 4 iterations.
+
+  Sample 10:
+  This Melanocytic Nevi (nv) lesion would be reclassified as Melanoma (mel) (confidence: 83%) if:
+  • Asymmetry remained approximately unchanged (0.03 → 0.03)
+  • Border Irregularity remained approximately unchanged (0.01 → 0.01)
+  • Color Variegation remained approximately unchanged (0.04 → 0.04)
+Perturbation: sparsity=0.0% of pixels changed, L1 magnitude=0.0077, converged in 4 iterations.
