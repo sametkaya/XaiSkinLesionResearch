@@ -1,11 +1,7 @@
 """
 train_abc_counterfactual.py
----------------------------
-Script 3 of 3 — ABC-Guided Counterfactual Explanations + Ablation Study (v4 — segmentation-guided)
-
-Generates and evaluates counterfactual explanations for HAM10000 skin
-lesion classification using ABC (Asymmetry, Border, Color) preservation
-constraints.
+----------------------------
+Script 3 of 3 — ABC-Guided Counterfactual Explanations
 
 The ABC-guided counterfactual loss:
   L = λ_cls · CE(f(x+δ), c_tgt)     ← classification objective
@@ -13,12 +9,6 @@ The ABC-guided counterfactual loss:
     + λ_B   · |g(x+δ)_B − s_B|       ← border preservation
     + λ_C   · |g(x+δ)_C − s_C|       ← color preservation
     + λ_l1  · ‖δ‖₁                    ← pixel sparsity
-
-v4 changes:
-  - Adam optimizer (per Singla et al., 2023) replaces raw SGD
-  - Fixed hyperparameters: lr, λ_l1, λ_cls (see config_abc.py)
-  - Textual counterfactual explanations (EN + TR)
-  - Auto-detect backbone architecture from checkpoint
 
 Ablation study: four modes compared
   baseline — no ABC constraints
@@ -31,20 +21,18 @@ Class-pair transitions evaluated:
 
 Usage
 -----
+  # Mevcut run dizinine kaydet (varsayılan):
   python train_abc_counterfactual.py \\
-      --ham-checkpoint results/run_01_xai_dermoscopy/02_classifier_training/best_model.pth \\
+      --ham-checkpoint results/run_01_xai_dermoscopy/training/best_model.pth \\
+      --abc-checkpoint results/run_01_xai_dermoscopy/09_abc_regressor/checkpoints/best_abc_model.pth
+
+  # Özel deney dizinine kaydet:
+  python train_abc_counterfactual.py \\
+      --ham-checkpoint results/run_01_xai_dermoscopy/training/best_model.pth \\
       --abc-checkpoint results/run_01_xai_dermoscopy/09_abc_regressor/checkpoints/best_abc_model.pth \\
-      [--n-images 10]
-
-References
-----------
-Singla, S., Pollack, B., Chen, J., & Batmanghelich, K. (2023).
-    Explaining the black-box smoothly—A counterfactual approach.
-    Medical Image Analysis, 84, 102721.
-
-Wachter, S., Mittelstadt, B., & Russell, C. (2017).
-    Counterfactual explanations without opening the black box.
-    Harvard Journal of Law & Technology, 31(2), 841–887.
+      --experiment-dir results/experiment_02_full_mask_counterfactual \\
+      --mask-dir datas/HAM10000/segmentations \\
+      --n-images 10
 """
 
 import argparse
@@ -52,7 +40,6 @@ import sys
 from pathlib import Path
 
 import torch
-import torch.nn as nn
 import numpy as np
 import pandas as pd
 import random
@@ -63,12 +50,13 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from src.abc.config_abc import (
     make_abc_experiment_dir, RESULTS_DIR,
     ABC_CF_NUM_IMAGES, RANDOM_SEED,
+    HAM10000_MASK_DIR,
 )
 from src.abc.abc_model               import ABCRegressor
-from src.model                       import SkinLesionClassifier
+from src.model                       import SkinLesionClassifier, build_model
+from src.train                       import load_best_model
 from src.data_loader                 import load_metadata, stratified_patient_split, get_dataloaders
 from src.explainers.abc_counterfactual import ABCCounterfactualExperiment
-from src.segmentation.segmenter      import LesionSegmenter
 from src import config as ham_cfg
 
 
@@ -85,78 +73,12 @@ def set_seed(seed: int) -> None:
 
 
 # ─────────────────────────────────────────────
-# Checkpoint-aware model loading
-# ─────────────────────────────────────────────
-
-def _detect_backbone_from_checkpoint(state_dict: dict) -> str:
-    """
-    Auto-detect which EfficientNet backbone was used from checkpoint keys.
-
-    EfficientNet-B0 final conv BN weight shape: [1280]
-    EfficientNet-B4 final conv BN weight shape: [1792]
-
-    We inspect feature_extractor.features.8.1.weight to determine the
-    backbone variant.
-    """
-    key_8_1 = "feature_extractor.features.8.1.weight"
-    if key_8_1 in state_dict:
-        n_features = state_dict[key_8_1].shape[0]
-        if n_features == 1792:
-            return "efficientnet_b4"
-        elif n_features == 1280:
-            return "efficientnet_b0"
-
-    # Fallback: count total parameters to distinguish
-    total_params = sum(v.numel() for v in state_dict.values())
-    if total_params > 15_000_000:
-        return "efficientnet_b4"
-    else:
-        return "efficientnet_b0"
-
-
-def load_classifier_from_checkpoint(
-    checkpoint_path: Path,
-    device: torch.device,
-) -> nn.Module:
-    """
-    Load HAM10000 classifier with architecture auto-detected from checkpoint.
-
-    This avoids the EfficientNet-B0/B4 mismatch error that occurs when
-    config.MODEL_NAME does not match the checkpoint architecture.
-    """
-    checkpoint = torch.load(checkpoint_path, map_location=device)
-    state_dict = checkpoint["model_state_dict"]
-
-    # Detect backbone from saved weights
-    backbone = _detect_backbone_from_checkpoint(state_dict)
-    print(f"[Classifier] Auto-detected backbone: {backbone}")
-
-    # Build model with the CORRECT backbone (not from config)
-    model = SkinLesionClassifier(
-        backbone=backbone,
-        num_classes=ham_cfg.NUM_CLASSES,
-        pretrained=False,          # loading from checkpoint, not ImageNet
-        freeze_backbone=False,
-    )
-    model.load_state_dict(state_dict)
-    model = model.to(device)
-    model.eval()
-
-    total = model.get_num_total_params()
-    print(
-        f"[Classifier] {backbone.upper()} loaded — "
-        f"Total params: {total:,} | Device: {device}"
-    )
-    return model
-
-
-# ─────────────────────────────────────────────
 # Argument parser
 # ─────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="ABC-Guided Counterfactual Explanations (v4 — segmentation-guided)",
+        description="ABC-Guided Counterfactual Explanations",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
@@ -168,16 +90,18 @@ def parse_args() -> argparse.Namespace:
         help="Path to ABC regressor best_abc_model.pth"
     )
     p.add_argument(
+        "--mask-dir", type=str,
+        default=str(HAM10000_MASK_DIR),
+        help="Directory containing segmentation masks for δ masking."
+    )
+    p.add_argument(
+        "--experiment-dir", type=str, default=None,
+        help="Custom experiment directory (e.g. results/experiment_02_full_mask_cf). "
+             "If not set, uses the latest run_XX_xai_dermoscopy/ folder."
+    )
+    p.add_argument(
         "--n-images", type=int, default=ABC_CF_NUM_IMAGES,
         help="Number of images per class transition pair."
-    )
-    p.add_argument(
-        "--mask-dir", type=str, default=None,
-        help="Directory with ISIC 2018 Task 1 segmentation masks (optional)."
-    )
-    p.add_argument(
-        "--unet-weights", type=str, default=None,
-        help="Path to trained U-Net weights for segmentation (optional)."
     )
     p.add_argument(
         "--seed", type=int, default=RANDOM_SEED,
@@ -199,14 +123,28 @@ def main() -> None:
         torch.backends.cudnn.benchmark = True
 
     # ── Experiment directory ───────────────────
-    exp_dir = make_abc_experiment_dir(RESULTS_DIR)
-    cf_dir  = exp_dir / "11_abc_guided_counterfactuals"
+    if args.experiment_dir:
+        exp_dir = Path(args.experiment_dir)
+    else:
+        exp_dir = make_abc_experiment_dir(RESULTS_DIR)
+
+    cf_dir = exp_dir / "11_abc_guided_counterfactuals"
+    for sub in ["per_class", "ablation", "metrics"]:
+        (cf_dir / sub).mkdir(parents=True, exist_ok=True)
 
     print("\n" + "=" * 60)
-    print("  ABC-Guided Counterfactual Explanations (v4 — segmentation-guided)")
-    print(f"  Experiment: {exp_dir.name}")
-    print(f"  Output:     {cf_dir}")
+    print("  ABC-Guided Counterfactual Explanations")
+    print(f"  Experiment: {exp_dir}")
+    print(f"  Device    : {device}")
     print("=" * 60 + "\n")
+
+    # ── Maske dizini bilgi ─────────────────────
+    mask_dir = Path(args.mask_dir)
+    if mask_dir.exists():
+        n_masks = len(list(mask_dir.glob("*_segmentation.png")))
+        print(f"[Main] Mask dir: {mask_dir} ({n_masks:,} masks)")
+    else:
+        print(f"[Main] Mask dir not found: {mask_dir} — Otsu fallback will be used")
 
     # ── Load HAM10000 classifier ───────────────
     print("─" * 60)
@@ -217,7 +155,9 @@ def main() -> None:
         print(f"[ERROR] Classifier checkpoint not found: {clf_ckpt}")
         sys.exit(1)
 
-    classifier = load_classifier_from_checkpoint(clf_ckpt, device)
+    classifier = build_model(device)
+    classifier = load_best_model(classifier, clf_ckpt, device)
+    classifier.eval()
 
     # ── Load ABC regressor ─────────────────────
     print("─" * 60)
@@ -250,20 +190,9 @@ def main() -> None:
     train_df, val_df, test_df = stratified_patient_split(df)
     _, _, test_loader = get_dataloaders(train_df, val_df, test_df)
 
-    # ── Lesion Segmenter (for mask-guided CF) ──
-    print("─" * 60)
-    print("  Initializing lesion segmenter …")
-    print("─" * 60)
-    unet_path = Path(args.unet_weights) if args.unet_weights else None
-    segmenter = LesionSegmenter(
-        model_weights=unet_path,
-        device=device,
-        image_size=ham_cfg.IMAGE_SIZE,
-    )
-
     # ── Run ABC-CF experiment ──────────────────
     print("─" * 60)
-    print("  Running ABC-Guided Counterfactual Experiment (v4 — segmentation-guided) …")
+    print("  Running ABC-Guided Counterfactual Experiment …")
     print("─" * 60)
 
     # Override n_images from args
@@ -277,37 +206,26 @@ def main() -> None:
         device        = device,
         result_dir    = cf_dir,
         class_labels  = ham_cfg.CLASS_LABELS,
-        segmenter     = segmenter,
     )
     stats = experiment.run()
 
     # ── Summary ───────────────────────────────
     print("\n" + "=" * 60)
-    print("  Counterfactual Experiment Complete (v4 — segmentation-guided)")
-    print(f"  Experiment: {exp_dir.name}")
-    print(f"  Elapsed:    {stats.get('elapsed_seconds', 'N/A')}s")
-    print(f"  Records:    {stats.get('total_records', 'N/A')}")
+    print("  Counterfactual Experiment Complete")
+    print(f"  Experiment: {exp_dir}")
     print()
     print("  Ablation Summary:")
-    print(f"  {'Mode':<12} {'Validity':>9} {'Prox L1':>9} {'SSIM':>7} {'ΔA':>8} {'ΔB':>8} {'ΔC':>8}")
-    print("  " + "-" * 65)
+    print(f"  {'Mode':<12} {'Validity':>9} {'Prox L1':>9} {'ΔA':>8} {'ΔB':>8} {'ΔC':>8}")
+    print("  " + "-" * 60)
     for mode in ["baseline", "A_only", "AB", "ABC"]:
         v  = stats.get(f"{mode}_validity", float("nan"))
         l1 = stats.get(f"{mode}_prox_l1",  float("nan"))
-        ss = stats.get(f"{mode}_ssim",     float("nan"))
         dA = stats.get(f"{mode}_delta_A",   float("nan"))
         dB = stats.get(f"{mode}_delta_B",   float("nan"))
         dC = stats.get(f"{mode}_delta_C",   float("nan"))
         print(
-            f"  {mode:<12} {v:>9.4f} {l1:>9.5f} {ss:>7.4f} {dA:>8.4f} {dB:>8.4f} {dC:>8.4f}"
+            f"  {mode:<12} {v:>9.4f} {l1:>9.5f} {dA:>8.4f} {dB:>8.4f} {dC:>8.4f}"
         )
-    print()
-    print("  Outputs:")
-    print(f"    Panels:     {cf_dir / 'per_class'}")
-    print(f"    Narratives: {cf_dir / 'narratives'}")
-    print(f"    Ablation:   {cf_dir / 'ablation'}")
-    print(f"    Metrics:    {cf_dir / 'metrics'}")
-    print(f"    Report:     {cf_dir / 'result.txt'}")
     print("=" * 60 + "\n")
 
 

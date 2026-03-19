@@ -826,28 +826,34 @@ class ABCCounterfactualExperiment:
     # ─────────────────────────────────────────
 
     def _collect_samples(
-        self, src_class: int, n: int
-    ) -> List[Tuple[torch.Tensor, int, Optional[np.ndarray]]]:
-        """Collect n correctly classified images of src_class with masks."""
+        self, src_class: int, n: int,
+        min_source_prob: float = 0.80,
+    ) -> List[Tuple[torch.Tensor, int]]:
+        """Collect n correctly classified images with high source confidence."""
         samples = []
         self.explainer.clf.eval()
         with torch.no_grad():
             for images, labels in self.loader:
                 imgs  = images.to(self.device)
-                preds = self.explainer.clf(imgs).argmax(dim=1).cpu()
+                logits = self.explainer.clf(imgs)
+                probs  = torch.softmax(logits, dim=1).cpu()
+                preds  = probs.argmax(dim=1)
+
                 for i, (img, lbl, prd) in enumerate(
                     zip(images, labels, preds)
                 ):
-                    if int(lbl) == src_class and int(prd) == src_class:
-                        # Generate mask using segmenter
-                        mask = None
-                        if self.segmenter is not None:
-                            mask = self.segmenter.segment(img)
-                        samples.append((img, int(lbl), mask))
+                    if (int(lbl) == src_class
+                            and int(prd) == src_class
+                            and float(probs[i, src_class]) >= min_source_prob):
+                        samples.append((img, int(lbl), None))
                     if len(samples) >= n:
                         break
                 if len(samples) >= n:
                     break
+
+        if len(samples) < n:
+            print(f"  ⚠ Only found {len(samples)}/{n} samples with "
+                  f"source prob ≥ {min_source_prob} for class {src_class}")
         return samples
 
     # ─────────────────────────────────────────
@@ -865,65 +871,91 @@ class ABCCounterfactualExperiment:
     # ─────────────────────────────────────────
 
     def _save_panels(
-        self,
-        results: List[Dict],
-        save_path: Path,
-        title: str,
+            self,
+            results: List[Dict],
+            save_path: Path,
+            title: str,
     ) -> None:
-        """Save [Original | CF | Diff | |δ| Heatmap] panel for each sample."""
+        """
+        Save [Original | CF | Signed Diff | |δ| Heatmap] panel for each sample.
+
+        Visualization improvements (v2):
+        - Signed difference uses RdBu_r colormap with symmetric vmin/vmax
+        - |δ| heatmap uses 'inferno' with percentile-based scaling
+        - Colorbars added for both diff and heatmap panels
+        - Amplification factor for very small perturbations
+        """
         n = len(results)
         if n == 0:
             return
-        fig, axes = plt.subplots(n, 4, figsize=(16, 4 * n))
+
+        fig, axes = plt.subplots(n, 4, figsize=(20, 5 * n))
         if n == 1:
             axes = axes[np.newaxis, :]
 
         for row, res in enumerate(results):
-            orig_np = self._denorm(res["cf_tensor"] - res["delta"])
-            cf_np   = self._denorm(res["cf_tensor"])
-            diff_np = res["delta"].permute(1, 2, 0).numpy()
-            abs_np  = np.abs(diff_np)
+            orig_np = self._denorm(
+                res["cf_tensor"] - res["delta"]
+            )
+            cf_np = self._denorm(res["cf_tensor"])
 
+            # δ in normalised space (3, H, W) → (H, W, 3)
+            delta_np = res["delta"].permute(1, 2, 0).numpy()
+
+            # Signed difference — channel mean for single-channel display
+            diff_gray = delta_np.mean(axis=2)
+            vmax_diff = max(abs(diff_gray.min()), abs(diff_gray.max()), 0.01)
+
+            # |δ| magnitude — channel-max for heatmap
+            abs_delta = np.abs(delta_np).max(axis=2)  # (H, W)
+            # Percentile-based scaling for visibility
+            p99 = np.percentile(abs_delta[abs_delta > 0], 99) if (abs_delta > 0).any() else 0.01
+            vmax_heat = max(p99, 0.005)
+
+            # ── Panel 1: Original ──────────────
             axes[row, 0].imshow(orig_np)
-            axes[row, 0].set_title("Original", fontsize=9)
+            axes[row, 0].set_title("Original", fontsize=9, fontweight="bold")
             axes[row, 0].axis("off")
 
-            validity_icon = "✓" if res["validity"] else "✗"
+            # ── Panel 2: Counterfactual ────────
             axes[row, 1].imshow(cf_np)
+            valid_str = "✓" if res["validity"] else "✗"
             axes[row, 1].set_title(
-                f"Counterfactual {validity_icon}\n"
-                f"P(target)={res['final_prob']:.3f}", fontsize=8
+                f"Counterfactual {valid_str}\n"
+                f"P(target)={res['final_prob']:.3f}",
+                fontsize=9, fontweight="bold",
             )
             axes[row, 1].axis("off")
 
-            # Signed difference — use RdBu colormap for clarity
-            diff_gray = diff_np.mean(axis=2)
-            vmax = max(abs(diff_gray.min()), abs(diff_gray.max()), 1e-6)
-            im = axes[row, 2].imshow(diff_gray, cmap="RdBu_r", vmin=-vmax, vmax=vmax)
+            # ── Panel 3: Signed Difference ─────
+            im_diff = axes[row, 2].imshow(
+                diff_gray, cmap="RdBu_r",
+                vmin=-vmax_diff, vmax=vmax_diff,
+            )
             axes[row, 2].set_title(
                 f"Difference (δ)\n"
-                f"ΔA={res['delta_A']:.3f} ΔB={res['delta_B']:.3f} ΔC={res['delta_C']:.3f}",
-                fontsize=7,
+                f"ΔA={res['delta_A']:.3f}  ΔB={res['delta_B']:.3f}  ΔC={res['delta_C']:.3f}",
+                fontsize=8,
             )
             axes[row, 2].axis("off")
-            plt.colorbar(im, ax=axes[row, 2], fraction=0.046, pad=0.04)
+            plt.colorbar(im_diff, ax=axes[row, 2], fraction=0.046, pad=0.04)
 
-            # Absolute perturbation heatmap
-            abs_max = abs_np.max() + 1e-8
-            axes[row, 3].imshow(
-                abs_np.mean(axis=2) / abs_max,
-                cmap="inferno",
-                vmin=0, vmax=1,
+            # ── Panel 4: |δ| Heatmap ──────────
+            im_heat = axes[row, 3].imshow(
+                abs_delta, cmap="inferno",
+                vmin=0, vmax=vmax_heat,
             )
             axes[row, 3].set_title(
-                f"|δ| Heatmap\nSparsity={res['sparsity']:.3f}",
+                f"|δ| Heatmap\n"
+                f"Sparsity={res['sparsity']:.3f}  L1={res['proximity_l1']:.4f}",
                 fontsize=8,
             )
             axes[row, 3].axis("off")
+            plt.colorbar(im_heat, ax=axes[row, 3], fraction=0.046, pad=0.04)
 
         plt.suptitle(title, fontsize=11, fontweight="bold")
         plt.tight_layout()
-        plt.savefig(save_path, dpi=150)
+        plt.savefig(save_path, dpi=150, bbox_inches="tight")
         plt.close()
 
     # ─────────────────────────────────────────

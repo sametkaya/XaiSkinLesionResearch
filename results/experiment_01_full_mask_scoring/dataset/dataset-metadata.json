@@ -1,0 +1,28 @@
+{
+  "title": "HAM10000 ABC-Scored Dermoscopy Dataset",
+  "id": "ham10000-abc-scored",
+  "licenses": [
+    {
+      "name": "CC BY-NC 4.0"
+    }
+  ],
+  "keywords": [
+    "dermoscopy",
+    "skin lesion",
+    "ABCD rule",
+    "explainable AI",
+    "HAM10000"
+  ],
+  "collaborators": [],
+  "data": [
+    {
+      "description": "Per-image ABC scores (CSV)"
+    },
+    {
+      "description": "Images + ABC scores (HDF5)"
+    },
+    {
+      "description": "Methodology README"
+    }
+  ]
+}

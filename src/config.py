@@ -31,16 +31,19 @@ RESULTS_DIR = BASE_DIR / "results"
 
 # HAM10000 directory structure:
 #   datas/HAM10000/
-#     HAM10000_images_part_1/   ← part 1 images
-#     HAM10000_images_part_2/   ← part 2 images
+#     HAM10000_images_part_1/   ← part 1 images (eski yapı)
+#     HAM10000_images_part_2/   ← part 2 images (eski yapı)
+#     HAM10000/                 ← tek klasör yapısı (yeni)
 #     HAM10000_metadata.csv
-#     segmentations/            ← ISIC 2018 Task 1 masks (optional)
+#     segmentations/            ← tam uzman segmentasyon maskeleri
 HAM10000_DIR = DATA_DIR / "HAM10000"
 IMAGE_DIRS = [
     HAM10000_DIR / "HAM10000_images_part_1",
     HAM10000_DIR / "HAM10000_images_part_2",
+    HAM10000_DIR / "HAM10000",                  # ← YENİ: tek klasör yapısı
 ]
-METADATA_CSV = HAM10000_DIR / "HAM10000_metadata.csv"
+METADATA_CSV      = HAM10000_DIR / "HAM10000_metadata.csv"
+SEGMENTATION_DIR  = HAM10000_DIR / "segmentations"          # ← YENİ: tam maskeler
 
 # ─────────────────────────────────────────────
 # Dataset
@@ -67,7 +70,7 @@ TEST_RATIO  = 0.15
 # ─────────────────────────────────────────────
 # Image pre-processing
 # ─────────────────────────────────────────────
-IMAGE_SIZE    = 224          # pixels (height = width)
+IMAGE_SIZE    = 380          # EfficientNet-B4 optimal input size (Tan & Le, 2019)
 IMAGE_MEAN    = (0.7630392, 0.5456477, 0.5700950)   # HAM10000-specific
 IMAGE_STD     = (0.1409286, 0.1526128, 0.1694007)   # computed from training set
 
@@ -76,13 +79,13 @@ IMAGE_STD     = (0.1409286, 0.1526128, 0.1694007)   # computed from training set
 # ─────────────────────────────────────────────
 # RTX 3080 optimised (16 GB VRAM, AMP enabled)
 # v2: reduced batch for better gradient estimates on minority classes
-BATCH_SIZE         = 32    # smaller batch → better minority class gradients
-NUM_EPOCHS         = 150   # more epochs with cosine warm restarts
-LEARNING_RATE      = 3e-4  # higher initial LR with warm restarts (He et al. 2016)
+BATCH_SIZE         = 16    # 380px B4 needs smaller batch (VRAM)
+NUM_EPOCHS         = 200   # B4 needs more epochs to converge
+LEARNING_RATE      = 3e-4  # higher initial LR with warm restarts (He et al., 2016)
 WEIGHT_DECAY       = 1e-4
 LR_SCHEDULER_STEP  = 10
 LR_SCHEDULER_GAMMA = 0.1
-EARLY_STOP_PATIENCE= 25    # more patience with longer training
+EARLY_STOP_PATIENCE= 30    # B4 needs more patience
 NUM_WORKERS        = 2    # Windows: keep <=4; set 0 if DataLoader errors
 PIN_MEMORY         = True  # faster GPU data transfer
 USE_AMP            = True  # Automatic Mixed Precision (FP16)
@@ -97,7 +100,7 @@ LABEL_SMOOTHING    = 0.1       # used only when LOSS_TYPE = "label_smoothing"
 
 # LR schedule: Cosine Annealing with Warm Restarts (SGDR)
 # Reference: Loshchilov & Hutter (2017). SGDR: ICLR 2017.
-LR_T0              = 30    # first restart period (epochs)
+LR_T0              = 40    # B4: longer first cycle
 LR_T_MULT          = 2     # period doubles after each restart
 LR_ETA_MIN         = 1e-6  # minimum LR
 
@@ -115,7 +118,7 @@ USE_COLOR_CONSTANCY = True
 # Model
 # ─────────────────────────────────────────────
 # Supported: "resnet50" | "efficientnet_b0"
-MODEL_NAME       = "efficientnet_b0"
+MODEL_NAME       = "efficientnet_b4"   # Best EfficientNet on HAM10000 (Ali et al., 2023)
 PRETRAINED       = True
 FREEZE_BACKBONE  = False     # Fine-tune entire network
 
@@ -165,18 +168,6 @@ FID_BATCH_SIZE     = 64
 # ─────────────────────────────────────────────
 # Experiment folder (auto-incremented per run)
 # ─────────────────────────────────────────────
-# Each full pipeline run gets its own experiment_XX folder.
-# Sub-results (eda, training, gradcam …) are sub-folders inside it.
-# Example layout:
-#   results/
-#     experiment_01/
-#       eda/
-#       training/
-#       evaluation/
-#       gradcam/
-#       lime/
-#       counterfactual/
-#       comparison/
 
 def _next_run_dir(base: Path) -> Path:
     """

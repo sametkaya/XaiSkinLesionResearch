@@ -16,35 +16,31 @@ Two independent scoring methods are used:
 
 Final score per image: mean of both methods (abc_mean).
 
-Output files (saved to results/abc_experiment_XX/dataset/):
-  ham10000_abc_scores.csv    — per-image A, B, C scores (DL + IP + mean)
-  ham10000_abc_scored.h5     — HDF5 with images, labels, masks, ABC scores
-  dataset-metadata.json      — Kaggle dataset card
-  README.md                  — methodology, normalisation schema, citation
-  dataset/
-    histograms/
-      score_distributions.png
-    scatter/
-      method_agreement.png
+Output files (saved to experiment directory):
+  10_ham10000_abc_scores/
+    ham10000_abc_scores.csv
+    histograms/score_distributions.png
+    scatter/method_agreement.png
     per_class_abc.png
-
-HDF5 structure:
-  /images     float32 (N, 3, 224, 224) — normalised tensors
-  /labels     int64   (N,)              — 0-6 class indices
-  /abc_dl     float32 (N, 3)           — DL regressor scores
-  /abc_ip     float32 (N, 3)           — IP algorithm scores
-  /abc_mean   float32 (N, 3)           — mean scores
-  /metadata   — image_id, dx, age, sex, localization, dx_type
-
-License: CC BY-NC 4.0 (compatible with HAM10000 source license)
+    result.txt
+  dataset/
+    ham10000_abc_scores.csv
+    ham10000_abc_scored.h5 (optional)
+    dataset-metadata.json
+    README.md
 
 Usage
 -----
+  # Mevcut run dizinine kaydet (varsayılan):
   python score_ham10000.py \\
-      --abc-checkpoint results/abc_experiment_01/abc_regressor/checkpoints/best_abc_model.pth \\
-      --ham-checkpoint results/experiment_01/training/best_model.pth \\
-      [--mask-dir datas/HAM10000_segmentations_lesion_tschandl] \\
-      [--unet-weights PATH]
+      --abc-checkpoint results/run_01_xai_dermoscopy/09_abc_regressor/checkpoints/best_abc_model.pth
+
+  # Özel deney dizinine kaydet:
+  python score_ham10000.py \\
+      --abc-checkpoint results/run_01_xai_dermoscopy/09_abc_regressor/checkpoints/best_abc_model.pth \\
+      --experiment-dir results/experiment_01_full_mask_scoring \\
+      --mask-dir datas/HAM10000/segmentations \\
+      --no-hdf5
 """
 
 import argparse
@@ -69,7 +65,7 @@ from src.abc.config_abc import (
     IMAGE_SIZE, IMAGE_MEAN, IMAGE_STD,
     HAM10000_SCORE_BATCH, HAM10000_SCORE_WORKERS,
     DATASET_HDF5_NAME, DATASET_CSV_NAME, KAGGLE_CARD_NAME,
-    ABC_CRITERIA,
+    ABC_CRITERIA, HAM10000_MASK_DIR,
 )
 from src.abc.abc_model      import ABCRegressor
 from src.abc.ham10000_scorer import HAM10000Scorer
@@ -92,8 +88,13 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--mask-dir", type=str,
-        default=str(ham_cfg.BASE_DIR / "datas" / "HAM10000" / "segmentations"),
-        help="Directory containing ISIC 2018 Task 1 segmentation masks."
+        default=str(HAM10000_MASK_DIR),
+        help="Directory containing segmentation masks."
+    )
+    p.add_argument(
+        "--experiment-dir", type=str, default=None,
+        help="Custom experiment directory (e.g. results/experiment_01_full_mask_scoring). "
+             "If not set, uses the latest run_XX_xai_dermoscopy/ folder."
     )
     p.add_argument(
         "--unet-weights", type=str, default=None,
@@ -230,28 +231,28 @@ def write_kaggle_card(output_dir: Path, n_images: int) -> None:
     readme = f"""# HAM10000 ABC-Scored Dermoscopy Dataset
 
 ## Overview
-This dataset extends the [HAM10000](https://doi.org/10.1038/sdata.2018.161) 
-dermoscopy dataset ({n_images:,} images, 7 diagnostic classes) with 
-pseudo-ABC (Asymmetry, Border irregularity, Color variegation) scores 
+This dataset extends the [HAM10000](https://doi.org/10.1038/sdata.2018.161)
+dermoscopy dataset ({n_images:,} images, 7 diagnostic classes) with
+pseudo-ABC (Asymmetry, Border irregularity, Color variegation) scores
 for each image.
 
 ## ABC Scoring Methodology
 
 ### Why ABC (not ABCD)?
-The diameter (D) criterion is excluded because HAM10000 aggregates images 
-from multiple devices at varying magnifications. After standard 224×224 px 
-resizing, no pixel-to-physical-scale conversion is possible. See: 
+The diameter (D) criterion is excluded because HAM10000 aggregates images
+from multiple devices at varying magnifications. After standard 224x224 px
+resizing, no pixel-to-physical-scale conversion is possible. See:
 Choi et al. (2024), *Applied Sciences* 14(22), 10294.
 
 ### Scoring methods
 
 #### Method 1: DL Regressor (abc_dl)
-EfficientNet-B0 backbone (pre-trained on HAM10000) + multi-output 
+EfficientNet-B0 backbone (pre-trained on HAM10000) + multi-output
 regression head trained on PH2 + Derm7pt with ground-truth ABC annotations.
 
 #### Method 2: Image Processing (abc_ip)
 - **A (Asymmetry):** Principal-axis overlap ratio after reflection
-- **B (Border):** Compactness index (4π·Area/Perimeter²), inverted
+- **B (Border):** Compactness index (4pi*Area/Perimeter^2), inverted
 - **C (Color):** Count of detected standard dermoscopic colors (Argenziano 1998)
 
 ### Normalisation
@@ -262,19 +263,8 @@ All scores normalised to [0.0, 1.0]:
 | B | Circular border | Maximally irregular |
 | C | Monochromatic | 6 colors present |
 
-## File Structure
-```
-ham10000_abc_scores.csv      — per-image scores
-ham10000_abc_scored.h5       — images + scores (HDF5)
-dataset-metadata.json        — Kaggle card
-README.md                    — this file
-```
-
 ## CSV Columns
-`image_id, dx, A_dl, B_dl, C_dl, A_ip, B_ip, C_ip, A_mean, B_mean, C_mean`
-
-## HDF5 Groups
-`/images (N,3,224,224)  /labels (N,)  /abc_dl (N,3)  /abc_ip (N,3)  /abc_mean (N,3)`
+`image_id, dx, A_dl, B_dl, C_dl, A_ip, B_ip, C_ip, A_mean, B_mean, C_mean, mask_source`
 
 ## License
 CC BY-NC 4.0 — compatible with the HAM10000 source license.
@@ -282,8 +272,8 @@ CC BY-NC 4.0 — compatible with the HAM10000 source license.
 ## Citation
 If you use this dataset, please cite:
 1. Tschandl, P., et al. (2018). The HAM10000 dataset. *Scientific Data*, 5, 180161.
-2. Mendonça, T., et al. (2013). PH2. *IEEE EMBC*, 5437–5440.
-3. Kawahara, J., et al. (2019). Seven-point checklist. *IEEE JBHI*, 23(2), 538–546.
+2. Mendonca, T., et al. (2013). PH2. *IEEE EMBC*, 5437-5440.
+3. Kawahara, J., et al. (2019). Seven-point checklist. *IEEE JBHI*, 23(2), 538-546.
 """
     (output_dir / "README.md").write_text(readme, encoding="utf-8")
     print(f"[DatasetBuilder] Kaggle card and README saved to {output_dir}")
@@ -298,14 +288,22 @@ def main() -> None:
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    # ── Experiment directory (new run) ────────
-    exp_dir    = make_abc_experiment_dir(RESULTS_DIR)
-    scores_dir = exp_dir / "10_ham10000_abc_scores"
-    dataset_dir= exp_dir / "10_ham10000_abc_scores" / "dataset"
+    # ── Experiment directory ──────────────────
+    if args.experiment_dir:
+        exp_dir = Path(args.experiment_dir)
+    else:
+        exp_dir = make_abc_experiment_dir(RESULTS_DIR)
+
+    scores_dir  = exp_dir / "10_ham10000_abc_scores"
+    dataset_dir = exp_dir / "dataset"
+    for sub in [scores_dir, scores_dir / "histograms", scores_dir / "scatter",
+                dataset_dir]:
+        sub.mkdir(parents=True, exist_ok=True)
 
     print("\n" + "=" * 60)
     print("  HAM10000 ABC Scoring Pipeline")
-    print(f"  Experiment: {exp_dir.name}")
+    print(f"  Experiment: {exp_dir}")
+    print(f"  Device    : {device}")
     print("=" * 60 + "\n")
 
     # ── Load ABC regressor ────────────────────
@@ -338,8 +336,8 @@ def main() -> None:
     print("─" * 60)
     metadata_df = load_metadata()
 
-    mask_dir    = Path(args.mask_dir) if args.mask_dir else None
-    unet_weights= Path(args.unet_weights) if args.unet_weights else None
+    mask_dir     = Path(args.mask_dir) if args.mask_dir else None
+    unet_weights = Path(args.unet_weights) if args.unet_weights else None
 
     # ── Score ─────────────────────────────────
     print("─" * 60)
@@ -378,7 +376,7 @@ def main() -> None:
     # ── Summary ───────────────────────────────
     print("\n" + "=" * 60)
     print("  Scoring Complete")
-    print(f"  Experiment: {exp_dir.name}")
+    print(f"  Experiment: {exp_dir}")
     print(f"  CSV:    {csv_out}")
     if not args.no_hdf5:
         print(f"  HDF5:   {dataset_dir / DATASET_HDF5_NAME}")
@@ -388,6 +386,10 @@ def main() -> None:
           f"{scores_df.B_dl.mean():.3f} / {scores_df.B_ip.mean():.3f}")
     print(f"  Mean C (DL/IP): "
           f"{scores_df.C_dl.mean():.3f} / {scores_df.C_ip.mean():.3f}")
+    if "mask_source" in scores_df.columns:
+        n_expert = (scores_df["mask_source"] == "expert").sum()
+        n_otsu   = (scores_df["mask_source"] == "otsu").sum()
+        print(f"  Masks : {n_expert:,} expert + {n_otsu:,} Otsu")
     print("=" * 60 + "\n")
 
 

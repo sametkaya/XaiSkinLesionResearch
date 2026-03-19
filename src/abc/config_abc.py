@@ -169,17 +169,18 @@ SEGMENTATION_MIN_AREA   = 500   # minimum lesion area in pixels (post-resize)
 # Color:     number of distinct ISIC-standard colors detected
 IP_COLOR_BINS           = 32    # histogram bins per channel for color analysis
 IP_BORDER_SIGMA         = 2.0   # Gaussian σ for border smoothing
-IP_COLOR_THRESHOLD      = 0.05  # minimum fraction to count a color as present
+IP_COLOR_THRESHOLD      = 0.03  # minimum fraction to count a color as present
 
 # Standard dermoscopic colors (HSV approximations)
 # Reference: Argenziano et al. (1998). Dermoscopy of pigmented skin lesions.
 DERMOSCOPIC_COLORS = {
-    "black"       : {"h": (0,   20),  "s": (0,   80),  "v": (0,   60)},
-    "dark_brown"  : {"h": (10,  25),  "s": (50,  255), "v": (30,  100)},
-    "light_brown" : {"h": (15,  35),  "s": (30,  180), "v": (100, 200)},
-    "red"         : {"h": (0,   15),  "s": (80,  255), "v": (80,  255)},
-    "blue_gray"   : {"h": (100, 140), "s": (20,  150), "v": (50,  180)},
-    "white"       : {"h": (0,   180), "s": (0,   40),  "v": (200, 255)},
+    "black"       : {"h": (0,   180), "s": (0,   255), "v": (0,    80)},
+    "dark_brown"  : {"h": (5,    25), "s": (30,  255), "v": (30,  160)},
+    "light_brown" : {"h": (8,    35), "s": (15,  255), "v": (140, 230)},
+    "red"         : {"h": (0,    15), "s": (50,  255), "v": (60,  255),
+                     "h_wrap": (160, 180)},
+    "blue_gray"   : {"h": (85,  150), "s": (10,  180), "v": (50,  210)},
+    "white"       : {"h": (0,   180), "s": (0,    50), "v": (180, 255)},
 }
 
 # ─────────────────────────────────────────────
@@ -253,7 +254,7 @@ ABC_CF_LAMBDA_C          = 0.6    # color preservation weight
 ABC_CF_LAMBDA_L1         = 0.05   # pixel sparsity weight
 ABC_CF_LAMBDA_TV         = 0.005  # total variation weight (lower with mask)
 ABC_CF_LAMBDA_PERC       = 0.1    # perceptual loss weight (VGG features)
-ABC_CF_CONFIDENCE_THRES  = 0.75   # target class probability threshold
+ABC_CF_CONFIDENCE_THRES  = 0.95   # target class probability threshold
 ABC_CF_NUM_IMAGES        = 10     # images per class transition pair
 ABC_CF_PIXEL_THRESHOLD   = 0.02   # threshold for sparsity mask
 

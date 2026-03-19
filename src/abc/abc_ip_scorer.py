@@ -212,17 +212,24 @@ def compute_color(image_np: np.ndarray, mask: np.ndarray) -> float:
     n_pixels = len(hsv_pixels)
     min_frac = IP_COLOR_THRESHOLD
 
+    h = hsv_pixels[:, 0].astype(int)
+    s = hsv_pixels[:, 1].astype(int)
+    v = hsv_pixels[:, 2].astype(int)
+
     colors_detected = 0
     for color_name, ranges in DERMOSCOPIC_COLORS.items():
         h_lo, h_hi = ranges["h"]
         s_lo, s_hi = ranges["s"]
         v_lo, v_hi = ranges["v"]
 
-        h = hsv_pixels[:, 0].astype(int)
-        s = hsv_pixels[:, 1].astype(int)
-        v = hsv_pixels[:, 2].astype(int)
+
 
         in_h = (h >= h_lo) & (h <= h_hi)
+        # Handle hue wrap-around for red/pink (H near 0 and near 180)
+        if "h_wrap" in ranges:
+            hw_lo, hw_hi = ranges["h_wrap"]
+            in_h = in_h | ((h >= hw_lo) & (h <= hw_hi))
+
         in_s = (s >= s_lo) & (s <= s_hi)
         in_v = (v >= v_lo) & (v <= v_hi)
 

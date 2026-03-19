@@ -1,0 +1,27 @@
+======================================================================
+  EXPERIMENT : ABC-Guided Counterfactual Explanations (v4 — segmentation-guided)
+  TIMESTAMP  : 2026-03-20 01:05:45
+======================================================================
+
+EXPERIMENT CONDITIONS
+----------------------------------------
+  classifier                    : EfficientNet-B4 (HAM10000)
+  abc_regressor                 : ABCRegressor (PH2+Derm7pt)
+  optimizer                     : Adam (per Singla et al., 2023)
+  learning_rate                 : 0.005
+  max_iterations                : 300
+  confidence_thres              : 0.95
+  loss_weights                  : λ_cls=5.0, λ_A=1.0, λ_B=0.8, λ_C=0.6, λ_l1=0.05, λ_TV=0.005, λ_perc=0.1
+  mask_guidance                 : soft mask (dilate=3px, blur σ=5.0)
+  delta_blur                    : Gaussian σ=1.0, kernel=5
+  perceptual_loss               : VGG-16 relu2_2+relu3_3 (Johnson et al., 2016)
+  ablation_modes                : ['baseline', 'A_only', 'AB', 'ABC']
+  class_pairs                   : ['nv→mel', 'mel→nv', 'bkl→mel', 'akiec→bcc']
+  n_images_per_pair             : 10
+  pixel_threshold               : 0.02
+
+RESULTS / STATISTICS
+----------------------------------------
+  elapsed_seconds               : 60.5
+
+======================================================================
