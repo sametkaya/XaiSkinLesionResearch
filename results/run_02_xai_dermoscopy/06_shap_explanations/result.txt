@@ -1,0 +1,24 @@
+======================================================================
+  EXPERIMENT : GradientSHAP Experiment
+  TIMESTAMP  : 2026-03-20 04:21:02
+======================================================================
+
+EXPERIMENT CONDITIONS
+----------------------------------------
+  model                         : efficientnet_b4
+  method                        : GradientSHAP (DeepSHAP variant)
+  background_n                  : 50
+  interpolations                : 25
+  samples_per_class             : 3
+  segmentation                  : QuickSHIFT
+
+RESULTS / STATISTICS
+----------------------------------------
+  total_samples                 : 21
+  samples_per_class             : 3
+  n_background                  : 50
+  n_interpolations              : 25
+  mean_confidence               : 0.6266
+  elapsed_seconds               : 71.9
+
+======================================================================

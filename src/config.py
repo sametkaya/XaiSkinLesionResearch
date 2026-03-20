@@ -80,12 +80,12 @@ IMAGE_STD     = (0.1409286, 0.1526128, 0.1694007)   # computed from training set
 # RTX 3080 optimised (16 GB VRAM, AMP enabled)
 # v2: reduced batch for better gradient estimates on minority classes
 BATCH_SIZE         = 16    # 380px B4 needs smaller batch (VRAM)
-NUM_EPOCHS         = 200   # B4 needs more epochs to converge
+NUM_EPOCHS         = 300   # v5: daha fazla SGDR restart döngüsü   # B4 needs more epochs to converge
 LEARNING_RATE      = 3e-4  # higher initial LR with warm restarts (He et al., 2016)
 WEIGHT_DECAY       = 1e-4
 LR_SCHEDULER_STEP  = 10
 LR_SCHEDULER_GAMMA = 0.1
-EARLY_STOP_PATIENCE= 30    # B4 needs more patience
+EARLY_STOP_PATIENCE= 50    # v5: SGDR T0=40 cycle'ını tamamlasın    # B4 needs more patience
 NUM_WORKERS        = 2    # Windows: keep <=4; set 0 if DataLoader errors
 PIN_MEMORY         = True  # faster GPU data transfer
 USE_AMP            = True  # Automatic Mixed Precision (FP16)
