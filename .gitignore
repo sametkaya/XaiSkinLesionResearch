@@ -9,6 +9,7 @@ datas/
 
 # ── Model checkpoints (large .pth files) ─────────────────────
 models/
+results/*/
 results/*/training/best_model.pth
 results/*/abc_regressor/checkpoints/
 *.pth
