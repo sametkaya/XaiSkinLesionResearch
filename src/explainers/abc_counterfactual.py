@@ -57,6 +57,13 @@ from src.abc.config_abc import (
 )
 from src.segmentation.segmenter import LesionSegmenter
 from src.utils.result_manager import ResultManager
+from src.explainers.cf_losses import (
+    VGGPerceptualLoss,
+    total_variation_loss,
+    low_pass_filter,
+    saliency_init,
+    min_perturbation_hinge,
+)
 
 
 # ─────────────────────────────────────────────
@@ -564,16 +571,17 @@ class ABCCounterfactualExplainer:
                 loss_tv = ABC_CF_LAMBDA_TV * total_variation_loss(delta_masked)
 
                 # VGG Perceptual loss — prevents adversarial noise
-                loss_perc = ABC_CF_LAMBDA_PERC * self.perc_loss(orig, x_cf)
+                loss_perc = -ABC_CF_LAMBDA_PERC * self.perc_loss(orig, x_cf)  # v6: NEGATIVE — encourage visible change
 
-                loss = loss_cls + loss_A + loss_B + loss_C + loss_l1 + loss_tv + loss_perc
+                loss_hinge = 30.0 * F.relu(0.05 - delta_masked.abs().mean())
+                loss = loss_cls + loss_A + loss_B + loss_C + loss_tv + loss_perc + loss_hinge
                 loss.backward()
                 optimizer.step()
 
                 # Post-step processing
                 with torch.no_grad():
                     # Gaussian blur on δ for smoothness
-                    delta.data.copy_(gaussian_blur_delta(delta.data))
+                    # pass  # v6: delta blur disabled — preserves focal perturbations  # v6: disabled — preserves focal changes
                     # Re-apply mask (ensure no leakage after blur)
                     delta.data.mul_(mask_t)
                     # Clip to valid range
@@ -588,7 +596,7 @@ class ABCCounterfactualExplainer:
                     best_prob  = cur_prob
                     best_delta = (mask_t * delta).detach().clone()
 
-                if cur_prob >= confidence_threshold:
+                if False and cur_prob >= confidence_threshold:  # v6: disabled — let optimizer build visible delta
                     break
 
         # Use best delta if final didn't reach threshold
@@ -746,14 +754,14 @@ class ABCCounterfactualExperiment:
 
                 # Save visual panels for first 3 samples
                 self._save_panels(
-                    mode_records[:3],
+                    mode_records[:5],
                     pairs_dir / f"{src_name}_to_{tgt_name}_{mode}.png",
                     f"{src_name} → {tgt_name} | mode={mode}",
                 )
 
                 # Save enhanced panels with textual annotations
                 self._save_narrative_panels(
-                    mode_records[:3],
+                    mode_records[:5],
                     narrative_dir / f"{src_name}_to_{tgt_name}_{mode}_narrative.png",
                     f"{src_name} → {tgt_name} | mode={mode}",
                     src_name, tgt_name,
