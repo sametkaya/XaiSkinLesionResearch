@@ -4,35 +4,17 @@
 
 # ── Dataset & large data files ──────────────────────────────
 datas/
-*.csv
-!requirements*.txt
 
-# ── Model checkpoints (large .pth files) ─────────────────────
-models/
+# ── ALL results (checkpoints, plots, scores, HDF5 — too large) ─
 results/
-results/*/training/best_model.pth
-results/*/abc_regressor/checkpoints/
+
+# ── Model checkpoints anywhere ───────────────────────────────
+models/
 *.pth
 *.pt
 *.ckpt
 *.pkl
-
-# ── Generated results (keep structure, ignore content) ───────
-results/*/training/training_log.csv
-results/*/evaluation/
-results/*/gradcam/
-results/*/lime/
-results/*/counterfactual/
-results/*/comparison/
-results/*/abc_regressor/plots/
-results/*/abc_regressor/training_log.csv
-results/*/abc_regressor/evaluation_metrics.csv
-results/*/ham10000_scores/
-results/*/dataset/*.h5
-results/*/dataset/*.csv
-results/*/abc_cf/per_class/
-results/*/abc_cf/ablation/
-results/*/abc_cf/metrics/
+*.h5
 
 # ── Python ───────────────────────────────────────────────────
 __pycache__/
@@ -58,8 +40,6 @@ ENV/
 *.iml
 *.iws
 *.ipr
-.DS_Store
-Thumbs.db
 
 # ── Jupyter ──────────────────────────────────────────────────
 .ipynb_checkpoints/
@@ -71,6 +51,7 @@ logs/
 
 # ── OS ───────────────────────────────────────────────────────
 .DS_Store
+Thumbs.db
 desktop.ini
 *~
 
@@ -80,11 +61,17 @@ htmlcov/
 .pytest_cache/
 .mypy_cache/
 
-# ── What TO track (force-include) ────────────────────────────
-# Source code always tracked:
+# ── Temp / patch files ───────────────────────────────────────
+*.bak_pre_v*
+/apply_patches*.py
+/test_color_fix.py
+/preflight_check.py
+/v6/
+
+# ── What TO track ────────────────────────────────────────────
 !src/**/*.py
 !*.py
-# Keep result folder structure (empty dirs via .gitkeep)
-!results/.gitkeep
-!results/*/.gitkeep
-!results/*/*/.gitkeep
+!requirements*.txt
+!README.md
+!LICENSE
+!.gitignore
