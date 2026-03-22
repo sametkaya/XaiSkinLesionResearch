@@ -56,14 +56,36 @@ def _denorm(t):
     return np.clip((img * std + mean) * 255, 0, 255).astype(np.uint8)
 
 
-def _get_mask_u8(mask, target_shape):
-    if mask is None:
-        return np.ones(target_shape[:2], dtype=np.uint8) * 255
-    mask_u8 = (np.asarray(mask) > 0.5).astype(np.uint8) * 255
-    if mask_u8.shape[:2] != target_shape[:2]:
-        mask_u8 = cv2.resize(mask_u8, (target_shape[1], target_shape[0]),
-                             interpolation=cv2.INTER_NEAREST)
-    return mask_u8
+def _otsu_segment(image: np.ndarray) -> np.ndarray:
+    """Otsu segmentation fallback for when no mask is available."""
+    green = image[:, :, 1]
+    blur = cv2.GaussianBlur(green, (5, 5), 0)
+    _, mask = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    n_labels, labels, stats, _ = cv2.connectedComponentsWithStats(mask)
+    if n_labels > 1:
+        areas = stats[1:, cv2.CC_STAT_AREA]
+        best = int(np.argmax(areas)) + 1
+        mask = (labels == best).astype(np.uint8) * 255
+    return mask
+
+
+def _get_mask_u8(mask, image: np.ndarray) -> np.ndarray:
+    """Get binary mask. Uses Otsu if mask is None or covers >80% of image."""
+    target_shape = image.shape
+    if mask is not None:
+        mask_u8 = (np.asarray(mask) > 0.5).astype(np.uint8) * 255
+        if mask_u8.shape[:2] != target_shape[:2]:
+            mask_u8 = cv2.resize(mask_u8, (target_shape[1], target_shape[0]),
+                                 interpolation=cv2.INTER_NEAREST)
+        # Check if mask covers >80% = probably all-ones (bad mask)
+        coverage = mask_u8.sum() / 255 / (mask_u8.shape[0] * mask_u8.shape[1])
+        if coverage < 0.80:
+            return mask_u8
+    # Fallback: Otsu segmentation
+    return _otsu_segment(image)
 
 
 # ----- A: Asymmetry -----
@@ -72,7 +94,7 @@ def viz_asymmetry(image: np.ndarray, mask: np.ndarray) -> np.ndarray:
     Bounding box around the mole + cross through center.
     NO green/red overlay. Just geometric reference.
     """
-    mask_u8 = _get_mask_u8(mask, image.shape)
+    mask_u8 = _get_mask_u8(mask, image)
     canvas = image.copy()
 
     contours, _ = cv2.findContours(mask_u8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -109,7 +131,7 @@ def viz_border(image: np.ndarray, mask: np.ndarray) -> np.ndarray:
     Blue dashed circle = reference perfect border.
     Background outside lesion is dimmed.
     """
-    mask_u8 = _get_mask_u8(mask, image.shape)
+    mask_u8 = _get_mask_u8(mask, image)
     mask_bool = mask_u8 > 127
 
     canvas = image.copy()
@@ -173,7 +195,7 @@ def viz_border(image: np.ndarray, mask: np.ndarray) -> np.ndarray:
 
 # ----- C: Color -----
 def viz_color(image: np.ndarray, mask: np.ndarray) -> Tuple[np.ndarray, Set[str]]:
-    mask_bool = _get_mask_u8(mask, image.shape) > 127
+    mask_bool = _get_mask_u8(mask, image) > 127
     hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
 
     canvas = (image.astype(np.float32) * 0.3).astype(np.uint8)
@@ -267,7 +289,7 @@ def save_abc_panel(
             (row_orig, orig_np, orig_abc, "Original"),
             (row_cf, cf_np, cf_abc, "CF"),
         ]:
-            m8 = _get_mask_u8(mask_np, img_np.shape)
+            m8 = _get_mask_u8(mask_np, img_np)
 
             # Col 0: Image + contour
             contoured = img_np.copy()

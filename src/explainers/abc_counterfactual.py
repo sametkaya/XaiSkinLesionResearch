@@ -59,6 +59,7 @@ from src.segmentation.segmenter import LesionSegmenter
 from src.utils.result_manager import ResultManager
 from src.explainers.cf_visualizer import save_8panel_figure
 from src.explainers.abc_visualizer import save_abc_panel
+from src.explainers.individual_panels import generate_individual_panels
 from src.explainers.cf_losses import (
     VGGPerceptualLoss,
     total_variation_loss,

@@ -255,7 +255,7 @@ ABC_CF_LAMBDA_L1         = 0.0   # pixel sparsity weight
 ABC_CF_LAMBDA_TV         = 0.005  # total variation weight (lower with mask)
 ABC_CF_LAMBDA_PERC       = 0.5    # perceptual loss weight (VGG features)
 ABC_CF_CONFIDENCE_THRES  = 0.95   # target class probability threshold
-ABC_CF_NUM_IMAGES        = 10     # images per class transition pair
+ABC_CF_NUM_IMAGES        = 20     # images per class transition pair
 ABC_CF_PIXEL_THRESHOLD   = 0.02   # threshold for sparsity mask
 
 # Segmentation-guided mask preprocessing
