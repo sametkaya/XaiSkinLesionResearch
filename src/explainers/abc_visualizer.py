@@ -71,95 +71,72 @@ def _denorm(t):
 # A — Asymmetry Visualization
 # ─────────────────────────────────────────────
 def viz_asymmetry(image: np.ndarray, mask: np.ndarray) -> np.ndarray:
-    """
-    Visualize asymmetry by showing reflected mask overlap.
-    
-    Green  = symmetric (overlap between original and reflected mask)
-    Red    = asymmetric (non-overlapping regions)
-    
-    Also draws the two principal axes of the lesion.
-    """
-    H, W = mask.shape[:2]
+
+    #Visualize asymmetry with bounding box + cross through lesion center.
+
+    #Green overlay = symmetric regions
+    #Red overlay = asymmetric regions
+    #Yellow box = lesion bounding rectangle
+    #Yellow cross = symmetry axes through bbox center
+
     mask_u8 = (mask > 0.5).astype(np.uint8) * 255
-    
-    # Resize mask to image size
     if mask_u8.shape[:2] != image.shape[:2]:
         mask_u8 = cv2.resize(mask_u8, (image.shape[1], image.shape[0]),
                              interpolation=cv2.INTER_NEAREST)
-    
+
     mask_bool = mask_u8 > 127
     canvas = image.copy()
-    
-    # Find contour and fit ellipse for principal axes
+
     contours, _ = cv2.findContours(mask_u8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     if not contours:
         return canvas
-    
     cnt = max(contours, key=cv2.contourArea)
     if cv2.contourArea(cnt) < 50:
         return canvas
-    
-    # Fit ellipse for axes
-    if len(cnt) >= 5:
-        (cx, cy), (ma, mi), angle = cv2.fitEllipse(cnt)
-    else:
-        M = cv2.moments(mask_u8)
-        if M["m00"] == 0:
-            return canvas
-        cx = M["m10"] / M["m00"]
-        cy = M["m01"] / M["m00"]
-        angle = 0.0
-        ma = mi = 100
-    
-    # Rotate mask to align principal axis
+
+    # Bounding box of lesion
+    x, y, w, h = cv2.boundingRect(cnt)
+    cx_box = x + w // 2
+    cy_box = y + h // 2
+
+    # Compute asymmetry overlay using reflection
     ih, iw = image.shape[:2]
-    centre = (iw / 2, ih / 2)
-    rot_mat = cv2.getRotationMatrix2D(centre, angle, 1.0)
-    rotated = cv2.warpAffine(mask_u8, rot_mat, (iw, ih),
-                              flags=cv2.INTER_NEAREST).astype(bool)
-    
-    # Reflect along both axes
-    flip_h = np.flip(rotated, axis=0)
-    flip_v = np.flip(rotated, axis=1)
-    
-    # Symmetric = overlap, Asymmetric = difference
-    sym_h = np.logical_and(rotated, flip_h)
-    asym_h = np.logical_xor(rotated, flip_h)
-    sym_v = np.logical_and(rotated, flip_v)
-    asym_v = np.logical_xor(rotated, flip_v)
-    
-    # Rotate back
-    inv_rot = cv2.getRotationMatrix2D(centre, -angle, 1.0)
-    sym_back = cv2.warpAffine(
-        (sym_h & sym_v).astype(np.uint8) * 255,
-        inv_rot, (iw, ih), flags=cv2.INTER_NEAREST
-    ) > 127
-    asym_back = cv2.warpAffine(
-        (asym_h | asym_v).astype(np.uint8) * 255,
-        inv_rot, (iw, ih), flags=cv2.INTER_NEAREST
-    ) > 127
-    
-    # Overlay
+    # Reflect mask around bbox center (horizontal and vertical)
+    # Horizontal flip
+    flip_h = np.zeros_like(mask_bool)
+    for row in range(ih):
+        mirror_row = 2 * cy_box - row
+        if 0 <= mirror_row < ih:
+            flip_h[row] = mask_bool[mirror_row]
+    # Vertical flip
+    flip_v = np.zeros_like(mask_bool)
+    for col in range(iw):
+        mirror_col = 2 * cx_box - col
+        if 0 <= mirror_col < iw:
+            flip_v[:, col] = mask_bool[:, mirror_col]
+
+    sym_region = mask_bool & flip_h & flip_v
+    asym_region = mask_bool & ~(flip_h & flip_v)
+
+    # Overlay colors
     overlay = canvas.astype(np.float32)
-    overlay[sym_back] = overlay[sym_back] * 0.6 + np.array([0, 180, 0], dtype=np.float32) * 0.4
-    overlay[asym_back] = overlay[asym_back] * 0.6 + np.array([220, 40, 40], dtype=np.float32) * 0.4
+    overlay[sym_region] = overlay[sym_region] * 0.5 + np.array([0, 200, 0], dtype=np.float32) * 0.5
+    overlay[asym_region] = overlay[asym_region] * 0.4 + np.array([240, 40, 40], dtype=np.float32) * 0.6
     canvas = np.clip(overlay, 0, 255).astype(np.uint8)
-    
-    # Draw principal axes through lesion centroid
-    # Use contour bounding to scale axis length
-    x_b, y_b, w_b, h_b = cv2.boundingRect(cnt)
-    ax_len = int(max(w_b, h_b) * 0.6)
-    rad = np.deg2rad(angle)
-    dx1, dy1 = int(ax_len * np.cos(rad)), int(ax_len * np.sin(rad))
-    dx2, dy2 = int(ax_len * -np.sin(rad)), int(ax_len * np.cos(rad))
-    # cx, cy = lesion centroid from fitEllipse
-    c = (int(cx), int(cy))
-    cv2.line(canvas, (c[0]-dx1, c[1]-dy1), (c[0]+dx1, c[1]+dy1), (255, 255, 0), 2, cv2.LINE_AA)
-    cv2.line(canvas, (c[0]-dx2, c[1]-dy2), (c[0]+dx2, c[1]+dy2), (255, 255, 0), 2, cv2.LINE_AA)
-    # Mark centroid
-    cv2.circle(canvas, c, 3, (255, 255, 0), -1, cv2.LINE_AA)
-    
+
+    # Draw bounding box (yellow, 2px)
+    cv2.rectangle(canvas, (x, y), (x + w, y + h), (255, 255, 0), 2, cv2.LINE_AA)
+
+    # Draw cross (+) from bbox center to edges
+    cv2.line(canvas, (cx_box, y), (cx_box, y + h), (255, 255, 0), 2, cv2.LINE_AA)
+    cv2.line(canvas, (x, cy_box), (x + w, cy_box), (255, 255, 0), 2, cv2.LINE_AA)
+
+    # Mark center
+    cv2.circle(canvas, (cx_box, cy_box), 4, (255, 255, 0), -1, cv2.LINE_AA)
+
     return canvas
+
+
 
 
 # ─────────────────────────────────────────────
@@ -167,68 +144,82 @@ def viz_asymmetry(image: np.ndarray, mask: np.ndarray) -> np.ndarray:
 # ─────────────────────────────────────────────
 def viz_border(image: np.ndarray, mask: np.ndarray) -> np.ndarray:
     """
-    Visualize border irregularity by coloring the contour by local curvature.
+  Visualize border irregularity on the lesion contour.
     
-    Green = smooth (low curvature)
-    Yellow = moderate
-    Red = irregular (high curvature)
+    Draws the lesion contour colored by local curvature:
+      Green = smooth, Yellow = moderate, Red = irregular
+    Black outline underneath for visibility on any background.
+    Also draws a reference circle (blue dashed) for comparison.
     """
     mask_u8 = (mask > 0.5).astype(np.uint8) * 255
-    
     if mask_u8.shape[:2] != image.shape[:2]:
         mask_u8 = cv2.resize(mask_u8, (image.shape[1], image.shape[0]),
                              interpolation=cv2.INTER_NEAREST)
-    
+
+    # Dim background outside lesion
+    mask_bool = mask_u8 > 127
     canvas = image.copy()
+    canvas[~mask_bool] = (canvas[~mask_bool].astype(float) * 0.4).astype(np.uint8)
+
     contours, _ = cv2.findContours(mask_u8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     if not contours:
         return canvas
-    
     cnt = max(contours, key=cv2.contourArea)
     if len(cnt) < 10:
         return canvas
-    
-    pts = cnt.squeeze()  # (N, 2)
+
+    # Draw reference circle (same area, perfect border) in blue
+    area = cv2.contourArea(cnt)
+    radius = int(np.sqrt(area / np.pi))
+    M = cv2.moments(cnt)
+    if M["m00"] > 0:
+        cx = int(M["m10"] / M["m00"])
+        cy = int(M["m01"] / M["m00"])
+        # Dashed circle effect
+        for angle_deg in range(0, 360, 8):
+            a1 = np.deg2rad(angle_deg)
+            a2 = np.deg2rad(angle_deg + 4)
+            pt1 = (int(cx + radius * np.cos(a1)), int(cy + radius * np.sin(a1)))
+            pt2 = (int(cx + radius * np.cos(a2)), int(cy + radius * np.sin(a2)))
+            cv2.line(canvas, pt1, pt2, (100, 150, 255), 1, cv2.LINE_AA)
+
+    pts = cnt.squeeze()
     N = len(pts)
-    
-    # Compute local curvature (angle change over sliding window)
+
+    # Compute local curvature
     window = max(5, N // 20)
     curvature = np.zeros(N)
-    
     for i in range(N):
         p_prev = pts[(i - window) % N]
         p_curr = pts[i]
         p_next = pts[(i + window) % N]
-        
-        v1 = p_prev - p_curr
-        v2 = p_next - p_curr
-        
-        dot = np.dot(v1, v2)
-        cross = abs(v1[0]*v2[1] - v1[1]*v2[0])
-        norm = max(np.linalg.norm(v1) * np.linalg.norm(v2), 1e-8)
-        
-        curvature[i] = cross / norm  # sin of angle ≈ curvature
-    
-    # Normalize curvature to [0, 1]
+        v1 = p_prev.astype(float) - p_curr.astype(float)
+        v2 = p_next.astype(float) - p_curr.astype(float)
+        cross_val = abs(v1[0] * v2[1] - v1[1] * v2[0])
+        norm_val = max(np.linalg.norm(v1) * np.linalg.norm(v2), 1e-8)
+        curvature[i] = cross_val / norm_val
+
     c_max = max(np.percentile(curvature, 95), 1e-8)
     curvature_norm = np.clip(curvature / c_max, 0, 1)
-    
-    # Draw black outline first (glow effect for visibility)
+
+    # Black outline for visibility
     for i in range(N - 1):
-        cv2.line(canvas, tuple(pts[i]), tuple(pts[i+1]), (0, 0, 0), 6, cv2.LINE_AA)
-    cv2.line(canvas, tuple(pts[-1]), tuple(pts[0]), (0, 0, 0), 6, cv2.LINE_AA)
-    # Draw colored contour on top (curvature gradient)
+        cv2.line(canvas, tuple(pts[i]), tuple(pts[i + 1]), (0, 0, 0), 5, cv2.LINE_AA)
+    cv2.line(canvas, tuple(pts[-1]), tuple(pts[0]), (0, 0, 0), 5, cv2.LINE_AA)
+
+    # Curvature-colored contour
     for i in range(N - 1):
         c = curvature_norm[i]
         r = int(min(255, c * 2 * 255))
         g = int(min(255, (1 - c) * 2 * 255))
-        cv2.line(canvas, tuple(pts[i]), tuple(pts[i+1]), (r, g, 0), 3, cv2.LINE_AA)
+        cv2.line(canvas, tuple(pts[i]), tuple(pts[i + 1]), (r, g, 0), 3, cv2.LINE_AA)
     c = curvature_norm[-1]
     r = int(min(255, c * 2 * 255))
     g = int(min(255, (1 - c) * 2 * 255))
     cv2.line(canvas, tuple(pts[-1]), tuple(pts[0]), (r, g, 0), 3, cv2.LINE_AA)
-    
+
     return canvas
+
 
 
 # ─────────────────────────────────────────────
