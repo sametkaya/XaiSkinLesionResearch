@@ -635,7 +635,7 @@ class ABCCounterfactualExplainer:
         return {
             "cf_tensor"   : x_cf_final,
             "delta"       : delta_final,
-            "mask"        : soft_mask,
+            "mask"        : mask,  # original binary mask for visualization
             "validity"    : validity,
             "final_prob"  : round(final_prob, 4),
             "src_prob"    : round(src_prob, 4),
