@@ -57,6 +57,8 @@ from src.abc.config_abc import (
 )
 from src.segmentation.segmenter import LesionSegmenter
 from src.utils.result_manager import ResultManager
+from src.explainers.cf_visualizer import save_8panel_figure
+from src.explainers.abc_visualizer import save_abc_panel
 from src.explainers.cf_losses import (
     VGGPerceptualLoss,
     total_variation_loss,
@@ -754,18 +756,38 @@ class ABCCounterfactualExperiment:
 
                 # Save visual panels for first 3 samples
                 self._save_panels(
-                    mode_records[:5],
+                    mode_records[:10],
                     pairs_dir / f"{src_name}_to_{tgt_name}_{mode}.png",
                     f"{src_name} → {tgt_name} | mode={mode}",
                 )
 
                 # Save enhanced panels with textual annotations
                 self._save_narrative_panels(
-                    mode_records[:5],
+                    mode_records[:10],
                     narrative_dir / f"{src_name}_to_{tgt_name}_{mode}_narrative.png",
                     f"{src_name} → {tgt_name} | mode={mode}",
                     src_name, tgt_name,
                 )
+                # v7: 8-panel publication-quality figure
+                save_8panel_figure(
+                    src_idx,
+                    mode_records[:10],
+                    self.explainer.clf,
+                    self.device,
+                    pairs_dir / f"{src_name}_to_{tgt_name}_{mode}_8panel.png",
+                    f"{src_name} → {tgt_name} | mode={mode}",
+                    max_rows=10,
+                )
+                # v7: ABC clinical visualization
+                if mode == "ABC":
+                    save_abc_panel(
+                        mode_records[:5],
+                        self.explainer.abc_reg,
+                        self.device,
+                        pairs_dir / f"{src_name}_to_{tgt_name}_abc_clinical.png",
+                        f"{src_name} → {tgt_name} | ABC Clinical Analysis",
+                        max_rows=5,
+                    )
 
                 # Ablation row
                 print(
