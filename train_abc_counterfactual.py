@@ -53,6 +53,7 @@ from src.abc.config_abc import (
     HAM10000_MASK_DIR,
 )
 from src.abc.abc_model               import ABCRegressor
+from src.segmentation.segmenter    import LesionSegmenter
 from src.model                       import SkinLesionClassifier, build_model
 from src.train                       import load_best_model
 from src.data_loader                 import load_metadata, stratified_patient_split, get_dataloaders
@@ -189,7 +190,7 @@ def main() -> None:
     unet_path = exp_dir / "12_segmentation" / "best_unet.pth"
     segmenter = None
     if unet_path.exists():
-        segmenter = LesionSegmenter(weights_path=unet_path, device=device)
+        segmenter = LesionSegmenter(model_weights=unet_path, device=device)
         print(f"[Main] U-Net loaded: {unet_path}")
     else:
         print(f"[Main] U-Net not found at {unet_path} — using Otsu fallback")

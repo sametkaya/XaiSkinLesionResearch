@@ -218,7 +218,7 @@ class LesionSegmenter:
         self.use_dl = False
 
         if model_weights is not None and Path(model_weights).exists():
-            self.model = LesionUNet().to(self.device)
+            self.model = LesionUNet(base_filters=64).to(self.device)
             state = torch.load(model_weights, map_location=self.device)
             self.model.load_state_dict(state)
             self.model.eval()
