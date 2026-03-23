@@ -789,6 +789,17 @@ class ABCCounterfactualExperiment:
                         f"{src_name} → {tgt_name} | ABC Clinical Analysis",
                         max_rows=5,
                     )
+                    # v8: Individual per-image panels
+                    indiv_dir = pairs_dir / f"{src_name}_to_{tgt_name}_individual"
+                    generate_individual_panels(
+                        mode_records,
+                        self.explainer.clf,
+                        self.explainer.abc_reg,
+                        self.device,
+                        indiv_dir,
+                        src_name, tgt_name,
+                        mode="ABC",
+                    )
 
                 # Ablation row
                 print(

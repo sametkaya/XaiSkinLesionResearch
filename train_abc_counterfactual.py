@@ -182,6 +182,18 @@ def main() -> None:
     abc_model.eval()
     print(f"[Main] ABC regressor loaded — Val MAE: {state.get('best_val_mae', 'N/A')}")
 
+    # ── Load U-Net segmenter ────────────────────
+    print("─" * 60)
+    print("  Loading U-Net segmenter …")
+    print("─" * 60)
+    unet_path = exp_dir / "12_segmentation" / "best_unet.pth"
+    segmenter = None
+    if unet_path.exists():
+        segmenter = LesionSegmenter(weights_path=unet_path, device=device)
+        print(f"[Main] U-Net loaded: {unet_path}")
+    else:
+        print(f"[Main] U-Net not found at {unet_path} — using Otsu fallback")
+
     # ── HAM10000 test loader ───────────────────
     print("─" * 60)
     print("  Preparing HAM10000 test set …")
@@ -206,6 +218,7 @@ def main() -> None:
         device        = device,
         result_dir    = cf_dir,
         class_labels  = ham_cfg.CLASS_LABELS,
+        segmenter     = segmenter,
     )
     stats = experiment.run()
 
