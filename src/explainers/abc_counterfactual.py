@@ -526,6 +526,11 @@ class ABCCounterfactualExplainer:
         # ── Prepare soft mask ──────────────────
         if mask is None and self.segmenter is not None:
             mask = self.segmenter.segment(image_tensor)
+        # Resize mask to match image tensor size
+        if mask is not None:
+            h, w = image_tensor.shape[1], image_tensor.shape[2]
+            if mask.shape[0] != h or mask.shape[1] != w:
+                mask = cv2.resize(mask.astype(np.uint8), (w, h), interpolation=cv2.INTER_NEAREST).astype(bool)
         if mask is not None:
             soft_mask = prepare_soft_mask(mask)
             mask_t    = mask_to_tensor(soft_mask, self.device)  # (1,1,H,W)
@@ -710,6 +715,8 @@ class ABCCounterfactualExperiment:
         self.labels     = class_labels
         self.label2idx  = {lbl: i for i, lbl in enumerate(class_labels)}
         self.segmenter  = segmenter
+        self.mask_dir   = None
+        self.mask_dir   = None
 
     def run(self) -> Dict:
         """Execute full experiment and return aggregate statistics."""
@@ -873,6 +880,10 @@ class ABCCounterfactualExperiment:
     ) -> List[Tuple[torch.Tensor, int]]:
         """Collect n correctly classified images with high source confidence."""
         samples = []
+        batch_offset = 0
+        ds = self.loader.dataset
+        has_df = hasattr(ds, "df")
+        batch_offset = 0
         self.explainer.clf.eval()
         with torch.no_grad():
             for images, labels in self.loader:
@@ -887,9 +898,25 @@ class ABCCounterfactualExperiment:
                     if (int(lbl) == src_class
                             and int(prd) == src_class
                             and float(probs[i, src_class]) >= min_source_prob):
-                        samples.append((img, int(lbl), None))
+                        # Load expert mask from disk
+                        mask = None
+                        if self.mask_dir is not None:
+                            try:
+                                ds = self.loader.dataset
+                                row = ds.df.iloc[batch_offset + i]
+                                iid = row["image_id"]
+                                mp = self.mask_dir / f"{iid}_segmentation.png"
+                                if mp.exists():
+                                    m = cv2.imread(str(mp), cv2.IMREAD_GRAYSCALE)
+                                    h, w = img.shape[1], img.shape[2]
+                                    m = cv2.resize(m, (w, h), interpolation=cv2.INTER_LINEAR)
+                                    mask = (m > 127)
+                            except Exception:
+                                pass
+                        samples.append((img, int(lbl), mask))
                     if len(samples) >= n:
                         break
+                batch_offset += len(images)
                 if len(samples) >= n:
                     break
 

@@ -221,6 +221,7 @@ def main() -> None:
         class_labels  = ham_cfg.CLASS_LABELS,
         segmenter     = segmenter,
     )
+    experiment.mask_dir = Path(args.mask_dir) if args.mask_dir else None
     stats = experiment.run()
 
     # ── Summary ───────────────────────────────
