@@ -1,21 +1,18 @@
 """
 src/explainers/individual_panels.py
 ------------------------------------
-Generate one comprehensive XAI panel per image.
+Generate one comprehensive XAI panel per lesion image.
 
-Layout (2 rows × 4 columns):
-  Row 1: Original+Contour | Grad-CAM | A:Asymmetry | B:Border
-  Row 2: Counterfactual   | CF Grad-CAM | C:Color Map | ABC Scores + CF Explanation
+Layout (2 rows x 4 columns):
+  Row 1: Original+Contour | A:Asymmetry | B:Border   | C:Color Map
+  Row 2: Grad-CAM         | ABC Profile | Ablation   | CF Narrative
 
-Each file is named: {src}_{tgt}_{image_id}_{mode}.png
-At least 20 examples per class pair.
-
-References:
-  Selvaraju et al. (2017). Grad-CAM. ICCV.
-  Stolz et al. (1994). ABCD rule of dermatoscopy.
+Requires all 4 ablation mode results for the same image.
+Each file: {src}_to_{tgt}_{idx:03d}.png
 """
 
 import cv2
+import textwrap
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -29,6 +26,12 @@ from typing import Dict, List, Optional, Set, Tuple
 from src.abc.config_abc import (
     IMAGE_MEAN, IMAGE_STD, DERMOSCOPIC_COLORS, IP_COLOR_THRESHOLD,
 )
+
+plt.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+    "font.size": 8, "pdf.fonttype": 42, "savefig.dpi": 200,
+})
 
 
 # ─────────────────────────────────────────────
@@ -45,7 +48,7 @@ def _denorm(t):
     return np.clip((img * std + mean) * 255, 0, 255).astype(np.uint8)
 
 
-def _otsu_segment(image: np.ndarray) -> np.ndarray:
+def _otsu_segment(image):
     green = image[:, :, 1]
     blur = cv2.GaussianBlur(green, (5, 5), 0)
     _, mask = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
@@ -54,18 +57,25 @@ def _otsu_segment(image: np.ndarray) -> np.ndarray:
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
     n_labels, labels, stats, _ = cv2.connectedComponentsWithStats(mask)
     if n_labels > 1:
-        areas = stats[1:, cv2.CC_STAT_AREA]
-        best = int(np.argmax(areas)) + 1
+        best = int(np.argmax(stats[1:, cv2.CC_STAT_AREA])) + 1
         mask = (labels == best).astype(np.uint8) * 255
     return mask
 
 
-def _get_mask(mask, image: np.ndarray) -> np.ndarray:
+def _get_mask(mask, image):
     if mask is not None:
         m = (np.asarray(mask) > 0.5).astype(np.uint8) * 255
         if m.shape[:2] != image.shape[:2]:
             m = cv2.resize(m, (image.shape[1], image.shape[0]),
-                           interpolation=cv2.INTER_NEAREST)
+                           interpolation=cv2.INTER_LINEAR)
+            m = (m > 127).astype(np.uint8) * 255
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+        m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, kernel)
+        m = cv2.morphologyEx(m, cv2.MORPH_OPEN, kernel)
+        n_labels, labels, stats, _ = cv2.connectedComponentsWithStats(m)
+        if n_labels > 2:
+            best = int(np.argmax(stats[1:, cv2.CC_STAT_AREA])) + 1
+            m = (labels == best).astype(np.uint8) * 255
         coverage = m.sum() / 255 / (m.shape[0] * m.shape[1])
         if coverage < 0.80:
             return m
@@ -73,7 +83,7 @@ def _get_mask(mask, image: np.ndarray) -> np.ndarray:
 
 
 # ─────────────────────────────────────────────
-# Grad-CAM (inline, lightweight)
+# Grad-CAM (inline)
 # ─────────────────────────────────────────────
 
 class _GradCAM:
@@ -90,7 +100,7 @@ class _GradCAM:
             lambda m, gi, go: setattr(self, 'grad', go[0].detach())))
 
     @torch.enable_grad()
-    def generate(self, img_t: torch.Tensor, cls: int) -> np.ndarray:
+    def generate(self, img_t, cls):
         self.model.eval()
         inp = img_t.clone().detach().requires_grad_(True)
         logits = self.model(inp)
@@ -110,7 +120,7 @@ class _GradCAM:
             h.remove()
 
 
-def _overlay_cam(image: np.ndarray, heatmap: np.ndarray, alpha=0.4) -> np.ndarray:
+def _overlay_cam(image, heatmap, alpha=0.4):
     if heatmap.shape[:2] != image.shape[:2]:
         heatmap = cv2.resize(heatmap, (image.shape[1], image.shape[0]))
     colored = cv2.applyColorMap((heatmap * 255).astype(np.uint8), cv2.COLORMAP_TURBO)
@@ -119,7 +129,7 @@ def _overlay_cam(image: np.ndarray, heatmap: np.ndarray, alpha=0.4) -> np.ndarra
 
 
 # ─────────────────────────────────────────────
-# ABC visualizations (same as abc_visualizer)
+# ABC Visualizations
 # ─────────────────────────────────────────────
 
 def _viz_asymmetry(image, mask_u8):
@@ -150,7 +160,6 @@ def _viz_border(image, mask_u8):
     cnt = max(contours, key=cv2.contourArea)
     if len(cnt) < 10:
         return canvas
-    # Reference circle
     area = cv2.contourArea(cnt)
     radius = int(np.sqrt(area / np.pi))
     M = cv2.moments(cnt)
@@ -214,28 +223,28 @@ def _viz_color(image, mask_u8):
 
 
 # ─────────────────────────────────────────────
-# Main: generate individual panels
+# Main function
 # ─────────────────────────────────────────────
 
 def generate_individual_panels(
-    results: List[Dict],
+    all_records: Dict[str, List[Dict]],
     classifier,
     abc_regressor,
     device: torch.device,
     output_dir: Path,
     src_name: str,
     tgt_name: str,
-    mode: str = "ABC",
+    n_images: int = 20,
     class_labels: List[str] = None,
 ):
     """
-    Generate one comprehensive panel per image.
+    Generate one comprehensive panel per lesion.
 
-    Layout (2 rows × 4 columns):
-      Row 1: Original+Contour | Grad-CAM(src) | A:Asymmetry | B:Border
-      Row 2: Counterfactual   | Grad-CAM(CF)  | C:Color Map | Scores+Text
-
-    Each file: {src}_to_{tgt}_{image_idx:03d}_{mode}.png
+    Parameters
+    ----------
+    all_records : dict
+        Keys: mode names ('baseline', 'A_only', 'AB', 'ABC')
+        Values: list of result dicts (same image order across modes)
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     gcam = _GradCAM(classifier, device)
@@ -246,149 +255,150 @@ def generate_individual_panels(
         class_labels = config.CLASS_LABELS
 
     src_idx = class_labels.index(src_name)
-    tgt_idx = class_labels.index(tgt_name)
 
-    plt.rcParams.update({
-        "font.family": "sans-serif",
-        "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-        "font.size": 8, "pdf.fonttype": 42, "savefig.dpi": 200,
-    })
+    modes = ["baseline", "A_only", "AB", "ABC"]
+    n = min(n_images, min(len(all_records.get(m, [])) for m in modes))
+    if n == 0:
+        print(f"  [Individual] No records for {src_name}->{tgt_name}, skipping")
+        gcam.remove()
+        return
 
-    for i, res in enumerate(results):
+    for i in range(n):
+        mode_results = {m: all_records[m][i] for m in modes if i < len(all_records[m])}
+        if len(mode_results) < 4:
+            continue
+
+        res = mode_results["ABC"]
         orig_t = res["cf_tensor"] - res["delta"]
-        cf_t = res["cf_tensor"]
-        mask_raw = res.get("mask", None)
-
         orig_np = _denorm(orig_t)
-        cf_np = _denorm(cf_t)
-        mask_u8 = _get_mask(mask_raw, orig_np)
+        mask_u8 = _get_mask(res.get("mask", None), orig_np)
 
         # Grad-CAM
         orig_gpu = orig_t.unsqueeze(0).to(device)
-        cf_gpu = cf_t.unsqueeze(0).to(device)
         cam_orig = gcam.generate(orig_gpu, src_idx)
-        cam_cf = gcam.generate(cf_gpu, src_idx)
 
         # ABC scores
         with torch.no_grad():
             abc_orig = abc_regressor(orig_gpu).squeeze().cpu().numpy()
-            abc_cf = abc_regressor(cf_gpu).squeeze().cpu().numpy()
 
-        # ── Build figure ──────────────────────
-        fig, axes = plt.subplots(2, 4, figsize=(16, 8))
+        # ── Build 2x4 figure ─────────────────
+        fig, axes = plt.subplots(2, 4, figsize=(20, 10))
 
-        # ── Row 1: Original ───────────────────
+        # ═══ ROW 1 ═══════════════════════════
         # (0,0) Original + contour
         img_c = orig_np.copy()
         cnts, _ = cv2.findContours(mask_u8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         cv2.drawContours(img_c, cnts, -1, (0, 255, 0), 2)
         axes[0, 0].imshow(img_c)
-        axes[0, 0].set_title(f"Original ({src_name})\nP({src_name})={res.get('src_prob', '?')}", fontsize=8, fontweight="bold")
+        axes[0, 0].set_title(
+            f"Original ({src_name})\nP({src_name})={res.get('src_prob', '?')}",
+            fontsize=9, fontweight="bold")
         axes[0, 0].axis("off")
 
-        # (0,1) Grad-CAM on original
-        axes[0, 1].imshow(_overlay_cam(orig_np, cam_orig))
-        axes[0, 1].set_title(f"Grad-CAM ({src_name})", fontsize=8, fontweight="bold")
+        # (0,1) Asymmetry
+        axes[0, 1].imshow(_viz_asymmetry(orig_np, mask_u8))
+        axes[0, 1].set_title(f"A: Asymmetry = {abc_orig[0]:.3f}", fontsize=9, fontweight="bold")
         axes[0, 1].axis("off")
 
-        # (0,2) Asymmetry
-        axes[0, 2].imshow(_viz_asymmetry(orig_np, mask_u8))
-        axes[0, 2].set_title(f"A: Asymmetry = {abc_orig[0]:.3f}", fontsize=8, fontweight="bold")
+        # (0,2) Border
+        axes[0, 2].imshow(_viz_border(orig_np, mask_u8))
+        axes[0, 2].set_title(f"B: Border = {abc_orig[1]:.3f}", fontsize=9, fontweight="bold")
         axes[0, 2].axis("off")
 
-        # (0,3) Border
-        axes[0, 3].imshow(_viz_border(orig_np, mask_u8))
-        axes[0, 3].set_title(f"B: Border = {abc_orig[1]:.3f}", fontsize=8, fontweight="bold")
+        # (0,3) Color Map
+        color_viz, detected = _viz_color(orig_np, mask_u8)
+        axes[0, 3].imshow(color_viz)
+        color_str = ", ".join(sorted(detected)) if detected else "none"
+        axes[0, 3].set_title(f"C: Color = {abc_orig[2]:.3f}\n{color_str}",
+                              fontsize=8, fontweight="bold")
         axes[0, 3].axis("off")
 
-        # ── Row 2: Counterfactual ─────────────
-        # (1,0) Counterfactual + contour
-        cf_c = cf_np.copy()
-        cv2.drawContours(cf_c, cnts, -1, (0, 255, 0), 2)
-        axes[1, 0].imshow(cf_c)
-        valid = "✓" if res["validity"] else "✗"
-        axes[1, 0].set_title(f"Counterfactual ({tgt_name}) {valid}\nP({tgt_name})={res['final_prob']:.3f}", fontsize=8, fontweight="bold")
+        # ═══ ROW 2 ═══════════════════════════
+        # (1,0) Grad-CAM
+        axes[1, 0].imshow(_overlay_cam(orig_np, cam_orig))
+        axes[1, 0].set_title(f"Grad-CAM ({src_name})", fontsize=9, fontweight="bold")
         axes[1, 0].axis("off")
 
-        # (1,1) Grad-CAM on CF
-        axes[1, 1].imshow(_overlay_cam(cf_np, cam_cf))
-        axes[1, 1].set_title(f"Grad-CAM on CF ({src_name})", fontsize=8, fontweight="bold")
-        axes[1, 1].axis("off")
-
-        # (1,2) Color Map
-        color_viz, detected = _viz_color(orig_np, mask_u8)
-        axes[1, 2].imshow(color_viz)
-        color_str = ", ".join(sorted(detected)) if detected else "none"
-        axes[1, 2].set_title(f"C: Color = {abc_orig[2]:.3f}\n{color_str}", fontsize=7, fontweight="bold")
-        axes[1, 2].axis("off")
-
-        # (1,3) Scores + CF explanation text
-        ax_score = axes[1, 3]
-        ax_score.clear()
-
-        # Score comparison bars
-        y_pos = np.arange(3)
-        bar_h = 0.35
+        # (1,1) ABC Profile
+        ax_abc = axes[1, 1]
+        colors_abc = ["#E24B4A", "#EF9F27", "#1D9E75"]
         labels_abc = ["A (Asymmetry)", "B (Border)", "C (Color)"]
-        orig_scores = [abc_orig[0], abc_orig[1], abc_orig[2]]
-        cf_scores = [abc_cf[0], abc_cf[1], abc_cf[2]]
+        scores = [abc_orig[0], abc_orig[1], abc_orig[2]]
+        ax_abc.barh(range(3), scores, color=colors_abc, height=0.6, alpha=0.85)
+        ax_abc.set_xlim(0, max(max(scores) * 1.3, 0.05))
+        ax_abc.set_yticks(range(3))
+        ax_abc.set_yticklabels(labels_abc, fontsize=8)
+        ax_abc.tick_params(axis='x', labelsize=7)
+        for j, s in enumerate(scores):
+            ax_abc.text(s + 0.002, j, f"{s:.3f}", va="center", fontsize=8, fontweight="bold")
+        ax_abc.set_title("ABC Profile", fontsize=9, fontweight="bold")
+        ax_abc.grid(axis='x', alpha=0.3)
 
-        bars1 = ax_score.barh(y_pos - bar_h/2, orig_scores, bar_h,
-                               label="Original", color=["#E24B4A", "#EF9F27", "#1D9E75"], alpha=0.7)
-        bars2 = ax_score.barh(y_pos + bar_h/2, cf_scores, bar_h,
-                               label="CF", color=["#E24B4A", "#EF9F27", "#1D9E75"], alpha=0.35,
-                               edgecolor=["#E24B4A", "#EF9F27", "#1D9E75"], linewidth=1.5)
+        # (1,2) Ablation comparison
+        ax_abl = axes[1, 2]
+        mode_display = ["Baseline", "+A", "+A+B", "+A+B+C"]
+        x_pos = np.arange(4)
+        bar_w = 0.25
+        delta_A = [mode_results[m].get("delta_A", 0) for m in modes]
+        delta_B = [mode_results[m].get("delta_B", 0) for m in modes]
+        delta_C = [mode_results[m].get("delta_C", 0) for m in modes]
+        ax_abl.bar(x_pos - bar_w, delta_A, bar_w, label=u"\u0394A", color="#E24B4A", alpha=0.85)
+        ax_abl.bar(x_pos,         delta_B, bar_w, label=u"\u0394B", color="#EF9F27", alpha=0.85)
+        ax_abl.bar(x_pos + bar_w, delta_C, bar_w, label=u"\u0394C", color="#1D9E75", alpha=0.85)
+        ax_abl.set_xticks(x_pos)
+        ax_abl.set_xticklabels(mode_display, fontsize=8)
+        ax_abl.set_ylabel(u"\u0394 (change)", fontsize=8)
+        ax_abl.legend(fontsize=7, loc="upper right")
+        ax_abl.set_title("Ablation: ABC Preservation", fontsize=9, fontweight="bold")
+        ax_abl.grid(axis='y', alpha=0.3)
+        for mi, m in enumerate(modes):
+            r = mode_results[m]
+            v = u"\u2713" if r["validity"] else u"\u2717"
+            ax_abl.text(mi, ax_abl.get_ylim()[1] * 0.92,
+                       f"{v} L1={r['proximity_l1']:.3f}",
+                       ha="center", fontsize=6, color="gray")
 
-        ax_score.set_xlim(0, max(max(orig_scores), max(cf_scores)) * 1.4 + 0.01)
-        ax_score.set_yticks(y_pos)
-        ax_score.set_yticklabels(labels_abc, fontsize=7)
-        ax_score.tick_params(axis='x', labelsize=6)
-
-        for j, (o, c) in enumerate(zip(orig_scores, cf_scores)):
-            delta = c - o
-            sign = "+" if delta >= 0 else ""
-            ax_score.text(max(o, c) + 0.003, j,
-                         f"{o:.3f}→{c:.3f} ({sign}{delta:.3f})",
-                         va="center", fontsize=6)
-
-        ax_score.legend(fontsize=6, loc="lower right")
-        ax_score.set_title("ABC Scores: Original vs CF", fontsize=8, fontweight="bold")
-
-        # Counterfactual explanation text
-        delta_A = abs(abc_cf[0] - abc_orig[0])
-        delta_B = abs(abc_cf[1] - abc_orig[1])
-        delta_C = abs(abc_cf[2] - abc_orig[2])
-
-        explanation_lines = [
-            f"Transition: {src_name} → {tgt_name} (mode={mode})",
-            f"L1={res['proximity_l1']:.4f}  Sparsity={res['sparsity']:.3f}",
-            f"ΔA={delta_A:.4f}  ΔB={delta_B:.4f}  ΔC={delta_C:.4f}",
+        # (1,3) CF Narrative
+        ax_txt = axes[1, 3]
+        ax_txt.axis("off")
+        bl_res = mode_results["baseline"]
+        abc_res = mode_results["ABC"]
+        lines = [
+            f"Transition: {src_name} -> {tgt_name}",
+            f"P({tgt_name}) = {abc_res['final_prob']:.3f}  "
+            f"{'Valid' if abc_res['validity'] else 'Invalid'}",
+            "",
+            "Counterfactual Explanation:",
+            f"  L1 = {bl_res['proximity_l1']:.4f}",
+            "",
+            "ABC Preservation Effect:",
         ]
+        bl_total = bl_res["delta_A"] + bl_res["delta_B"] + bl_res["delta_C"]
+        abc_total = abc_res["delta_A"] + abc_res["delta_B"] + abc_res["delta_C"]
+        if bl_total > 0:
+            reduction = (1 - abc_total / bl_total) * 100
+            lines.append(f"  Total delta reduced {reduction:.0f}%")
+        deltas = {"A": bl_res["delta_A"], "B": bl_res["delta_B"], "C": bl_res["delta_C"]}
+        max_c = max(deltas, key=deltas.get)
+        cnames = {"A": "Asymmetry", "B": "Border", "C": "Color"}
+        lines.append(f"\nMost affected: {cnames[max_c]}")
+        lines.append(f"  (delta_{max_c}={deltas[max_c]:.4f})")
+        if "text_en" in abc_res and abc_res["text_en"]:
+            wrapped = textwrap.fill(abc_res["text_en"][:250], width=42)
+            lines.append(f"\n{wrapped}")
+        ax_txt.text(0.05, 0.95, "\n".join(lines), transform=ax_txt.transAxes,
+                   fontsize=7, family="monospace", verticalalignment="top",
+                   bbox=dict(facecolor="lightyellow", alpha=0.8, pad=8,
+                            edgecolor="gray", linewidth=0.5))
+        ax_txt.set_title("CF Explanation", fontsize=9, fontweight="bold")
 
-        # Add clinical interpretation
-        max_delta = max(delta_A, delta_B, delta_C)
-        if max_delta == delta_A:
-            explanation_lines.append("→ Asymmetry changed most")
-        elif max_delta == delta_B:
-            explanation_lines.append("→ Border regularity changed most")
-        else:
-            explanation_lines.append("→ Color variegation changed most")
-
-        fig.text(0.75, 0.02, "\n".join(explanation_lines),
-                fontsize=7, family="monospace",
-                bbox=dict(facecolor="lightyellow", alpha=0.8, pad=5),
-                va="bottom", ha="center")
-
-        # Title
-        fig.suptitle(
-            f"{src_name} → {tgt_name} | mode={mode} | Example {i+1}/{len(results)}",
-            fontsize=11, fontweight="bold"
-        )
-
-        plt.tight_layout(rect=[0, 0.06, 1, 0.95])
-        fname = f"{src_name}_to_{tgt_name}_{i+1:03d}_{mode}.png"
-        fig.savefig(output_dir / fname, dpi=200, bbox_inches="tight", pad_inches=0.15)
+        # ── Save ─────────────────────────────
+        fig.suptitle(f"{src_name} -> {tgt_name} | Example {i+1}/{n}",
+                     fontsize=12, fontweight="bold")
+        plt.tight_layout(rect=[0, 0, 1, 0.95])
+        fname = f"{src_name}_to_{tgt_name}_{i+1:03d}.png"
+        fig.savefig(output_dir / fname, dpi=200, bbox_inches="tight", pad_inches=0.1)
         plt.close(fig)
 
     gcam.remove()
-    print(f"  [Individual] {len(results)} panels saved to {output_dir.name}/")
+    print(f"  [Individual] {n} panels saved to {output_dir.name}/")

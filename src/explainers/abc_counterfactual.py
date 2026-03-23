@@ -742,6 +742,7 @@ class ABCCounterfactualExperiment:
             print(f"\n[ABCCounterfactual] Pair: {src_name} → {tgt_name}")
             pair_samples = self._collect_samples(src_idx, ABC_CF_NUM_IMAGES)
 
+            mode_records_all = {}
             for mode in ABLATION_MODES:
                 mode_records = []
                 for img_t, true_lbl, mask in pair_samples:
@@ -796,18 +797,9 @@ class ABCCounterfactualExperiment:
                         f"{src_name} → {tgt_name} | ABC Clinical Analysis",
                         max_rows=5,
                     )
-                    # v8: Individual per-image panels
-                    indiv_dir = pairs_dir / f"{src_name}_to_{tgt_name}_individual"
-                    generate_individual_panels(
-                        mode_records,
-                        self.explainer.clf,
-                        self.explainer.abc_reg,
-                        self.device,
-                        indiv_dir,
-                        src_name, tgt_name,
-                        mode="ABC",
-                    )
 
+
+                mode_records_all[mode] = mode_records
                 # Ablation row
                 print(
                     f"  [{mode:8s}]  validity={np.mean([r['validity'] for r in mode_records]):.3f}  "
