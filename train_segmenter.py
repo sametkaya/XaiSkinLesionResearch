@@ -41,7 +41,8 @@ from tqdm import tqdm
 from src.segmentation.segmenter import LesionUNet
 from src.data_loader import load_metadata, set_seed, stratified_patient_split
 from src import config
-from src.abc.config_abc import IMAGE_SIZE, IMAGE_MEAN, IMAGE_STD
+IMAGE_SIZE = 384  # must be divisible by 16 for U-Net
+from src.abc.config_abc import IMAGE_MEAN, IMAGE_STD, IMAGE_MEAN, IMAGE_STD
 from src.utils.result_manager import ResultManager
 
 

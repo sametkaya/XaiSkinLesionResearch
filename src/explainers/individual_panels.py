@@ -256,6 +256,15 @@ def generate_individual_panels(
 
     src_idx = class_labels.index(src_name)
 
+    CLASS_FULL = {
+        "nv": "Melanocytic Nevus", "mel": "Melanoma",
+        "bkl": "Benign Keratosis", "bcc": "Basal Cell Carcinoma",
+        "akiec": "Actinic Keratosis", "vasc": "Vascular Lesion",
+        "df": "Dermatofibroma",
+    }
+    src_full = CLASS_FULL.get(src_name, src_name)
+    tgt_full = CLASS_FULL.get(tgt_name, tgt_name)
+
     modes = ["baseline", "A_only", "AB", "ABC"]
     n = min(n_images, min(len(all_records.get(m, [])) for m in modes))
     if n == 0:
@@ -316,7 +325,7 @@ def generate_individual_panels(
         # ═══ ROW 2 ═══════════════════════════
         # (1,0) Grad-CAM
         axes[1, 0].imshow(_overlay_cam(orig_np, cam_orig))
-        axes[1, 0].set_title(f"Grad-CAM ({src_name})", fontsize=9, fontweight="bold")
+        axes[1, 0].set_title(f"Grad-CAM ({src_full})", fontsize=8, fontweight="bold")
         axes[1, 0].axis("off")
 
         # (1,1) ABC Profile
@@ -393,8 +402,9 @@ def generate_individual_panels(
         ax_txt.set_title("CF Explanation", fontsize=9, fontweight="bold")
 
         # ── Save ─────────────────────────────
-        fig.suptitle(f"{src_name} -> {tgt_name} | Example {i+1}/{n}",
-                     fontsize=12, fontweight="bold")
+        fig.suptitle(
+            f"{src_full} ({src_name}) -> {tgt_full} ({tgt_name}) | Example {i+1}/{n}",
+            fontsize=11, fontweight="bold")
         plt.tight_layout(rect=[0, 0, 1, 0.95])
         fname = f"{src_name}_to_{tgt_name}_{i+1:03d}.png"
         fig.savefig(output_dir / fname, dpi=200, bbox_inches="tight", pad_inches=0.1)

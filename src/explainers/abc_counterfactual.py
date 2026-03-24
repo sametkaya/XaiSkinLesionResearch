@@ -808,6 +808,17 @@ class ABCCounterfactualExperiment:
                     f"ΔB={np.mean([r['delta_B'] for r in mode_records]):.4f}  "
                     f"ΔC={np.mean([r['delta_C'] for r in mode_records]):.4f}"
                 )
+            # v8: Individual panels (all modes combined)
+            indiv_dir = pairs_dir / f"{src_name}_to_{tgt_name}_individual"
+            generate_individual_panels(
+                mode_records_all,
+                self.explainer.clf,
+                self.explainer.abc_reg,
+                self.device,
+                indiv_dir,
+                src_name, tgt_name,
+                n_images=len(mode_records_all.get("ABC", [])),
+            )
 
         elapsed = time.time() - start
 
@@ -871,7 +882,7 @@ class ABCCounterfactualExperiment:
         min_source_prob: float = 0.80,
     ) -> List[Tuple[torch.Tensor, int]]:
         """Collect n correctly classified images with high source confidence."""
-        samples = []
+        candidates = []
         batch_offset = 0
         ds = self.loader.dataset
         has_df = hasattr(ds, "df")
@@ -905,15 +916,13 @@ class ABCCounterfactualExperiment:
                                     mask = (m > 127)
                             except Exception:
                                 pass
-                        samples.append((img, int(lbl), mask))
-                    if len(samples) >= n:
-                        break
+                        candidates.append((img, int(lbl), mask))
                 batch_offset += len(images)
-                if len(samples) >= n:
-                    break
-
+        import random
+        random.shuffle(candidates)
+        samples = candidates[:n]
         if len(samples) < n:
-            print(f"  ⚠ Only found {len(samples)}/{n} samples with "
+            print(f"  ⚠ Only found {len(samples)}/{n} candidates with "
                   f"source prob ≥ {min_source_prob} for class {src_class}")
         return samples
 
@@ -1210,7 +1219,6 @@ class ABCCounterfactualExperiment:
             stats[f"{mode}_delta_C"]   = round(np.mean([r["delta_C"]      for r in sub]), 4)
             stats[f"{mode}_n_iter"]    = round(np.mean([r["n_iter"]       for r in sub]), 1)
             stats[f"{mode}_ssim"]      = round(np.mean([r.get("ssim", 0)  for r in sub]), 4)
-
         # Per-pair stats
         for src, tgt in ABC_CF_PAIRS:
             sub = [r for r in records if r["src_class"] == src and r["tgt_class"] == tgt]
